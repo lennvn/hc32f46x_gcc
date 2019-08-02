@@ -6,13 +6,11 @@
             "request": "launch",
             "servertype": "jlink",
             "cwd": "${workspaceRoot}",
-            "executable": "./../hc32f460_gcc/out/HC32F46x_GCC.elf",
+            "executable": "./out/HC32F46x_GCC.elf",
             "name": "Debug (J-Link)",
             "device": "CORTEX-M4",
             "interface": "swd",
-            "ipAddress": null,
-            "serialNumber": null,
-            "svdFile": "./../hc32f460_gcc/.vscode/HC32F46x.svd"
+            "svdFile": "./hc32f46x_ddl/mcu/SVD/HC32F46x.svd"
         }
     ]
 }
