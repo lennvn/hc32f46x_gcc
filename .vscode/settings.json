@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "hc32_ddl.h": "c",
+        "hc32f46x_utility.h": "c",
+        "ddl_config.h": "c",
+        "hc32_common.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": false
+}

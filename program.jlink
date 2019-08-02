@@ -1,0 +1,6 @@
+r
+h
+loadfile ./out/HC32F46x_GCC.hex
+r
+g
+q

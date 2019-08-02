@@ -1,0 +1,114 @@
+
+# $@: 目标文件
+# $^: 所有的依赖文件
+# $<: 第一个依赖文件
+# $?: 比目标文件还要新的依赖文件列表
+
+# The top layer makefile
+
+PROJ_NAME  = HC32F46x_GCC
+TARGET_MCU = HC32F46x
+
+EXE_BIN      = $(PROJ_NAME).bin
+EXE_ELF      = $(PROJ_NAME).elf
+EXE_HEX      = $(PROJ_NAME).hex
+DIS_FILE     = $(PROJ_NAME).dis
+LST_FILE     = $(PROJ_NAME).lst
+MAP_FILE     = $(PROJ_NAME).map
+SYMBOL_FILE  = $(PROJ_NAME).symbol_table
+SECTION_FILE = $(PROJ_NAME).section_talbe
+
+PWD = $(shell pwd)
+OUTPATH = out
+OBJPATH = objects
+LIBPATH := ./lib
+LOGPATH = logs
+
+######################################################
+#
+CC = arm-none-eabi-gcc
+AS = arm-none-eabi-as
+AR = arm-none-eabi-ar
+LD = arm-none-eabi-ld
+OBJCOPY = arm-none-eabi-objcopy
+OBJDUMP = arm-none-eabi-objdump
+RDELF   = arm-none-eabi-readelf
+SIZE    = arm-none-eabi-size
+
+CFLAGS = -g -O2 -Wall
+
+######################################################
+# GLOBAL DEFINITIONS
+CFLAGS += -D__xDEBUG -DHC32F46x -DUSE_DEVICE_DRIVER_LIB
+
+######################################################
+# Includes
+CFLAGS += -I../hc32f46x_ddl/driver/inc/
+CFLAGS += -I../hc32f46x_ddl/mcu/common/
+CFLAGS += -I../user/
+
+######################################################
+#
+CFLAGS += -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS += -mlittle-endian -mthumb-interwork
+CFLAGS += --specs=nosys.specs
+
+LDFLAGS :=
+LDFLAGS += -nostartfiles --gc-sections
+#LDFLAGS += -L$(LIBPATH)/v7e-m/fpv4-sp/hard -lc
+#LDFLAGS += -L$(LIBPATH)/v7e-m/fpv4-sp/hard -lg
+#LDFLAGS += -L$(LIBPATH)/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard -lgcc
+LDFLAGS += -T./ldscripts/hc32f46x_flash.ld
+LDFLAGS += -Map=$(OUTPATH)/$(MAP_FILE)
+
+######################################################
+
+DIS_FLAGS = -D -S -r
+SEC_FLAGS = -S
+SYB_FLAGS = -s
+
+######################################################
+C_FILES :=
+S_FILES :=
+
+######################################################
+include ./hc32f46x_ddl/driver/module.mk
+include ./hc32f46x_ddl/mcu/module.mk
+include ./startup/module.mk
+include ./user/module.mk
+
+######################################################
+C_OBJS := $(addprefix $(OUTPATH)/$(OBJPATH)/, $(C_FILES:.c=.o))
+S_OBJS += $(addprefix $(OUTPATH)/$(OBJPATH)/, $(S_FILES:.S=.o))
+LIB_OBJS := libc.a
+
+subdirs :=
+subdirs += ./hc32f46x_ddl/driver ./hc32f46x_ddl/mcu ./startup ./user
+
+all:
+# mkdir -p: -p 当目录存在时，不会产生错误
+# @mkdir -p $(OUTPATH)
+	@mkdir -p $(OUTPATH)/$(OBJPATH)
+	@mkdir -p $(OUTPATH)/$(OBJPATH)
+	@mkdir -p $(OUTPATH)/$(LOGPATH)
+	@echo building $(S_OBJS) $(C_OBJS) $(LIB_OBJS)
+	for d in $(subdirs); do make -C $$d || exit 1; done
+	@echo building $(OUTPATH)/$(EXE_ELF)
+	$(LD) $(C_OBJS) $(S_OBJS) $(LDFLAGS) -o $(OUTPATH)/$(EXE_ELF)
+	@$(OBJDUMP) $(DIS_FLAGS) $(OUTPATH)/$(EXE_ELF) > $(OUTPATH)/$(DIS_FILE)
+	@$(OBJCOPY) -O ihex $(OUTPATH)/$(EXE_ELF) $(OUTPATH)/$(EXE_HEX)
+	@$(OBJCOPY) -O binary $(OUTPATH)/$(EXE_ELF) $(OUTPATH)/$(EXE_BIN)
+	@$(RDELF) $(SYB_FLAGS) $(OUTPATH)/$(EXE_ELF) > $(OUTPATH)/$(SYMBOL_FILE)
+	@$(RDELF) $(SEC_FLAGS) $(OUTPATH)/$(EXE_ELF) > $(OUTPATH)/$(SECTION_FILE)
+	@$(SIZE) $(OUTPATH)/$(EXE_ELF)
+	@echo "--> programing..."
+	JLinkExe -autoconnect 1 -device $(TARGET_MCU) -if swd -speed 100000 -ExitOnError -CommandFile program.jlink
+	@echo Done
+
+clean:
+	@echo clean $(S_OBJS) $(C_OBJS) $(LIB_OBJS)
+	for d in $(subdirs); do make -C $$d $@; done
+	@echo cleaning $(OUTPATH)/$(EXE_ELF)
+	@rm -rf $(OUTPATH)/*
+
+######################################################
