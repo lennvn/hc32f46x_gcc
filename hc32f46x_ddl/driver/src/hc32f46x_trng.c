@@ -82,18 +82,6 @@
     ((COUNT) == TrngShiftCount_128)             ||                              \
     ((COUNT) == TrngShiftCount_256))
 
-/* Turn on/off the TRNG. */
-#define TRNG_TURN_ON()                  M4_TRNG->CR_f.EN     = 1u
-#define TRNG_TURN_OFF()                 M4_TRNG->CR_f.EN     = 0u
-
-/* Start/stop the TRNG. */
-#define TRNG_START_GENERATING()         M4_TRNG->CR_f.RUN    = 1u
-#define TRNG_STOP_GENERATING()          M4_TRNG->CR_f.RUN    = 0u
-
-/* Check the TRNG. */
-#define IS_TRNG_GENERATING()            M4_TRNG->CR_f.RUN    == 1u
-#define IS_TRNG_GENERATED_DONE()        M4_TRNG->CR_f.RUN    == 0u
-
 /*******************************************************************************
  * Global variable definitions (declared in header file with 'extern')
  ******************************************************************************/
@@ -142,10 +130,10 @@ en_result_t TRNG_Init(const stc_trng_init_t *pstcInit)
     DDL_ASSERT(IS_TRNG_SHIFT_COUNT(pstcInit->enShiftCount));
 
     /* Stop TRNG generating*/
-    TRNG_STOP_GENERATING();
+    bM4_TRNG_CR_RUN = 0u;
 
     /* Turn off TRNG circuit */
-    TRNG_TURN_OFF();
+    bM4_TRNG_CR_EN = 0u;
 
     M4_TRNG->MR_f.LOAD = pstcInit->enLoadCtrl;
     M4_TRNG->MR_f.CNT  = pstcInit->enShiftCount;
@@ -165,10 +153,10 @@ en_result_t TRNG_Init(const stc_trng_init_t *pstcInit)
 void TRNG_DeInit(void)
 {
     /* Stop TRNG generating*/
-    TRNG_STOP_GENERATING();
+    bM4_TRNG_CR_RUN = 0u;
 
     /* Turn off TRNG circuit */
-    TRNG_TURN_OFF();
+    bM4_TRNG_CR_EN = 0u;
 
     /* Set the value of all registers to the reset value. */
     M4_TRNG->CR  = 0u;
@@ -206,17 +194,17 @@ en_result_t TRNG_Generate(uint32_t *pu32Random, uint32_t u32Timeout)
     u32TrngTimeout = u32Timeout * (SystemCoreClock / 10u / 1000u);
 
     /* Turn on TRNG circuit. */
-    TRNG_TURN_ON();
+    bM4_TRNG_CR_EN = 1u;
 
     /* Start TRNG to generate random number. */
-    TRNG_START_GENERATING();
+    bM4_TRNG_CR_RUN = 1u;
 
     /* wait generation done and check if timeout. */
     u32TimeCount = 0u;
     enRet = ErrorTimeout;
     while (u32TimeCount < u32TrngTimeout)
     {
-        if (IS_TRNG_GENERATED_DONE())
+        if ((bM4_TRNG_CR_RUN & 0x1u) == 0u)
         {
             enRet = Ok;
             break;
@@ -232,10 +220,10 @@ en_result_t TRNG_Generate(uint32_t *pu32Random, uint32_t u32Timeout)
     }
 
     /* Stop TRNG generating. */
-    TRNG_STOP_GENERATING();
+    bM4_TRNG_CR_RUN = 0u;
 
     /* Turn off TRNG circuit. */
-    TRNG_TURN_OFF();
+    bM4_TRNG_CR_EN = 0u;
 
     return Ok;
 }
@@ -252,10 +240,10 @@ en_result_t TRNG_Generate(uint32_t *pu32Random, uint32_t u32Timeout)
 void TRNG_StartIT(void)
 {
     /* Turn on TRNG circuit. */
-    TRNG_TURN_ON();
+    bM4_TRNG_CR_EN = 1u;
 
     /* Start TRNG to generate random number. */
-    TRNG_START_GENERATING();
+    bM4_TRNG_CR_RUN = 1u;
 }
 
 /**
@@ -270,14 +258,17 @@ void TRNG_StartIT(void)
  ******************************************************************************/
 void TRNG_GetRandomNum(uint32_t *pu32Random)
 {
-    pu32Random[0u] = M4_TRNG->DR0;
-    pu32Random[1u] = M4_TRNG->DR1;
+    if (NULL != pu32Random)
+    {
+        pu32Random[0u] = M4_TRNG->DR0;
+        pu32Random[1u] = M4_TRNG->DR1;
 
-    /* Stop TRNG generating */
-    TRNG_STOP_GENERATING();
+        /* Stop TRNG generating */
+        bM4_TRNG_CR_RUN = 0u;
 
-    /* Turn off TRNG circuit */
-    TRNG_TURN_OFF();
+        /* Turn off TRNG circuit */
+        bM4_TRNG_CR_EN  = 0u;
+    }
 }
 
 //@} // TrngGroup

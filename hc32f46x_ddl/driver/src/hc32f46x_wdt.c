@@ -144,6 +144,7 @@
  ** \arg See the struct #stc_wdt_init_t
  **
  ** \retval Ok                          Process successfully done
+ ** \retval Error                       Parameter error
  **
  ******************************************************************************/
 en_result_t WDT_Init(const stc_wdt_init_t *pstcWdtInit)
@@ -151,21 +152,28 @@ en_result_t WDT_Init(const stc_wdt_init_t *pstcWdtInit)
     en_result_t enRet = Ok;
     uint32_t regTemp;
 
-    /* Check parameters */
-    DDL_ASSERT(IS_VALID_COUNT_CYCLE(pstcWdtInit->enCountCycle));
-    DDL_ASSERT(IS_VALID_CLOCK_DIV(pstcWdtInit->enClkDiv));
-    DDL_ASSERT(IS_VALID_ALLOW_REFRESH_RANGE(pstcWdtInit->enRefreshRange));
-    DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcWdtInit->enSleepModeCountEn));
-    DDL_ASSERT(IS_VALID_EVENT_REQUEST_TYPE(pstcWdtInit->enRequsetType));
+    if (NULL == pstcWdtInit)
+    {
+        enRet = Error;
+    }
+    else
+    {
+        /* Check parameters */
+        DDL_ASSERT(IS_VALID_COUNT_CYCLE(pstcWdtInit->enCountCycle));
+        DDL_ASSERT(IS_VALID_CLOCK_DIV(pstcWdtInit->enClkDiv));
+        DDL_ASSERT(IS_VALID_ALLOW_REFRESH_RANGE(pstcWdtInit->enRefreshRange));
+        DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcWdtInit->enSleepModeCountEn));
+        DDL_ASSERT(IS_VALID_EVENT_REQUEST_TYPE(pstcWdtInit->enRequsetType));
 
-    /* software start mode */
-    regTemp = ((((uint32_t)pstcWdtInit->enRequsetType) << 31)         | \
-               (((uint32_t)(!pstcWdtInit->enSleepModeCountEn)) << 16) | \
-               (((uint32_t)pstcWdtInit->enRefreshRange) << 8)         | \
-               (((uint32_t)pstcWdtInit->enClkDiv) << 4)               | \
-               ((uint32_t)pstcWdtInit->enCountCycle));
-    /* store the new value */
-    M4_WDT->CR = regTemp;
+        /* software start mode */
+        regTemp = ((((uint32_t)pstcWdtInit->enRequsetType) << 31)               | \
+                (((uint32_t)(bool)(!pstcWdtInit->enSleepModeCountEn)) << 16) | \
+                (((uint32_t)pstcWdtInit->enRefreshRange) << 8)               | \
+                (((uint32_t)pstcWdtInit->enClkDiv) << 4)                     | \
+                ((uint32_t)pstcWdtInit->enCountCycle));
+        /* store the new value */
+        M4_WDT->CR = regTemp;
+    }
 
     return enRet;
 }

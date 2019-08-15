@@ -136,14 +136,14 @@ static func_ptr_t pfnNmiCallback;
  ** \retval Ok                          EXTI initialized
  **
  ******************************************************************************/
-en_result_t EXINT_Init(stc_exint_config_t *pstcExtiConfig)
+en_result_t EXINT_Init(const stc_exint_config_t *pstcExtiConfig)
 {
     stc_intc_eirqcr_field_t *EIRQCRx;
 
     DDL_ASSERT(IS_VALID_CH(pstcExtiConfig->enExitCh));
 
-    EIRQCRx = (stc_intc_eirqcr_field_t *)((uint32_t)(&M4_INTC->EIRQCR0) +       \
-                                          (uint32_t)(4 * pstcExtiConfig->enExitCh));
+    EIRQCRx = (stc_intc_eirqcr_field_t *)((uint32_t)(&M4_INTC->EIRQCR0) +      \
+                                          (uint32_t)(4ul * (uint32_t)(pstcExtiConfig->enExitCh)));
 
     /* Set filter function */
     EIRQCRx->EFEN = pstcExtiConfig->enFilterEn;
@@ -171,7 +171,7 @@ en_int_status_t EXINT_IrqFlgGet(en_exti_ch_t enExint)
     en_int_status_t enRet;
     DDL_ASSERT(IS_VALID_CH(enExint));
 
-    enRet = (1u == !!(M4_INTC->EIFR & (1u<<enExint)) ? Set : Reset);
+    enRet = (1u == !!(M4_INTC->EIFR & (1ul<<enExint)) ? Set : Reset);
 
     return enRet;
 }
@@ -188,7 +188,7 @@ en_int_status_t EXINT_IrqFlgGet(en_exti_ch_t enExint)
  ******************************************************************************/
 en_result_t EXINT_IrqFlgClr(en_exti_ch_t enExint)
 {
-    M4_INTC->EICFR |= 1u << enExint;
+    M4_INTC->EICFR |= (uint32_t)(1ul << enExint);
     return Ok;
 }
 
@@ -201,7 +201,7 @@ en_result_t EXINT_IrqFlgClr(en_exti_ch_t enExint)
  ** \retval Ok                          NMI initialized
  **
  ******************************************************************************/
-en_result_t NMI_Init(stc_nmi_config_t *pstcNmiConfig)
+en_result_t NMI_Init(const stc_nmi_config_t *pstcNmiConfig)
 {
     /* NMI callback function  */
     pfnNmiCallback = pstcNmiConfig->pfnNmiCallback;
@@ -232,13 +232,13 @@ en_result_t NMI_DeInit(void)
     pfnNmiCallback = NULL;
 
     /* clear NMI control register */
-    M4_INTC->NMICR = 0;
+    M4_INTC->NMICR = 0u;
 
     /* clear NMI enable register */
-    M4_INTC->NMIENR = 0;
+    M4_INTC->NMIENR = 0u;
 
     /* clear all NMI flags */
-    M4_INTC->NMIFR = 0;
+    M4_INTC->NMIFR = 0u;
 
     return Ok;
 }
@@ -258,7 +258,7 @@ en_int_status_t NMI_IrqFlgGet(en_nmi_src_t enNmiSrc)
 {
     DDL_ASSERT(IS_VALID_NMI_SRC(enNmiSrc));
 
-    en_int_status_t enRet;
+    en_int_status_t enRet = Reset;
     switch (enNmiSrc)
     {
         case NmiSrcNmi:

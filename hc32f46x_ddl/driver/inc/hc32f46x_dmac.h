@@ -337,7 +337,7 @@ typedef struct stc_dma_config
  * Global function prototypes (definition in C source)
  ******************************************************************************/
 void DMA_Cmd(M4_DMA_TypeDef* pstcDmaReg, en_functional_state_t enNewState);
-en_result_t DMA_EnableIrq(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_dma_irq_sel_t enIrqSel);
+en_result_t DMA_EnableIrq( M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_dma_irq_sel_t enIrqSel);
 en_result_t DMA_DisableIrq(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_dma_irq_sel_t enIrqSel);
 en_flag_status_t DMA_GetIrqFlag(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_dma_irq_sel_t enIrqSel);
 en_result_t DMA_ClearIrqFlag(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_dma_irq_sel_t enIrqSel);
@@ -360,7 +360,7 @@ en_result_t DMA_SetDesNseqCfg(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, const st
 en_result_t DMA_SetDesNseqBCfg(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, const stc_dma_nseqb_cfg_t* pstDesNseqBCfg);
 en_result_t DMA_SetLLP(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, uint32_t u32Pointer);
 
-void DMA_SetTriggerSrc(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_event_src_t enSrc);
+void DMA_SetTriggerSrc(const M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, en_event_src_t enSrc);
 void DMA_SetReConfigTriggerSrc(en_event_src_t enSrc);
 void DMA_ChannelCfg(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, const stc_dma_ch_cfg_t* pstcChCfg);
 void DMA_InitChannel(M4_DMA_TypeDef* pstcDmaReg, uint8_t u8Ch, const stc_dma_config_t* pstcDmaCfg);

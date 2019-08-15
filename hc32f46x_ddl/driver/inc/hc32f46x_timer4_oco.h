@@ -289,7 +289,7 @@ en_timer4_oco_port_level_t TIMER4_OCO_GetOpPinLevel(M4_TMR4_TypeDef *TMR4x,
 en_result_t TIMER4_OCO_WriteOccr(M4_TMR4_TypeDef *TMR4x,
                                 en_timer4_oco_ch_t enCh,
                                 uint16_t u16Occr);
-uint16_t TIMER4_OCO_ReadOccr(M4_TMR4_TypeDef *TMR4x,
+uint16_t TIMER4_OCO_ReadOccr(const M4_TMR4_TypeDef *TMR4x,
                                 en_timer4_oco_ch_t enCh);
 
 //@} // Timer4OcoGroup

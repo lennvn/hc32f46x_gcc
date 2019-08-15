@@ -345,19 +345,6 @@ typedef struct stc_adc_awd_cfg
     uint16_t            u16AwdDr1;      ///< Your range DR1.
 } stc_adc_awd_cfg_t;
 
-typedef struct stc_adc_pga_cfg
-{
-    en_adc_pga_ctl_t      enCtl;        ///< PGA function select.
-    en_adc_pga_factor_t   enFactor;     ///< PGA gain factor.
-    en_adc_pga_negative_t enNegativeIn; ///< PGA negative input select.
-} stc_adc_pga_cfg_t;
-
-typedef struct stc_adc_sync_cfg
-{
-    en_adc_sync_mode_t  enMode;         ///< Sync mode.
-    uint8_t             u8TrgDelay;     ///< ADC2 trigger delay time.
-} stc_adc_sync_cfg_t;
-
 typedef struct stc_adc_trg_cfg
 {
     uint8_t           u8Sequence;       ///< The sequence will be configured trigger source.
@@ -418,7 +405,7 @@ typedef struct stc_adc_init
 #define ADC1_CH14               (0x1ul << 14u)      ///< Default mapping pin ADC12_IN14
 #define ADC1_CH15               (0x1ul << 15u)      ///< Default mapping pin ADC12_IN15
 #define ADC1_CH16               (0x1ul << 16u)
-#define ADC1_CH_INTERNAL        ADC1_CH16           ///< 8bit DAC_1/DAC_2 or internal VERF, dependent on CMP_RVADC
+#define ADC1_CH_INTERNAL        (ADC1_CH16)         ///< 8bit DAC_1/DAC_2 or internal VERF, dependent on CMP_RVADC
 #define ADC1_CH_ALL             (0x0001FFFFul)
 #define ADC1_PIN_MASK_ALL       (ADC1_CH_ALL & ~ADC1_CH_INTERNAL)
 
@@ -432,7 +419,7 @@ typedef struct stc_adc_init
 #define ADC2_CH6                (0x1ul << 6u)       ///< Default mapping pin ADC12_IN10
 #define ADC2_CH7                (0x1ul << 7u)       ///< Default mapping pin ADC12_IN11
 #define ADC2_CH8                (0x1ul << 8u)
-#define ADC2_CH_INTERNAL        ADC2_CH8            ///< 8bit DAC_1/DAC_2 or internal VERF, dependent on CMP_RVADC
+#define ADC2_CH_INTERNAL        (ADC2_CH8)          ///< 8bit DAC_1/DAC_2 or internal VERF, dependent on CMP_RVADC
 #define ADC2_CH_ALL             (0x000001FFul)
 #define ADC2_PIN_MASK_ALL       (ADC2_CH_ALL & ~ADC2_CH_INTERNAL)
 
@@ -440,15 +427,15 @@ typedef struct stc_adc_init
 * PGA channel definition.
 * NOTE: The PGA channel directly maps external pins and does not correspond to the ADC channel.
 */
-#define PGA_CH0                 (0x1ul << 0u)       ///< Mapping pin ADC1_IN0
-#define PGA_CH1                 (0x1ul << 1u)       ///< Mapping pin ADC1_IN1
-#define PGA_CH2                 (0x1ul << 2u)       ///< Mapping pin ADC1_IN2
-#define PGA_CH3                 (0x1ul << 3u)       ///< Mapping pin ADC1_IN3
-#define PGA_CH4                 (0x1ul << 4u)       ///< Mapping pin ADC12_IN4
-#define PGA_CH5                 (0x1ul << 5u)       ///< Mapping pin ADC12_IN5
-#define PGA_CH6                 (0x1ul << 6u)       ///< Mapping pin ADC12_IN6
-#define PGA_CH7                 (0x1ul << 7u)       ///< Mapping pin ADC12_IN7
-#define PGA_CH8                 (0x1ul << 8u)       ///< Mapping internal 8bit DAC1 output
+#define PGA_CH0                 (0x1ul << ADC1_IN0)     ///< Mapping pin ADC1_IN0
+#define PGA_CH1                 (0x1ul << ADC1_IN1)     ///< Mapping pin ADC1_IN1
+#define PGA_CH2                 (0x1ul << ADC1_IN2)     ///< Mapping pin ADC1_IN2
+#define PGA_CH3                 (0x1ul << ADC1_IN3)     ///< Mapping pin ADC1_IN3
+#define PGA_CH4                 (0x1ul << ADC12_IN4)    ///< Mapping pin ADC12_IN4
+#define PGA_CH5                 (0x1ul << ADC12_IN5)    ///< Mapping pin ADC12_IN5
+#define PGA_CH6                 (0x1ul << ADC12_IN6)    ///< Mapping pin ADC12_IN6
+#define PGA_CH7                 (0x1ul << ADC12_IN7)    ///< Mapping pin ADC12_IN7
+#define PGA_CH8                 (0x1ul << ADC12_IN8)    ///< Mapping internal 8bit DAC1 output
 #define PGA_CH_ALL              (0x000001FFul)
 
 /* ADC has up to 17 channels. */
@@ -474,7 +461,6 @@ en_result_t ADC_SetScanMode(M4_ADC_TypeDef *ADCx, en_adc_scan_mode_t enMode);
 en_result_t ADC_ConfigTriggerSrc(M4_ADC_TypeDef *ADCx, const stc_adc_trg_cfg_t *pstcTrgCfg);
 en_result_t ADC_TriggerSrcCmd(M4_ADC_TypeDef *ADCx, uint8_t u8Seq, en_functional_state_t enState);
 
-en_result_t ADC_ConfigAdcChannel(M4_ADC_TypeDef *ADCx, const stc_adc_ch_cfg_t *pstcChCfg);
 en_result_t ADC_AddAdcChannel(M4_ADC_TypeDef *ADCx, const stc_adc_ch_cfg_t *pstcChCfg);
 en_result_t ADC_DelAdcChannel(M4_ADC_TypeDef *ADCx, const stc_adc_ch_cfg_t *pstcChCfg);
 en_result_t ADC_SeqITCmd(M4_ADC_TypeDef *ADCx, uint8_t u8Seq, en_functional_state_t enState);
@@ -489,22 +475,19 @@ en_result_t ADC_AwdITCmd(M4_ADC_TypeDef *ADCx, en_functional_state_t enState);
 en_result_t ADC_AddAwdChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel);
 en_result_t ADC_DelAwdChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel);
 
-en_result_t ADC_ConfigPga(const stc_adc_pga_cfg_t *pstcPgaCfg);
+void ADC_ConfigPga(en_adc_pga_factor_t enFactor, en_adc_pga_negative_t enNegativeIn);
 void ADC_PgaCmd(en_functional_state_t enState);
 void ADC_AddPgaChannel(uint32_t u32Channel);
 void ADC_DelPgaChannel(uint32_t u32Channel);
 
-en_result_t ADC_ConfigSync(const stc_adc_sync_cfg_t *pstcSyncCfg);
+void ADC_ConfigSync(en_adc_sync_mode_t enMode, uint8_t u8TrgDelay);
 void ADC_SyncCmd(en_functional_state_t enState);
 
 en_result_t ADC_StartConvert(M4_ADC_TypeDef *ADCx);
 en_result_t ADC_StopConvert(M4_ADC_TypeDef *ADCx);
-en_flag_status_t ADC_GetConvFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq);
-void ADC_ClrConvFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq);
-en_flag_status_t ADC_GetConvStatus(M4_ADC_TypeDef *ADCx, uint8_t u8Seq);
+en_flag_status_t ADC_GetEocFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq);
+void ADC_ClrEocFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq);
 en_result_t ADC_StartAndCheckSa(M4_ADC_TypeDef *ADCx, uint16_t *pu16AdcData, uint32_t u32Timeout);
-en_result_t ADC_CheckConvert(M4_ADC_TypeDef *ADCx, uint8_t u8Seq, uint16_t *pu16AdcData, uint32_t u32Timeout);
-en_result_t ADC_CheckAwd(M4_ADC_TypeDef *ADCx, uint8_t u8Seq, uint32_t *pu32AwdRet, uint32_t u32Timeout);
 
 en_result_t ADC_GetData(M4_ADC_TypeDef *ADCx, uint16_t *pu16AdcData);
 en_result_t ADC_GetChData(M4_ADC_TypeDef *ADCx, uint32_t u32TargetCh, uint16_t *pu16AdcData);

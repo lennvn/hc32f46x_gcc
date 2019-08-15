@@ -6,7 +6,7 @@
             "request": "launch",
             "servertype": "jlink",
             "cwd": "${workspaceRoot}",
-            "executable": "./out/HC32F46x_GCC.elf",
+            "executable": "./exe/HC32F46x_GCC.elf",
             "name": "Debug (J-Link)",
             "device": "CORTEX-M4",
             "interface": "swd",

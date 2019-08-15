@@ -76,14 +76,9 @@
     ((ADCx) == M4_ADC2))
 
 /*! Parameter validity check for ADC average count. */
-#if defined (__ICCARM__)
 #define IS_ADC_AVCNT(AVCNT)                                                     \
-(   ((AVCNT) == AdcAvcnt_2)                         ||                          \
+(   ((AVCNT) == AdcAvcnt_2)                     ||                              \
     (((AVCNT) >= AdcAvcnt_4) && ((AVCNT) <= AdcAvcnt_256)))
-#else
-#define IS_ADC_AVCNT(AVCNT)                                                     \
-(   ((AVCNT) >= AdcAvcnt_2) && ((AVCNT) <= AdcAvcnt_256))
-#endif
 
 /*! Parameter validity check for ADC data alignment. */
 #define IS_ADC_DATA_ALIGN(ALIGN)                                                \
@@ -131,14 +126,9 @@
     ((EN) == AdcEocien_Enable))
 
 /*! Parameter validity check for ADC sampling time. */
-#if defined (__ICCARM__)
 #define IS_ADC_SAMPLE_TIME(TIME)                                                \
 (   ((TIME) == 255u)                            ||                              \
     (((TIME) >= 5u) && ((TIME) <= 254u)))
-#else
-#define IS_ADC_SAMPLE_TIME(TIME)                                                \
-(   ((TIME) >= 5u) && ((TIME) <= 255u))
-#endif
 
 /*! Parameter validity check for ADC sync trigger mode. */
 #define IS_ADC_SYNC_MODE(MODE)                                                  \
@@ -146,7 +136,6 @@
     ((MODE) == AdcSync_SingleParallel)          ||                              \
     ((MODE) == AdcSync_ContinuousSerial)        ||                              \
     ((MODE) == AdcSync_ContinuousParallel))
-
 
 /*! Parameter validity check for ADC sync able. */
 #define IS_ADC_SYNC_ENABLE(EN)                                                  \
@@ -181,14 +170,9 @@
     ((CTL) == AdcPgaCtl_Amplify))
 
 /*! Parameter validity check for ADC gain factor. */
-#if defined (__ICCARM__)
 #define IS_ADC_PGA_FACTOR(FACTOR)                                               \
-(   ((FACTOR) == AdcPgaFactor_2)                         ||                     \
+(   ((FACTOR) == AdcPgaFactor_2)                ||                              \
     (((FACTOR) >= AdcPgaFactor_2P133) && ((FACTOR) <= AdcPgaFactor_32)))
-#else
-#define IS_ADC_PGA_FACTOR(FACTOR)                                               \
-(   ((FACTOR) >= AdcPgaFactor_2) && ((FACTOR) <= AdcPgaFactor_32))
-#endif
 
 /*! Parameter validity check for ADC PGA negative. */
 #define IS_ADC_PGA_NEGATIVE(N)                                                  \
@@ -196,65 +180,38 @@
     ((N) == AdcPgaNegative_PGAVSS))
 
 /*! Parameter validity check for ADC trigger source event . */
-#define IS_ADC_TRIG_SRC_EVENT(EVT)                                              \
-(   (((EVT) >= EVT_PORT_EIRQ0) && ((EVT) <= EVT_PORT_EIRQ15))           ||      \
-    (((EVT) >= EVT_DMA1_TC0) && ((EVT) <= EVT_DMA2_BTC3))               ||      \
-    (((EVT) >= EVT_EFM_OPTEND) && ((EVT) <= EVT_USBFS_SOF))             ||      \
-    (((EVT) >= EVT_DCU1) && ((EVT) <= EVT_DCU4))                        ||      \
-    (((EVT) >= EVT_TMR01_GCMA) && ((EVT) <= EVT_TMR02_GCMB))            ||      \
-    (((EVT) >= EVT_RTC_ALM) && ((EVT) <= EVT_RTC_PRD))                  ||      \
-    (((EVT) >= EVT_TMR61_GCMA) && ((EVT) <= EVT_TMR61_GUDF))            ||      \
-    (((EVT) >= EVT_TMR61_SCMA) && ((EVT) <= EVT_TMR61_SCMB))            ||      \
-    (((EVT) >= EVT_TMR62_GCMA) && ((EVT) <= EVT_TMR62_GUDF))            ||      \
-    (((EVT) >= EVT_TMR62_SCMA) && ((EVT) <= EVT_TMR62_SCMB))            ||      \
-    (((EVT) >= EVT_TMR63_GCMA) && ((EVT) <= EVT_TMR63_GUDF))            ||      \
-    (((EVT) >= EVT_TMR63_SCMA) && ((EVT) <= EVT_TMR63_SCMB))            ||      \
-    (((EVT) >= EVT_TMRA1_OVF) && ((EVT) <= EVT_TMRA5_CMP))              ||      \
-    (((EVT) >= EVT_TMRA6_OVF) && ((EVT) <= EVT_TMRA6_CMP))              ||      \
-    (((EVT) >= EVT_USART1_EI) && ((EVT) <= EVT_USART4_RTO))             ||      \
-    (((EVT) >= EVT_SPI1_SRRI) && ((EVT) <= EVT_AOS_STRG))               ||      \
-    (((EVT) >= EVT_TMR41_SCMUH) && ((EVT) <= EVT_TMR42_SCMWL))          ||      \
-    (((EVT) >= EVT_TMR43_SCMUH) && ((EVT) <= EVT_TMR43_SCMWL))          ||      \
-    (((EVT) >= EVT_EVENT_PORT1)  && ((EVT) <= EVT_EVENT_PORT4))         ||      \
-    (((EVT) >= EVT_I2S1_TXIRQOUT)  && ((EVT) <= EVT_I2S1_RXIRQOUT))     ||      \
-    (((EVT) >= EVT_I2S2_TXIRQOUT)  && ((EVT) <= EVT_I2S2_RXIRQOUT))     ||      \
-    (((EVT) >= EVT_I2S3_TXIRQOUT)  && ((EVT) <= EVT_I2S3_RXIRQOUT))     ||      \
-    (((EVT) >= EVT_I2S4_TXIRQOUT)  && ((EVT) <= EVT_I2S4_RXIRQOUT))     ||      \
-    (((EVT) >= EVT_ACMP1)  && ((EVT) <= EVT_ACMP3))                     ||      \
-    (((EVT) >= EVT_I2C1_RXI) && ((EVT) <= EVT_I2C3_EE1))                ||      \
-    (((EVT) >= EVT_PVD_PVD1) && ((EVT) <= EVT_OTS))                     ||      \
-    ((EVT) == EVT_WDT_REFUDF)                                           ||      \
-    (((EVT) >= EVT_ADC1_EOCA) && ((EVT) <= EVT_TRNG_END))               ||      \
-    (((EVT) >= EVT_SDIOC1_DMAR) && ((EVT) <= EVT_SDIOC1_DMAW))          ||      \
-    (((EVT) >= EVT_SDIOC2_DMAR) && ((EVT) <= EVT_SDIOC2_DMAW))          ||      \
-    ((EVT) == EVT_MAX))
-
-/* Start ADC conversion. */
-#define ADC_START_CONVERT(ADCx)             (ADCx)->STR_f.STRT = 1u
-
-/* Stop ADC conversion. */
-#define ADC_STOP_CONVERT(ADCx)              (ADCx)->STR_f.STRT = 0u
-
-/* Is ADC converting. */
-#define ADC_IS_CONVERTING(ADCx)             ((ADCx)->STR_f.STRT == 1u)
-
-/* Set a register bit. */
-#define ADC_REG_SET_BIT(REG, POS)           (REG) |= (1u << (POS))
-
-/* Clear a register bit. */
-#define ADC_REG_CLR_BIT(REG, POS)           (REG) &= ~(1u << (POS))
-
-/* Read a register bit. */
-#define ADC_REG_READ_BIT(REG, POS)          ((REG) & (1u << (POS)))
-
-/* Assign a value to a register. */
-#define ADC_REG_SET_VAL(REG, VAL)           (REG) |= (VAL)
-
-/* Zero means the ADC is converting. */
-#define ADC_CONVERTING                      ((uint8_t)0x0)
-
-/* Write 0 clear status. */
-#define ADC_CONVERT_STATE_CLEAR             ((uint8_t)0x0)
+#define IS_ADC_TRIG_SRC_EVENT(x)                                                \
+(   (((x) >= EVT_PORT_EIRQ0) && ((x) <= EVT_PORT_EIRQ15))           ||          \
+    (((x) >= EVT_DMA1_TC0) && ((x) <= EVT_DMA2_BTC3))               ||          \
+    (((x) >= EVT_EFM_OPTEND) && ((x) <= EVT_USBFS_SOF))             ||          \
+    (((x) >= EVT_DCU1) && ((x) <= EVT_DCU4))                        ||          \
+    (((x) >= EVT_TMR01_GCMA) && ((x) <= EVT_TMR02_GCMB))            ||          \
+    (((x) >= EVT_RTC_ALM) && ((x) <= EVT_RTC_PRD))                  ||          \
+    (((x) >= EVT_TMR61_GCMA) && ((x) <= EVT_TMR61_GUDF))            ||          \
+    (((x) >= EVT_TMR61_SCMA) && ((x) <= EVT_TMR61_SCMB))            ||          \
+    (((x) >= EVT_TMR62_GCMA) && ((x) <= EVT_TMR62_GUDF))            ||          \
+    (((x) >= EVT_TMR62_SCMA) && ((x) <= EVT_TMR62_SCMB))            ||          \
+    (((x) >= EVT_TMR63_GCMA) && ((x) <= EVT_TMR63_GUDF))            ||          \
+    (((x) >= EVT_TMR63_SCMA) && ((x) <= EVT_TMR63_SCMB))            ||          \
+    (((x) >= EVT_TMRA1_OVF) && ((x) <= EVT_TMRA5_CMP))              ||          \
+    (((x) >= EVT_TMRA6_OVF) && ((x) <= EVT_TMRA6_CMP))              ||          \
+    (((x) >= EVT_USART1_EI) && ((x) <= EVT_USART4_RTO))             ||          \
+    (((x) >= EVT_SPI1_SRRI) && ((x) <= EVT_AOS_STRG))               ||          \
+    (((x) >= EVT_TMR41_SCMUH) && ((x) <= EVT_TMR42_SCMWL))          ||          \
+    (((x) >= EVT_TMR43_SCMUH) && ((x) <= EVT_TMR43_SCMWL))          ||          \
+    (((x) >= EVT_EVENT_PORT1)  && ((x) <= EVT_EVENT_PORT4))         ||          \
+    (((x) >= EVT_I2S1_TXIRQOUT)  && ((x) <= EVT_I2S1_RXIRQOUT))     ||          \
+    (((x) >= EVT_I2S2_TXIRQOUT)  && ((x) <= EVT_I2S2_RXIRQOUT))     ||          \
+    (((x) >= EVT_I2S3_TXIRQOUT)  && ((x) <= EVT_I2S3_RXIRQOUT))     ||          \
+    (((x) >= EVT_I2S4_TXIRQOUT)  && ((x) <= EVT_I2S4_RXIRQOUT))     ||          \
+    (((x) >= EVT_ACMP1)  && ((x) <= EVT_ACMP3))                     ||          \
+    (((x) >= EVT_I2C1_RXI) && ((x) <= EVT_I2C3_EE1))                ||          \
+    (((x) >= EVT_PVD_PVD1) && ((x) <= EVT_OTS))                     ||          \
+    ((x)  == EVT_WDT_REFUDF)                                        ||          \
+    (((x) >= EVT_ADC1_EOCA) && ((x) <= EVT_TRNG_END))               ||          \
+    (((x) >= EVT_SDIOC1_DMAR) && ((x) <= EVT_SDIOC1_DMAW))          ||          \
+    (((x) >= EVT_SDIOC2_DMAR) && ((x) <= EVT_SDIOC2_DMAW))          ||          \
+    ((x) == EVT_MAX))
 
 /*******************************************************************************
  * Global variable definitions (declared in header file with 'extern')
@@ -263,18 +220,11 @@
 /*******************************************************************************
  * Local function prototypes ('static')
  ******************************************************************************/
-static en_result_t ADC_AddAnalogChannel(M4_ADC_TypeDef *ADCx,
-                                        uint8_t u8Seq,
-                                        uint32_t u32Ch);
-
 static en_result_t ADC_CheckConResult(M4_ADC_TypeDef *ADCx,
                                       uint8_t u8Seq,
                                       uint32_t u32Timeout);
 
 static void ADC_GetValue(M4_ADC_TypeDef *ADCx, uint16_t *pu16AdcData);
-static void ADC_GetChValue(M4_ADC_TypeDef *ADCx,
-                           uint32_t u32Channel,
-                           uint16_t *pu16AdcData);
 
 static en_result_t ADC_CheckTrgSrc(M4_ADC_TypeDef *ADCx,
                                    const stc_adc_trg_cfg_t *pstcTrgCfg);
@@ -315,7 +265,8 @@ en_result_t ADC_Init(M4_ADC_TypeDef *ADCx, const stc_adc_init_t *pstcInit)
     DDL_ASSERT(IS_ADC_SCAN_MODE(pstcInit->enScanMode));
     DDL_ASSERT(IS_ADC_RSCHSEL(pstcInit->enRschsel));
 
-    ADC_STOP_CONVERT(ADCx);
+    /* Stop ADC conversion. */
+    ADCx->STR = 0u;
 
     ADCx->CR0_f.ACCSEL  = pstcInit->enResolution;
     ADCx->CR0_f.DFMT    = pstcInit->enDataAlign;
@@ -323,39 +274,8 @@ en_result_t ADC_Init(M4_ADC_TypeDef *ADCx, const stc_adc_init_t *pstcInit)
     ADCx->CR0_f.MS      = pstcInit->enScanMode;
     ADCx->CR1_f.RSCHSEL = pstcInit->enRschsel;
 
-    ADCx->CHSELRA0      = 0x0u;
-    ADCx->CHSELRB0      = 0x0u;
-    ADCx->AVCHSELR0     = 0x0u;
-    ADCx->AWDCHSR0      = 0x0u;
-
-    /* Disable trigger source default. */
-    ADCx->TRGSR_f.TRGENA = AdcTrgen_Disable;
-    ADCx->TRGSR_f.TRGENB = AdcTrgen_Disable;
-
-    ADCx->CHMUXR0  = (uint16_t)0x3210;
-    ADCx->CHMUXR1  = (uint16_t)0x7654;
-    ADCx->AWDCHSR0 = 0u;
-    ADCx->AWDSR0   = 0u;
-    if (M4_ADC1 == ADCx)
-    {
-        ADCx->CHSELRA1  = 0x0u;
-        ADCx->CHSELRB1  = 0x0u;
-        ADCx->AVCHSELR1 = 0x0u;
-
-        ADCx->CHMUXR2   = (uint16_t)0xBA98;
-        ADCx->CHMUXR3   = (uint16_t)0xFEDC;
-        ADCx->SYNCCR    = (uint16_t)0x0C00;
-        ADCx->AWDCHSR1  = 0x0u;
-        ADCx->AWDSR1    = 0u;
-        ADCx->PGACR     = 0u;
-        ADCx->PGAGSR    = 0u;
-        ADCx->PGAINSR0  = 0u;
-        ADCx->PGAINSR1  = 0u;
-    }
-
-    /* Disable interrupts default. */
-    ADCx->ICR_f.EOCAIEN = AdcEocien_Disable;
-    ADCx->ICR_f.EOCBIEN = AdcEocien_Disable;
+    /* Disable EOC(End Of Conversion) interrupts default. */
+    ADCx->ICR = (uint8_t)0x0;
 
     return Ok;
 }
@@ -374,11 +294,6 @@ en_result_t ADC_Init(M4_ADC_TypeDef *ADCx, const stc_adc_init_t *pstcInit)
  ******************************************************************************/
 en_result_t ADC_DeInit(M4_ADC_TypeDef *ADCx)
 {
-    uint8_t i;
-    uint8_t u8Total;
-    __IO uint16_t *io16Reg = NULL;
-    __IO uint8_t *io8Reg   = NULL;
-
     if (NULL == ADCx)
     {
         return ErrorInvalidParameter;
@@ -386,44 +301,49 @@ en_result_t ADC_DeInit(M4_ADC_TypeDef *ADCx)
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
     /* Set the value of all registers to the reset value. */
-    ADC_STOP_CONVERT(ADCx);
+    /* Stop ADC conversion. */
+    ADCx->STR       = 0u;
+    ADCx->CR0       = 0u;
+    ADCx->CR1       = 0u;
+    ADCx->TRGSR     = 0u;
+    ADCx->CHSELRA0  = 0u;
+    ADCx->CHSELRB0  = 0u;
+    ADCx->AVCHSELR0 = 0u;
+    ADCx->AWDCHSR0  = 0u;
+    ADCx->SSTR0     = (uint8_t)0x0B;
+    ADCx->SSTR1     = (uint8_t)0x0B;
+    ADCx->SSTR2     = (uint8_t)0x0B;
+    ADCx->SSTR3     = (uint8_t)0x0B;
+    ADCx->SSTR4     = (uint8_t)0x0B;
+    ADCx->SSTR5     = (uint8_t)0x0B;
+    ADCx->SSTR6     = (uint8_t)0x0B;
+    ADCx->SSTR7     = (uint8_t)0x0B;
+    ADCx->SSTR8     = (uint8_t)0x0B;
+    ADCx->CHMUXR0   = (uint16_t)0x3210;
+    ADCx->CHMUXR1   = (uint16_t)0x7654;
+    ADCx->ISR       = 0u;
+    ADCx->ICR       = (uint8_t)0x03;
+    ADCx->AWDCR     = 0u;
+    ADCx->AWDDR0    = 0u;
+    ADCx->AWDDR1    = 0u;
+    ADCx->AWDCHSR0  = 0u;
+    ADCx->AWDSR0    = 0u;
 
-    ADCx->CR0 = 0u;
-
-    io16Reg = &(ADCx->TRGSR);
-    for (i = 0u; i < 7u; i++)
-    {
-        *io16Reg = 0u;
-        io16Reg++;
-    }
-
-    io8Reg  = &(ADCx->SSTR0);
-    u8Total = (M4_ADC1 == ADCx) ? ADC1_CH_COUNT : ADC2_CH_COUNT;
-    for (i = 0u; i < u8Total; i++)
-    {
-        *io8Reg = 0x0Bu;
-        io8Reg++;
-    }
-
-    ADCx->CHMUXR0  = (uint16_t)0x3210;
-    ADCx->CHMUXR1  = (uint16_t)0x7654;
-    ADCx->AWDCHSR0 = 0u;
-    ADCx->AWDSR0   = 0u;
     if (M4_ADC1 == ADCx)
     {
-        ADCx->CHMUXR2  = (uint16_t)0xBA98;
-        ADCx->CHMUXR3  = (uint16_t)0xFEDC;
-        ADCx->SYNCCR   = (uint16_t)0x0C00;
-        ADCx->AWDCHSR1 = 0u;
-        ADCx->AWDSR1   = 0u;
-        ADCx->PGACR    = 0u;
-        ADCx->PGAGSR   = 0u;
-        ADCx->PGAINSR0 = 0u;
-        ADCx->PGAINSR1 = 0u;
+        ADCx->CHSELRA1  = 0u;
+        ADCx->CHSELRB1  = 0u;
+        ADCx->AVCHSELR1 = 0u;
+        ADCx->CHMUXR2   = (uint16_t)0xBA98;
+        ADCx->CHMUXR3   = (uint16_t)0xFEDC;
+        ADCx->SYNCCR    = (uint16_t)0x0C00;
+        ADCx->AWDCHSR1  = 0u;
+        ADCx->AWDSR1    = 0u;
+        ADCx->PGACR     = 0u;
+        ADCx->PGAGSR    = 0u;
+        ADCx->PGAINSR0  = 0u;
+        ADCx->PGAINSR1  = 0u;
     }
-
-    ADCx->ISR = 0u;
-    ADCx->ICR = 0x03;
 
     return Ok;
 }
@@ -452,7 +372,6 @@ en_result_t ADC_SetScanMode(M4_ADC_TypeDef *ADCx, en_adc_scan_mode_t enMode)
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
     DDL_ASSERT(IS_ADC_SCAN_MODE(enMode));
 
-    ADC_STOP_CONVERT(ADCx);
     ADCx->CR0_f.MS = enMode;
 
     return Ok;
@@ -482,6 +401,7 @@ en_result_t ADC_ConfigTriggerSrc(M4_ADC_TypeDef *ADCx,
 {
     __IO uint32_t *io32AdcxTrgSelR0 = NULL;
     __IO uint32_t *io32AdcxTrgSelR1 = NULL;
+    en_result_t enRet = Ok;
 
     if ((NULL == ADCx)          ||
         (NULL == pstcTrgCfg)    ||
@@ -493,6 +413,7 @@ en_result_t ADC_ConfigTriggerSrc(M4_ADC_TypeDef *ADCx,
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
     DDL_ASSERT(IS_ADC_TRGSEL(pstcTrgCfg->enTrgSel));
 
+#ifdef __DEBUG
     switch (pstcTrgCfg->enTrgSel)
     {
         case AdcTrgsel_ADTRGX:
@@ -512,11 +433,14 @@ en_result_t ADC_ConfigTriggerSrc(M4_ADC_TypeDef *ADCx,
             break;
 
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
-
-    ADC_STOP_CONVERT(ADCx);
-
+    if (ErrorInvalidParameter == enRet)
+    {
+        return enRet;
+    }
+#endif /* #ifdef __DEBUG */
     /* Sequence A and Sequence B CAN NOT set the same trigger source. */
     if (Ok != ADC_CheckTrgSrc(ADCx, pstcTrgCfg))
     {
@@ -564,10 +488,11 @@ en_result_t ADC_ConfigTriggerSrc(M4_ADC_TypeDef *ADCx,
             break;
 
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -590,89 +515,21 @@ en_result_t ADC_TriggerSrcCmd(M4_ADC_TypeDef *ADCx,
                               uint8_t u8Seq,
                               en_functional_state_t enState)
 {
-    uint16_t u16Trgen;
-
     if ((NULL == ADCx) || (u8Seq > (uint8_t)AdcSequence_B))
     {
         return ErrorInvalidParameter;
     }
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
+    DDL_ASSERT(IS_FUNCTIONAL_STATE(enState));
 
-    ADC_STOP_CONVERT(ADCx);
-
-    u16Trgen = (Enable == enState) ? AdcTrgen_Enable : AdcTrgen_Disable;
     if (AdcSequence_A == u8Seq)
     {
-        ADCx->TRGSR_f.TRGENA = u16Trgen;
+        ADCx->TRGSR_f.TRGENA = enState;
     }
     else
     {
-        ADCx->TRGSR_f.TRGENB = u16Trgen;
-    }
-
-    return Ok;
-}
-
-/**
- *******************************************************************************
- ** \brief Config ADC channel.
- **
- ** \param [in] ADCx                    Pointer to ADC instance register base.
- ** \arg M4_ADC1                        ADC unit 1 instance register base.
- ** \arg M4_ADC2                        ADC unit 2 instance register base.
- **
- ** \param [in] pstcChCfg               Pointer to ADC channel configuration structure.
- ** \arg u32Channel                     The channel(s) you want to configure.
- ** \arg u8Sequence                     The sequence which the channel(s) belong(s) to.
- ** \arg pu8SampTime                    Pointer to sampling time.
- **
- ** \retval ErrorInvalidParameter       Parameter error.
- ** \retval Ok                          No error occurred.
- **
- ******************************************************************************/
-en_result_t ADC_ConfigAdcChannel(M4_ADC_TypeDef *ADCx, const stc_adc_ch_cfg_t *pstcChCfg)
-{
-    en_result_t  enRet;
-    uint8_t      i;
-    uint32_t     u32ChannelSel;
-    __IO uint8_t *io8Sstr;
-
-    if ((NULL == ADCx)      ||
-        (NULL == pstcChCfg) ||
-        (pstcChCfg->u8Sequence > (uint8_t)AdcSequence_B))
-    {
-        return ErrorInvalidParameter;
-    }
-
-    DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-
-    if (M4_ADC1 == ADCx)
-    {
-        u32ChannelSel = pstcChCfg->u32Channel & ADC1_CH_ALL;
-    }
-    else
-    {
-        u32ChannelSel = pstcChCfg->u32Channel & ADC2_CH_ALL;
-    }
-
-    enRet = ADC_AddAnalogChannel(ADCx, pstcChCfg->u8Sequence, u32ChannelSel);
-    if (Ok != enRet)
-    {
-        return enRet;
-    }
-
-    /* Set sampling time */
-    i = 0u;
-    io8Sstr = &(ADCx->SSTR0);
-    while (0u != u32ChannelSel)
-    {
-        if (u32ChannelSel & 0x1ul)
-        {
-            *(io8Sstr+i) = pstcChCfg->pu8SampTime[i];
-        }
-        u32ChannelSel >>= 1u;
-        i++;
+        ADCx->TRGSR_f.TRGENB = enState;
     }
 
     return Ok;
@@ -696,11 +553,11 @@ en_result_t ADC_ConfigAdcChannel(M4_ADC_TypeDef *ADCx, const stc_adc_ch_cfg_t *p
  **
  ** \retval ErrorInvalidParameter       Parameter error.
  ** \retval Ok                          No error occurred.
+ ** \note Sequence A and Sequence B CAN NOT set the same channel!!!
  **
  ******************************************************************************/
 en_result_t ADC_AddAdcChannel(M4_ADC_TypeDef *ADCx,const stc_adc_ch_cfg_t *pstcChCfg)
 {
-    en_result_t  enRet;
     uint8_t      i;
     uint8_t      j;
     uint32_t     u32ChannelSel;
@@ -718,16 +575,28 @@ en_result_t ADC_AddAdcChannel(M4_ADC_TypeDef *ADCx,const stc_adc_ch_cfg_t *pstcC
     if (M4_ADC1 == ADCx)
     {
         u32ChannelSel = pstcChCfg->u32Channel & ADC1_CH_ALL;
+        if (AdcSequence_A == pstcChCfg->u8Sequence)
+        {
+            ADCx->CHSELRA0 |= (uint16_t)u32ChannelSel;
+            ADCx->CHSELRA1 |= (uint16_t)(u32ChannelSel >> 16u);
+        }
+        else
+        {
+            ADCx->CHSELRB0 |= (uint16_t)u32ChannelSel;
+            ADCx->CHSELRB1 |= (uint16_t)(u32ChannelSel >> 16u);
+        }
     }
     else
     {
         u32ChannelSel = pstcChCfg->u32Channel & ADC2_CH_ALL;
-    }
-
-    enRet = ADC_AddAnalogChannel(ADCx, pstcChCfg->u8Sequence, u32ChannelSel);
-    if (Ok != enRet)
-    {
-        return enRet;
+        if (AdcSequence_A == pstcChCfg->u8Sequence)
+        {
+            ADCx->CHSELRA0 |= (uint16_t)u32ChannelSel;
+        }
+        else
+        {
+            ADCx->CHSELRB0 |= (uint16_t)u32ChannelSel;
+        }
     }
 
     /* Set sampling time */
@@ -782,18 +651,16 @@ en_result_t ADC_DelAdcChannel(M4_ADC_TypeDef *ADCx, const stc_adc_ch_cfg_t *pstc
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
 
-    ADC_STOP_CONVERT(ADCx);
-
     u16ChSelR0 = (uint16_t)(pstcChCfg->u32Channel);
     u16ChSelR1 = (uint16_t)(pstcChCfg->u32Channel >> 16u);
 
-    ADCx->CHSELRA0 &= ~u16ChSelR0;
-    ADCx->CHSELRB0 &= ~u16ChSelR0;
+    ADCx->CHSELRA0 &= (uint16_t)(~u16ChSelR0);
+    ADCx->CHSELRB0 &= (uint16_t)(~u16ChSelR0);
 
     if (M4_ADC1 == ADCx)
     {
-        ADCx->CHSELRA1 &= ~u16ChSelR1;
-        ADCx->CHSELRB1 &= ~u16ChSelR1;
+        ADCx->CHSELRA1 &= (uint16_t)(~u16ChSelR1);
+        ADCx->CHSELRB1 &= (uint16_t)(~u16ChSelR1);
     }
 
     return Ok;
@@ -819,7 +686,7 @@ en_result_t ADC_SeqITCmd(M4_ADC_TypeDef *ADCx,
                          uint8_t u8Seq,
                          en_functional_state_t enState)
 {
-    uint8_t u8Eocien;
+    uint8_t u8Msk = 0u;
 
     if ((NULL == ADCx) || (u8Seq > (uint8_t)AdcSequence_B))
     {
@@ -827,13 +694,19 @@ en_result_t ADC_SeqITCmd(M4_ADC_TypeDef *ADCx,
     }
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
+    DDL_ASSERT(IS_FUNCTIONAL_STATE(enState));
 
-    u8Eocien = (Enable == enState) ? AdcEocien_Enable : AdcEocien_Disable;
-    u8Eocien <<= u8Seq;
-    ADC_STOP_CONVERT(ADCx);
-    ADC_REG_CLR_BIT(ADCx->ISR, u8Seq);
-    ADC_REG_CLR_BIT(ADCx->ICR, u8Seq);
-    ADC_REG_SET_VAL(ADCx->ICR, u8Eocien);
+    u8Msk = (uint8_t)(0x1ul << u8Seq);
+    ADCx->ISR &= (uint8_t)(~u8Msk);
+
+    if (Enable == enState)
+    {
+        ADCx->ICR |= u8Msk;
+    }
+    else
+    {
+        ADCx->ICR &= (uint8_t)(~u8Msk);
+    }
 
     return Ok;
 }
@@ -863,7 +736,6 @@ en_result_t ADC_ConfigAvg(M4_ADC_TypeDef *ADCx, en_adc_avcnt_t enAvgCnt)
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
     DDL_ASSERT(IS_ADC_AVCNT(enAvgCnt));
 
-    ADC_STOP_CONVERT(ADCx);
     ADCx->CR0_f.AVCNT = enAvgCnt;
 
     return Ok;
@@ -910,8 +782,6 @@ en_result_t ADC_AddAvgChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel)
     u16AvgChR0 = (uint16_t)u32Channel;
     u16AvgChR1 = (uint16_t)(u32Channel >> 16u);
 
-    ADC_STOP_CONVERT(ADCx);
-
     ADCx->AVCHSELR0 |= u16AvgChR0;
     if (M4_ADC1 == ADCx)
     {
@@ -950,12 +820,10 @@ en_result_t ADC_DelAvgChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel)
     u16AvgChR0 = (uint16_t)u32Channel;
     u16AvgChR1 = (uint16_t)(u32Channel >> 16u);
 
-    ADC_STOP_CONVERT(ADCx);
-
-    ADCx->AVCHSELR0 &= ~u16AvgChR0;
+    ADCx->AVCHSELR0 &= (uint16_t)(~u16AvgChR0);
     if (M4_ADC1 == ADCx)
     {
-        ADCx->AVCHSELR1 &= ~u16AvgChR1;
+        ADCx->AVCHSELR1 &= (uint16_t)(~u16AvgChR1);
     }
 
     return Ok;
@@ -984,11 +852,8 @@ en_result_t ADC_ConfigAwd(M4_ADC_TypeDef *ADCx, const stc_adc_awd_cfg_t *pstcAwd
     }
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-
     DDL_ASSERT(IS_ADC_AWDMD(pstcAwdCfg->enAwdmd));
     DDL_ASSERT(IS_ADC_AWDSS(pstcAwdCfg->enAwdss));
-
-    ADC_STOP_CONVERT(ADCx);
 
     ADCx->AWDCR_f.AWDEN  = AdcAwd_Disable;
     ADCx->AWDCR_f.AWDIEN = AdcAwdInt_Disable;
@@ -1023,10 +888,9 @@ en_result_t ADC_AwdCmd(M4_ADC_TypeDef *ADCx, en_functional_state_t enState)
     }
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
+    DDL_ASSERT(IS_FUNCTIONAL_STATE(enState));
 
-    ADC_STOP_CONVERT(ADCx);
-
-    ADCx->AWDCR_f.AWDEN = (Enable == enState) ? AdcAwd_Enable : AdcAwd_Disable;
+    ADCx->AWDCR_f.AWDEN = enState;
 
     return Ok;
 }
@@ -1053,11 +917,9 @@ en_result_t ADC_AwdITCmd(M4_ADC_TypeDef *ADCx, en_functional_state_t enState)
     }
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
+    DDL_ASSERT(IS_FUNCTIONAL_STATE(enState));
 
-    ADC_STOP_CONVERT(ADCx);
-
-    ADCx->AWDCR_f.AWDIEN = (Enable == enState) ? \
-                            AdcAwdInt_Enable : AdcAwdInt_Disable;
+    ADCx->AWDCR_f.AWDIEN = enState;
 
     return Ok;
 }
@@ -1104,8 +966,6 @@ en_result_t ADC_AddAwdChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel)
     u16ChSelR0 = (uint16_t)u32Channel;
     u16ChSelR1 = (uint16_t)(u32Channel >> 16u);
 
-    ADC_STOP_CONVERT(ADCx);
-
     u16Awden = ADCx->AWDCR_f.AWDEN;
     ADCx->AWDCR_f.AWDEN = AdcAwd_Disable;
     ADCx->AWDCHSR0 |= u16ChSelR0;
@@ -1148,14 +1008,12 @@ en_result_t ADC_DelAwdChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel)
     u16ChSelR0 = (uint16_t)u32Channel;
     u16ChSelR1 = (uint16_t)(u32Channel >> 16u);
 
-    ADC_STOP_CONVERT(ADCx);
-
     u16Awden = ADCx->AWDCR_f.AWDEN;
     ADCx->AWDCR_f.AWDEN = AdcAwd_Disable;
-    ADCx->AWDCHSR0 &= ~u16ChSelR0;
+    ADCx->AWDCHSR0 &= (uint16_t)(~u16ChSelR0);
     if (M4_ADC1 == ADCx)
     {
-        ADCx->AWDCHSR1 &= ~u16ChSelR1;
+        ADCx->AWDCHSR1 &= (uint16_t)(~u16ChSelR1);
     }
     ADCx->AWDCR_f.AWDEN = u16Awden;
 
@@ -1166,8 +1024,8 @@ en_result_t ADC_DelAwdChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel)
  *******************************************************************************
  ** \brief ADC programmable gain amplifier(PGA) configuration.
  **
- ** \param [in] pstcPgaCfg              Pointer to PGA configuration structure.
- **                                     See @ref stc_adc_pga_cfg_t for details.
+ ** \param [in] enFactor                PGA gain factor.
+ ** \param [in] enNegativeIn            PGA negative input select.
  **
  ** \retval ErrorInvalidParameter       Parameter error.
  ** \retval Ok                          No error occurred.
@@ -1175,20 +1033,13 @@ en_result_t ADC_DelAwdChannel(M4_ADC_TypeDef *ADCx, uint32_t u32Channel)
  ** \note                               Only ADC1 has PGA.
  **
  ******************************************************************************/
-en_result_t ADC_ConfigPga(const stc_adc_pga_cfg_t *pstcPgaCfg)
+void ADC_ConfigPga(en_adc_pga_factor_t enFactor, en_adc_pga_negative_t enNegativeIn)
 {
-    if (NULL == pstcPgaCfg)
-    {
-        return ErrorInvalidParameter;
-    }
+    DDL_ASSERT(IS_ADC_PGA_FACTOR(enFactor));
+    DDL_ASSERT(IS_ADC_PGA_NEGATIVE(enNegativeIn));
 
-    DDL_ASSERT(IS_ADC_PGA_FACTOR(pstcPgaCfg->enFactor));
-    DDL_ASSERT(IS_ADC_PGA_NEGATIVE(pstcPgaCfg->enNegativeIn));
-
-    M4_ADC1->PGAGSR_f.GAIN       = pstcPgaCfg->enFactor;
-    M4_ADC1->PGAINSR1_f.PGAVSSEN = pstcPgaCfg->enNegativeIn;
-
-    return Ok;
+    M4_ADC1->PGAGSR_f.GAIN       = enFactor;
+    M4_ADC1->PGAINSR1_f.PGAVSSEN = enNegativeIn;
 }
 
 /**
@@ -1202,8 +1053,16 @@ en_result_t ADC_ConfigPga(const stc_adc_pga_cfg_t *pstcPgaCfg)
  ******************************************************************************/
 void ADC_PgaCmd(en_functional_state_t enState)
 {
-    M4_ADC1->PGACR_f.PGACTL = (Enable == enState) ? \
-                               AdcPgaCtl_Amplify : AdcPgaCtl_Invalid;
+    DDL_ASSERT(IS_FUNCTIONAL_STATE(enState));
+
+    if (Enable == enState)
+    {
+        M4_ADC1->PGACR_f.PGACTL = AdcPgaCtl_Amplify;
+    }
+    else
+    {
+        M4_ADC1->PGACR_f.PGACTL = AdcPgaCtl_Invalid;
+    }
 }
 
 /**
@@ -1221,8 +1080,6 @@ void ADC_PgaCmd(en_functional_state_t enState)
  ******************************************************************************/
 void ADC_AddPgaChannel(uint32_t u32Channel)
 {
-    ADC_STOP_CONVERT(M4_ADC1);
-
     M4_ADC1->PGAINSR0 |= ((uint16_t)(u32Channel & PGA_CH_ALL));
 }
 
@@ -1237,37 +1094,29 @@ void ADC_AddPgaChannel(uint32_t u32Channel)
  ******************************************************************************/
 void ADC_DelPgaChannel(uint32_t u32Channel)
 {
-    ADC_STOP_CONVERT(M4_ADC1);
-
-    M4_ADC1->PGAINSR0 &= ~((uint16_t)u32Channel);
+    M4_ADC1->PGAINSR0 &= (uint16_t)(~u32Channel);
 }
 
 /**
  *******************************************************************************
  ** \brief ADC sync mode configuration.
  **
- ** \param [in] pstcSyncCfg             Pointer to the configuration structure.
- **                                     See @ref stc_adc_sync_cfg_t for detail.
+ ** \param [in] enMode                  Synchronous mode types.
+ ** \param [in] u8TrgDelay              ADC2 trigger delay time.
  **
  ** \retval ErrorInvalidParameter       Parameter error.
  ** \retval Ok                          No error occurred.
  **
  ******************************************************************************/
-en_result_t ADC_ConfigSync(const stc_adc_sync_cfg_t *pstcSyncCfg)
+void ADC_ConfigSync(en_adc_sync_mode_t enMode, uint8_t u8TrgDelay)
 {
+    DDL_ASSERT(IS_ADC_SYNC_MODE(enMode));
 
-    if ((NULL == pstcSyncCfg) || (0u == pstcSyncCfg->u8TrgDelay))
-    {
-        return ErrorInvalidParameter;
-    }
-
-    DDL_ASSERT(IS_ADC_SYNC_MODE(pstcSyncCfg->enMode));
-
+    /* Disable synchronous mode first. */
     M4_ADC1->SYNCCR_f.SYNCEN  = AdcSync_Disable;
-    M4_ADC1->SYNCCR_f.SYNCMD  = pstcSyncCfg->enMode;
-    M4_ADC1->SYNCCR_f.SYNCDLY = pstcSyncCfg->u8TrgDelay;
 
-    return Ok;
+    M4_ADC1->SYNCCR_f.SYNCMD  = enMode;
+    M4_ADC1->SYNCCR_f.SYNCDLY = u8TrgDelay;
 }
 
 /**
@@ -1281,8 +1130,9 @@ en_result_t ADC_ConfigSync(const stc_adc_sync_cfg_t *pstcSyncCfg)
  ******************************************************************************/
 void ADC_SyncCmd(en_functional_state_t enState)
 {
-    M4_ADC1->SYNCCR_f.SYNCEN = (Enable == enState) ? \
-                                AdcSync_Enable : AdcSync_Disable;
+    DDL_ASSERT(IS_FUNCTIONAL_STATE(enState));
+
+    M4_ADC1->SYNCCR_f.SYNCEN = enState;
 }
 
 /**
@@ -1307,7 +1157,8 @@ en_result_t ADC_StartConvert(M4_ADC_TypeDef *ADCx)
     }
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-    ADC_START_CONVERT(ADCx);
+
+    ADCx->STR = (uint8_t)0x01;
 
     return Ok;
 }
@@ -1327,7 +1178,7 @@ en_result_t ADC_StartConvert(M4_ADC_TypeDef *ADCx)
  ******************************************************************************/
 en_result_t ADC_StopConvert(M4_ADC_TypeDef *ADCx)
 {
-    __IO uint32_t u32TimeCount;
+    __IO uint32_t u32TimeCount = 0u;
 
     if (NULL == ADCx)
     {
@@ -1337,12 +1188,14 @@ en_result_t ADC_StopConvert(M4_ADC_TypeDef *ADCx)
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
 
     /* Make sure the ADC is really stopped. */
-    u32TimeCount = 0u;
-    while (ADC_IS_CONVERTING(ADCx))
+    while (ADCx->STR & ((uint8_t)0x01))
     {
-        ADC_STOP_CONVERT(ADCx);
+        /* Stop ADC conversion. */
+        ADCx->STR = 0u;
         if (++u32TimeCount > 10000u)
+        {
             return ErrorTimeout;
+        }
     }
 
     return Ok;
@@ -1363,18 +1216,19 @@ en_result_t ADC_StopConvert(M4_ADC_TypeDef *ADCx)
  ** \retval Reset                       ADC is converting or parameter error.
  **
  ******************************************************************************/
-en_flag_status_t ADC_GetConvFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq)
+en_flag_status_t ADC_GetEocFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq)
 {
-    en_flag_status_t enFlag;
+    en_flag_status_t enFlag = Reset;
 
-    DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-
-    if (u8Seq > (uint8_t)AdcSequence_B)
+    if ((NULL != ADCx) && (u8Seq <= (uint8_t)AdcSequence_B))
     {
-        return Reset;
-    }
+        DDL_ASSERT(IS_ADC_PERIPH(ADCx));
 
-    enFlag = (ADC_CONVERTING != ADC_REG_READ_BIT(ADCx->ISR, u8Seq)) ? Set : Reset;
+        if (ADCx->ISR & ((uint8_t)(0x1ul << u8Seq)))
+        {
+            enFlag = Set;
+        }
+    }
 
     return enFlag;
 }
@@ -1393,51 +1247,16 @@ en_flag_status_t ADC_GetConvFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq)
  ** \retval None.
  **
  ******************************************************************************/
-void ADC_ClrConvFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq)
+void ADC_ClrEocFlag(M4_ADC_TypeDef *ADCx, uint8_t u8Seq)
 {
-    DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-
-    if (u8Seq > (uint8_t)AdcSequence_B)
+    if ((NULL == ADCx) || (u8Seq > (uint8_t)AdcSequence_B))
     {
         return;
     }
 
-    ADC_REG_CLR_BIT(ADCx->ISR, u8Seq);
-}
-
-/**
- *******************************************************************************
- ** \brief Get and clear conversion status flag of sequence u8Seq.
- **
- ** \param [in] ADCx                    Pointer to ADC instance register base.
- ** \arg M4_ADC1                        ADC unit 1 instance register base.
- ** \arg M4_ADC2                        ADC unit 2 instance register base.
- **
- ** \param [in] u8Seq                   The sequence which you want to get
- **                                     it's conversion status flag.
- **
- ** \retval Set                         Conversion completed.
- ** \retval Reset                       Parameter error or conversion not completed.
- **
- ******************************************************************************/
-en_flag_status_t ADC_GetConvStatus(M4_ADC_TypeDef *ADCx, uint8_t u8Seq)
-{
-    en_flag_status_t enFlag = Reset;
-
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
 
-    if (u8Seq > (uint8_t)AdcSequence_B)
-    {
-        return Reset;
-    }
-
-    if (ADC_CONVERTING != ADC_REG_READ_BIT(ADCx->ISR, u8Seq))
-    {
-        enFlag = Set;
-        ADC_REG_CLR_BIT(ADCx->ISR, u8Seq);
-    }
-
-    return enFlag;
+    ADCx->ISR &= (uint8_t)(~(0x1ul << u8Seq));
 }
 
 /**
@@ -1478,7 +1297,8 @@ en_result_t ADC_StartAndCheckSa(M4_ADC_TypeDef *ADCx,
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
 
-    ADC_START_CONVERT(ADCx);
+    /* Start ADC conversion. */
+    ADCx->STR = (uint8_t)0x01;
 
     enRet = ADC_CheckConResult(ADCx, AdcSequence_A, u32Timeout);
     if (Ok == enRet)
@@ -1486,110 +1306,9 @@ en_result_t ADC_StartAndCheckSa(M4_ADC_TypeDef *ADCx,
         /* Get ADC data. */
         /* You can use function ADC_GetSeqData instead of function ADC_GetValue. */
         ADC_GetValue(ADCx, pu16AdcData);
-        ADC_REG_CLR_BIT(ADCx->ISR, AdcSequence_A);
-    }
 
-    return enRet;
-}
-
-/**
- *******************************************************************************
- ** \brief Checking ADC conversion state and reading ADC data.
- **
- ** \param [in] ADCx                    Pointer to ADC instance register base.
- ** \arg M4_ADC1                        ADC unit 1 instance register base.
- ** \arg M4_ADC2                        ADC unit 2 instance register base.
- **
- ** \param [in]  u8Seq                  The sequence, it's flag will be cleared after data reading.
- **
- ** \param [out] pu16AdcData            The address where the ADC data will be stored.
- **                                     All of the ADC data regs will be read.
- **                                     pu16AdcData[0] = Channel 0's data,
- **                                     pu16AdcData[1] = Channel 1's data,
- **                                     pu16AdcData[2] = Channel 2's data,
- **                                                 ...
- **
- ** \param [in] u32Timeout              Timeout(millisecond).
- **
- ** \retval ErrorInvalidParameter       Parameter error.
- ** \retval ErrorTimeout                Timeout.
- ** \retval OperationInProgress         ADC is converting.
- ** \retval Ok                          No error occurred.
- **
- ******************************************************************************/
-en_result_t ADC_CheckConvert(M4_ADC_TypeDef *ADCx,
-                             uint8_t u8Seq,
-                             uint16_t *pu16AdcData,
-                             uint32_t u32Timeout)
-{
-    en_result_t enRet;
-
-    if ((NULL == ADCx) || (NULL == pu16AdcData) || (u8Seq > (uint8_t)AdcSequence_B))
-    {
-        return ErrorInvalidParameter;
-    }
-
-    DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-
-    enRet = ADC_CheckConResult(ADCx, u8Seq, u32Timeout);
-    if (Ok == enRet)
-    {
-        /* Get ADC data. */
-        ADC_GetValue(ADCx, pu16AdcData);
-        ADC_REG_CLR_BIT(ADCx->ISR, u8Seq);
-    }
-
-    return enRet;
-}
-
-/**
- *******************************************************************************
- ** \brief Checking AWD and getting it's status.
- **
- ** \param [in] ADCx                    Pointer to ADC instance register base.
- ** \arg M4_ADC1                        ADC unit 1 instance register base.
- ** \arg M4_ADC2                        ADC unit 2 instance register base.
- **
- ** \param [in]  u8Seq                  The sequence, it's flag will be cleared after data reading.
- **
- ** \param [out] pu32AwdRet             The address where the AWD status value will be stored.
- **
- ** \param [in] u32Timeout              Timeout(millisecond).
- **
- ** \retval ErrorInvalidParameter       Parameter error.
- ** \retval ErrorTimeout                Timeout.
- ** \retval OperationInProgress         ADC is converting.
- ** \retval Ok                          No error occurred.
- **
- ******************************************************************************/
-en_result_t ADC_CheckAwd(M4_ADC_TypeDef *ADCx,
-                         uint8_t u8Seq,
-                         uint32_t *pu32AwdRet,
-                         uint32_t u32Timeout)
-{
-    en_result_t enRet;
-
-    if ((NULL == ADCx) || (NULL == pu32AwdRet) || (u8Seq > (uint8_t)AdcSequence_B))
-    {
-        return ErrorInvalidParameter;
-    }
-
-    DDL_ASSERT(IS_ADC_PERIPH(ADCx));
-
-    enRet = ADC_CheckConResult(ADCx, u8Seq, u32Timeout);
-    if (Ok == enRet)
-    {
-        ADC_REG_CLR_BIT(ADCx->ISR, u8Seq);
-        if (M4_ADC1 == ADCx)
-        {
-            *pu32AwdRet = ADCx->AWDSR1;
-            *pu32AwdRet <<= 16u;
-            *pu32AwdRet |= ADCx->AWDSR0;
-        }
-        else
-        {
-            *pu32AwdRet = ADCx->AWDSR0;
-        }
+        /* Clear sequence A flag. */
+        bM4_ADC1_ISR_EOCAF = 0u;
     }
 
     return enRet;
@@ -1648,6 +1367,11 @@ en_result_t ADC_GetChData(M4_ADC_TypeDef *ADCx,
                           uint32_t u32TargetCh,
                           uint16_t *pu16AdcData)
 {
+    uint8_t i;
+    uint8_t j;
+    uint32_t u32Channel;
+    __IO uint16_t *pu16DataReg = &(ADCx->DR0);
+
     if ((NULL == ADCx) || (NULL == pu16AdcData))
     {
         return ErrorInvalidParameter;
@@ -1655,7 +1379,28 @@ en_result_t ADC_GetChData(M4_ADC_TypeDef *ADCx,
 
     DDL_ASSERT(IS_ADC_PERIPH(ADCx));
 
-    ADC_GetChValue(ADCx, u32TargetCh, pu16AdcData);
+    if (M4_ADC1 == ADCx)
+    {
+        u32Channel = u32TargetCh & ADC1_CH_ALL;
+    }
+    else
+    {
+        u32Channel = u32TargetCh & ADC2_CH_ALL;
+    }
+
+    i = 0u;
+    j = 0u;
+    while (0u != u32Channel)
+    {
+        if (0u != (u32Channel & 0x1ul))
+        {
+            pu16AdcData[j] = *(pu16DataReg + i);
+            j++;
+        }
+
+        u32Channel >>= 1u;
+        i++;
+    }
 
     return Ok;
 }
@@ -1719,7 +1464,7 @@ en_result_t ADC_GetSeqData(M4_ADC_TypeDef *ADCx,
         }
     }
 
-    ADC_GetChValue(ADCx, u32SeqCh, pu16AdcData);
+    ADC_GetChData(ADCx, u32SeqCh, pu16AdcData);
 
     return Ok;
 }
@@ -1739,12 +1484,7 @@ en_result_t ADC_GetSeqData(M4_ADC_TypeDef *ADCx,
  ******************************************************************************/
 uint32_t ADC_GetAwdFlag(M4_ADC_TypeDef *ADCx)
 {
-    uint32_t u32AwdFlag = 0u;
-
-    if ((M4_ADC1 != ADCx) && (M4_ADC2 != ADCx))
-    {
-        return 0u;
-    }
+    uint32_t u32AwdFlag;
 
     if (M4_ADC1 == ADCx)
     {
@@ -1752,9 +1492,13 @@ uint32_t ADC_GetAwdFlag(M4_ADC_TypeDef *ADCx)
         u32AwdFlag <<= 16u;
         u32AwdFlag |= ADCx->AWDSR0;
     }
-    else
+    else if (M4_ADC2 == ADCx)
     {
         u32AwdFlag = ADCx->AWDSR0;
+    }
+    else
+    {
+        u32AwdFlag = 0u;
     }
 
     return u32AwdFlag;
@@ -1771,15 +1515,18 @@ uint32_t ADC_GetAwdFlag(M4_ADC_TypeDef *ADCx)
  ******************************************************************************/
 void ADC_ClrAwdFlag(M4_ADC_TypeDef *ADCx)
 {
-    if ((M4_ADC1 != ADCx) && (M4_ADC2 != ADCx))
-    {
-        return;
-    }
-
-    ADCx->AWDSR0 = 0u;
     if (M4_ADC1 == ADCx)
     {
+        ADCx->AWDSR0 = 0u;
         ADCx->AWDSR1 = 0u;
+    }
+    else if (M4_ADC2 == ADCx)
+    {
+        ADCx->AWDSR0 = 0u;
+    }
+    else
+    {
+        /* return */
     }
 }
 
@@ -1808,10 +1555,10 @@ void ADC_ClrAwdChFlag(M4_ADC_TypeDef *ADCx, uint32_t u32AwdCh)
     u16ChR0 = (uint16_t)u32AwdCh;
     u16ChR1 = (uint16_t)(u32AwdCh >> 16u);
 
-    ADCx->AWDSR0 &= ~u16ChR0;
+    ADCx->AWDSR0 &= (uint16_t)(~u16ChR0);
     if (M4_ADC1 == ADCx)
     {
-        ADCx->AWDSR1 &= ~u16ChR1;
+        ADCx->AWDSR1 &= (uint16_t)(~u16ChR1);
     }
 }
 
@@ -1866,18 +1613,16 @@ en_result_t ADC_ChannleRemap(M4_ADC_TypeDef *ADCx,
         u32DestChannel &= ADC2_PIN_MASK_ALL;
     }
 
-    ADC_STOP_CONVERT(ADCx);
-
     i = 0u;
     while (0u != u32DestChannel)
     {
         if (u32DestChannel & 0x1ul)
         {
-            u8OffsetReg = i / 4u;
-            u8ChPos     = (i % 4u) * 4u;
-            io16Chmuxr  = &(ADCx->CHMUXR0) + u8OffsetReg;
-            *io16Chmuxr &= ~((uint16_t)0xF << u8ChPos);
-            *io16Chmuxr |= (u16AdcPin << u8ChPos);
+            u8OffsetReg  = i / 4u;
+            u8ChPos      = (i % 4u) * 4u;
+            io16Chmuxr   = &(ADCx->CHMUXR0) + u8OffsetReg;
+            *io16Chmuxr &= (uint16_t)(~(0xFul << u8ChPos));
+            *io16Chmuxr |= (uint16_t)(u16AdcPin << u8ChPos);
         }
 
         u32DestChannel >>= 1u;
@@ -1931,72 +1676,6 @@ uint8_t ADC_GetChannelPinNum(M4_ADC_TypeDef *ADCx, uint8_t u8ChIndex)
 /*******************************************************************************
  * Function implementation - local ('static')
  ******************************************************************************/
-static en_result_t ADC_AddAnalogChannel(M4_ADC_TypeDef *ADCx,
-                                        uint8_t u8Seq,
-                                        uint32_t u32Ch)
-{
-    uint16_t     u16ChSelR0;
-    uint16_t     u16ChSelR1;
-    uint16_t     u16SelR0Temp;
-    uint16_t     u16SelR1Temp;
-
-    u16ChSelR0 = (uint16_t)u32Ch;
-    u16ChSelR1 = (uint16_t)(u32Ch >> 16u);
-
-    ADC_STOP_CONVERT(ADCx);
-
-    /* The following is the basic configuration */
-    /* Sequence A and Sequence B cannot set the same channel */
-    if (M4_ADC1 == ADCx)
-    {
-        /* ADC1 channel select register configuration */
-        if (AdcSequence_A == u8Seq)
-        {
-            u16SelR0Temp = ADCx->CHSELRB0;
-            u16SelR1Temp = ADCx->CHSELRB1;
-            if ((0u == (u16SelR0Temp & u16ChSelR0)) &&
-                (0u == (u16SelR1Temp & u16ChSelR1)))
-            {
-                ADCx->CHSELRA0 |= u16ChSelR0;
-                ADCx->CHSELRA1 |= u16ChSelR1;
-            }
-        }
-        else
-        {
-            u16SelR0Temp = ADCx->CHSELRA0;
-            u16SelR1Temp = ADCx->CHSELRA1;
-            if ((0u == (u16SelR0Temp & u16ChSelR0)) &&
-                (0u == (u16SelR1Temp & u16ChSelR1)))
-            {
-                ADCx->CHSELRB0 |= u16ChSelR0;
-                ADCx->CHSELRB1 |= u16ChSelR1;
-            }
-        }
-    }
-    else
-    {
-        /* ADC2 channel select register configuration */
-        if (AdcSequence_A == u8Seq)
-        {
-            u16SelR0Temp = ADCx->CHSELRB0;
-            if (0u == (u16SelR0Temp & u16ChSelR0))
-            {
-                ADCx->CHSELRA0 |= u16ChSelR0;
-            }
-        }
-        else
-        {
-            u16SelR0Temp = ADCx->CHSELRA0;
-            if (0u == (u16SelR0Temp & u16ChSelR0))
-            {
-                ADCx->CHSELRB0 |= u16ChSelR0;
-            }
-        }
-    }
-
-    return Ok;
-}
-
 /**
  *******************************************************************************
  ** \brief Checking ADC conversion result.
@@ -2006,13 +1685,20 @@ static en_result_t ADC_CheckConResult(M4_ADC_TypeDef *ADCx,
                                       uint8_t u8Seq,
                                       uint32_t u32Timeout)
 {
-    uint32_t u32AdcTimeout;
-    __IO uint32_t u32TimeCount;
+    uint8_t u8Msk = (uint8_t)(0x1ul << u8Seq);
+    uint32_t u32AdcTimeout = 0u;
+    __IO uint32_t u32TimeCount = 0u;
 
     if (0u == u32Timeout)
     {
-        return ((ADC_CONVERTING != ADC_REG_READ_BIT(ADCx->ISR, u8Seq)) ? \
-                 Ok : OperationInProgress);
+        if (ADCx->ISR & u8Msk)
+        {
+            return Ok;
+        }
+        else
+        {
+            return OperationInProgress;
+        }
     }
 
     /* 10 is the number of required instructions cycles for the below loop statement. */
@@ -2020,7 +1706,7 @@ static en_result_t ADC_CheckConResult(M4_ADC_TypeDef *ADCx,
     u32TimeCount  = 0u;
     while (u32TimeCount < u32AdcTimeout)
     {
-        if (ADC_CONVERTING != ADC_REG_READ_BIT(ADCx->ISR, u8Seq))
+        if (ADCx->ISR & u8Msk)
         {
             return Ok;
         }
@@ -2050,48 +1736,9 @@ static void ADC_GetValue(M4_ADC_TypeDef *ADCx, uint16_t *pu16AdcData)
 
     for (u8Offset = 0u; u8Offset < u8TotalCh; u8Offset++)
     {
-        pu16DataReg = &(ADCx->DR0);
+        pu16DataReg  = &(ADCx->DR0);
         pu16DataReg += u8Offset;
         pu16AdcData[u8Offset] = *pu16DataReg;
-    }
-}
-
-/**
- *******************************************************************************
- ** \brief
- **
- ******************************************************************************/
-static void ADC_GetChValue(M4_ADC_TypeDef *ADCx,
-                           uint32_t u32Channel,
-                           uint16_t *pu16AdcData)
-{
-    uint8_t i;
-    uint8_t j;
-    __IO uint16_t *pu16DataReg;
-
-    if (M4_ADC1 == ADCx)
-    {
-        u32Channel &= ADC1_CH_ALL;
-    }
-    else
-    {
-        u32Channel &= ADC2_CH_ALL;
-    }
-
-    i = 0u;
-    j = 0u;
-    while (0u != u32Channel)
-    {
-        if (0u != (u32Channel & 0x1ul))
-        {
-            pu16DataReg    = &(ADCx->DR0);
-            pu16DataReg   += i;
-            pu16AdcData[j] = *pu16DataReg;
-            j++;
-        }
-
-        u32Channel >>= 1u;
-        i++;
     }
 }
 
@@ -2109,16 +1756,17 @@ static en_result_t ADC_CheckTrgSrc(M4_ADC_TypeDef *ADCx,
     uint16_t u16OtherOneEnb;
     uint16_t u16OtherOneSel;
     uint8_t  u8AdcIdx;
+    en_result_t enRet = Ok;
     const uint16_t au16InvalidTrgsrc[2u][2u] =
     {
-        {EVT_ADC1_EOCA, EVT_ADC1_EOCB},
-        {EVT_ADC2_EOCA, EVT_ADC2_EOCB}
+        {(uint16_t)EVT_ADC1_EOCA, (uint16_t)EVT_ADC1_EOCB},
+        {(uint16_t)EVT_ADC2_EOCA, (uint16_t)EVT_ADC2_EOCB}
     };
 
     const uint16_t au16InvalidTrgsrc1[2u][2u] =
     {
-        {EVT_ADC1_CHCMP, EVT_ADC1_SEQCMP},
-        {EVT_ADC2_CHCMP, EVT_ADC2_SEQCMP}
+        {(uint16_t)EVT_ADC1_CHCMP, (uint16_t)EVT_ADC1_SEQCMP},
+        {(uint16_t)EVT_ADC2_CHCMP, (uint16_t)EVT_ADC2_SEQCMP}
     };
 
     if (AdcTrgsel_ADTRGX == pstcTrgCfg->enTrgSel)
@@ -2131,7 +1779,7 @@ static en_result_t ADC_CheckTrgSrc(M4_ADC_TypeDef *ADCx,
         u32AdcxTrgSelR0 = M4_AOS->ADC1_ITRGSELR0;
         u32AdcxTrgSelR1 = M4_AOS->ADC1_ITRGSELR1;
         u16Trgsr        = M4_ADC1->TRGSR;
-        u8AdcIdx        = 0;
+        u8AdcIdx        = 0u;
     }
     else
     {
@@ -2165,29 +1813,37 @@ static en_result_t ADC_CheckTrgSrc(M4_ADC_TypeDef *ADCx,
         case AdcTrgsel_TRGX0:
             if ((pstcTrgCfg->enInTrg0 == au16InvalidTrgsrc1[u8AdcIdx][0u]) ||
                 (pstcTrgCfg->enInTrg0 == au16InvalidTrgsrc1[u8AdcIdx][1u]))
+            {
                 return ErrorInvalidParameter;
-
+            }
             if ((AdcTrgsel_TRGX1 == u16OtherOneSel) &&
                 (pstcTrgCfg->enInTrg0 == u32AdcxTrgSelR1))
+            {
                 return ErrorInvalidParameter;
-
+            }
             if ((AdcTrgsel_TRGX0_TRGX1 == u16OtherOneSel) &&
                 ((pstcTrgCfg->enInTrg0 == u32AdcxTrgSelR0) || (pstcTrgCfg->enInTrg0 == u32AdcxTrgSelR1)))
+            {
                 return ErrorInvalidParameter;
+            }
             break;
 
         case AdcTrgsel_TRGX1:
             if ((pstcTrgCfg->enInTrg1 == au16InvalidTrgsrc1[u8AdcIdx][0u]) ||
                 (pstcTrgCfg->enInTrg1 == au16InvalidTrgsrc1[u8AdcIdx][1u]))
+            {
                 return ErrorInvalidParameter;
-
+            }
             if ((AdcTrgsel_TRGX0 == u16OtherOneSel) &&
                 (pstcTrgCfg->enInTrg1 == u32AdcxTrgSelR0))
+            {
                 return ErrorInvalidParameter;
-
+            }
             if ((AdcTrgsel_TRGX0_TRGX1 == u16OtherOneSel) &&
                 ((pstcTrgCfg->enInTrg1 == u32AdcxTrgSelR0) || (pstcTrgCfg->enInTrg1 == u32AdcxTrgSelR1)))
+            {
                 return ErrorInvalidParameter;
+            }
             break;
 
         case AdcTrgsel_TRGX0_TRGX1:
@@ -2195,22 +1851,27 @@ static en_result_t ADC_CheckTrgSrc(M4_ADC_TypeDef *ADCx,
                 (pstcTrgCfg->enInTrg0 == au16InvalidTrgsrc1[u8AdcIdx][1u]) ||
                 (pstcTrgCfg->enInTrg1 == au16InvalidTrgsrc1[u8AdcIdx][0u]) ||
                 (pstcTrgCfg->enInTrg1 == au16InvalidTrgsrc1[u8AdcIdx][1u]))
+            {
                 return ErrorInvalidParameter;
-
+            }
             if ((AdcTrgsel_TRGX0 == u16OtherOneSel) &&
                 ((pstcTrgCfg->enInTrg0 == u32AdcxTrgSelR0) || (pstcTrgCfg->enInTrg1 == u32AdcxTrgSelR0)))
+            {
                 return ErrorInvalidParameter;
-
+            }
             if ((AdcTrgsel_TRGX1 == u16OtherOneSel) &&
                 ((pstcTrgCfg->enInTrg0 == u32AdcxTrgSelR1) || (pstcTrgCfg->enInTrg1 == u32AdcxTrgSelR1)))
+            {
                 return ErrorInvalidParameter;
+            }
             break;
 
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
-    return Ok;
+    return enRet;
 }
 
 //@} // AdcGroup

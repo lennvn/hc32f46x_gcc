@@ -518,7 +518,7 @@ void CAN_ModeConfig(en_can_mode_t enMode, en_functional_state_t enNewState);
 en_can_error_t CAN_ErrorStatusGet(void);
 bool CAN_StatusGet(en_can_status_t enCanStatus);
 
-void CAN_FilterConfig(stc_can_filter_t *pstcFilter, en_functional_state_t enNewState);
+void CAN_FilterConfig(const stc_can_filter_t *pstcFilter, en_functional_state_t enNewState);
 void CAN_SetFrame(stc_can_txframe_t *pstcTxFrame);
 en_can_tx_buf_status_t CAN_TransmitCmd(en_can_tx_cmd_t enTxCmd);
 en_can_rx_buf_status_t CAN_Receive(stc_can_rxframe_t *pstcRxFrame);

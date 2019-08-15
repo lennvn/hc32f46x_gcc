@@ -7,7 +7,7 @@
 # Makefile belongs to hc32f46x_ddl/driver
 
 CC = arm-none-eabi-gcc
-CFLAGS = -g -O3 -Wall
+CFLAGS  = -g -O3 -Wall
 
 CUR_DIR = $(shell pwd)
 SRCDIR  = ./src/

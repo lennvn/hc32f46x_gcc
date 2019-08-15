@@ -424,9 +424,9 @@ en_result_t SPI_Cmd(M4_SPI_TypeDef *SPIx, en_functional_state_t enNewSta);
 en_result_t SPI_SendData8(M4_SPI_TypeDef *SPIx, uint8_t u8Data);
 en_result_t SPI_SendData16(M4_SPI_TypeDef *SPIx, uint16_t u16Data);
 en_result_t SPI_SendData32(M4_SPI_TypeDef *SPIx, uint32_t u32Data);
-uint8_t SPI_ReceiveData8(M4_SPI_TypeDef *SPIx);
-uint16_t SPI_ReceiveData16(M4_SPI_TypeDef *SPIx);
-uint32_t SPI_ReceiveData32(M4_SPI_TypeDef *SPIx);
+uint8_t SPI_ReceiveData8(const M4_SPI_TypeDef *SPIx);
+uint16_t SPI_ReceiveData16(const M4_SPI_TypeDef *SPIx);
+uint32_t SPI_ReceiveData32(const M4_SPI_TypeDef *SPIx);
 
 /* Communication configure functions */
 en_result_t SPI_SetSsPolarity(M4_SPI_TypeDef *SPIx, en_spi_ss_channel_t enChannel,

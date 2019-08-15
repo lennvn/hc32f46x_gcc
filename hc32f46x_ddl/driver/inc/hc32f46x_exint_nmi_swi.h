@@ -268,10 +268,10 @@ typedef struct stc_swi_config
 /*******************************************************************************
  * Global function prototypes (definition in C source)
  ******************************************************************************/
-extern en_result_t EXINT_Init(stc_exint_config_t *pstcConfig);
+extern en_result_t EXINT_Init(const stc_exint_config_t *pstcExtiConfig);
 extern en_int_status_t EXINT_IrqFlgGet(en_exti_ch_t enExint);
 extern en_result_t EXINT_IrqFlgClr(en_exti_ch_t enExint);
-extern en_result_t NMI_Init(stc_nmi_config_t *pstcNmiConfig);
+extern en_result_t NMI_Init(const stc_nmi_config_t *pstcNmiConfig);
 extern en_result_t NMI_DeInit(void);
 extern en_int_status_t NMI_IrqFlgGet(en_nmi_src_t enNmiSrc);
 extern en_result_t NMI_IrqFlgClr(uint16_t u16NmiSrc);

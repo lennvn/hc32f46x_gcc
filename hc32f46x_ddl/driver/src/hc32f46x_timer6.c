@@ -387,7 +387,7 @@ en_result_t Timer6_ConfigIrq(M4_TMR6_TypeDef *TMR6x, en_timer6_irq_type_t enTime
  ******************************************************************************/
 uint8_t Timer6_GetStatus(M4_TMR6_TypeDef *TMR6x, en_timer6_status_t enStatus)
 {
-    uint8_t status = 0;
+    uint8_t status = 0u;
 
     /* Check parameters */
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
@@ -396,49 +396,49 @@ uint8_t Timer6_GetStatus(M4_TMR6_TypeDef *TMR6x, en_timer6_status_t enStatus)
     switch (enStatus)
     {
         case Timer6CMAF:
-            status = TMR6x->STFLR_f.CMAF;
+            status = (uint8_t)TMR6x->STFLR_f.CMAF;
             break;
         case Timer6CMBF:
-            status = TMR6x->STFLR_f.CMBF;
+            status = (uint8_t)TMR6x->STFLR_f.CMBF;
             break;
         case Timer6CMCF:
-            status = TMR6x->STFLR_f.CMCF;
+            status = (uint8_t)TMR6x->STFLR_f.CMCF;
             break;
         case Timer6CMDF:
-            status = TMR6x->STFLR_f.CMDF;
+            status = (uint8_t)TMR6x->STFLR_f.CMDF;
             break;
         case Timer6CMEF:
-            status = TMR6x->STFLR_f.CMEF;
+            status = (uint8_t)TMR6x->STFLR_f.CMEF;
             break;
         case Timer6CMFF:
-            status = TMR6x->STFLR_f.CMFF;
+            status = (uint8_t)TMR6x->STFLR_f.CMFF;
             break;
         case Timer6OVFF:
-            status = TMR6x->STFLR_f.OVFF;
+            status = (uint8_t)TMR6x->STFLR_f.OVFF;
             break;
         case Timer6UDFF:
-            status = TMR6x->STFLR_f.UDFF;
+            status = (uint8_t)TMR6x->STFLR_f.UDFF;
             break;
         case Timer6DTEF:
-            status = TMR6x->STFLR_f.DTEF;
+            status = (uint8_t)TMR6x->STFLR_f.DTEF;
             break;
         case Timer6CMSAUF:
-            status = TMR6x->STFLR_f.CMSAUF;
+            status = (uint8_t)TMR6x->STFLR_f.CMSAUF;
             break;
         case Timer6CMSADF:
-            status = TMR6x->STFLR_f.CMSADF;
+            status = (uint8_t)TMR6x->STFLR_f.CMSADF;
             break;
         case Timer6CMSBUF:
-            status = TMR6x->STFLR_f.CMSBUF;
+            status = (uint8_t)TMR6x->STFLR_f.CMSBUF;
             break;
         case Timer6CMSBDF:
-            status = TMR6x->STFLR_f.CMSBDF;
+            status = (uint8_t)TMR6x->STFLR_f.CMSBDF;
             break;
         case Timer6VPERNUM:
-            status = TMR6x->STFLR_f.VPERNUM;
+            status = (uint8_t)TMR6x->STFLR_f.VPERNUM;
             break;
         case Timer6DIRF:
-            status = TMR6x->STFLR_f.DIRF;
+            status = (uint8_t)TMR6x->STFLR_f.DIRF;
             break;
         default:
             break;
@@ -473,13 +473,13 @@ en_result_t Timer6_DeInit(M4_TMR6_TypeDef *TMR6x)
     TMR6x->DCONR = TIMERA_REG_DCONR_RESET_VALUE;
     TMR6x->FCONR = TIMERA_REG_FCONR_RESET_VALUE;
     TMR6x->VPERR = TIMERA_REG_VPERR_RESET_VALUE;
-    TMR6x->HSTAR = 0x00000000u;
-    TMR6x->HSTPR = 0x00000000u;
-    TMR6x->HCLRR = 0x00000000u;
-    TMR6x->HCPAR = 0x00000000u;
-    TMR6x->HCPBR = 0x00000000u;
-    TMR6x->HCUPR = 0x00000000u;
-    TMR6x->HCDOR = 0x00000000u;
+    TMR6x->HSTAR = 0x00000000ul;
+    TMR6x->HSTPR = 0x00000000ul;
+    TMR6x->HCLRR = 0x00000000ul;
+    TMR6x->HCPAR = 0x00000000ul;
+    TMR6x->HCPBR = 0x00000000ul;
+    TMR6x->HCUPR = 0x00000000ul;
+    TMR6x->HCDOR = 0x00000000ul;
 
     return enRet;
 }
@@ -494,26 +494,27 @@ en_result_t Timer6_DeInit(M4_TMR6_TypeDef *TMR6x)
  * \retval  en_result_t  Ok:  Config Success
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ******************************************************************************/
-en_result_t Timer6_Init(M4_TMR6_TypeDef *TMR6x, stc_timer6_basecnt_cfg_t* pstcTimer6BaseCntCfg)
+en_result_t Timer6_Init(M4_TMR6_TypeDef *TMR6x, const stc_timer6_basecnt_cfg_t* pstcTimer6BaseCntCfg)
 {
     en_result_t enRet = Ok;
 
     if (NULL == pstcTimer6BaseCntCfg)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
+    else
+    {
+        /* Check parameters */
+        DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
+        DDL_ASSERT(IS_VALID_COUNT_MODE(pstcTimer6BaseCntCfg->enCntMode));
+        DDL_ASSERT(IS_VALID_COUNT_DIR(pstcTimer6BaseCntCfg->enCntDir));
+        DDL_ASSERT(IS_VALID_COUNT_CLK_DIV(pstcTimer6BaseCntCfg->enCntClkDiv));
 
-    /* Check parameters */
-    DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
-    DDL_ASSERT(IS_VALID_COUNT_MODE(pstcTimer6BaseCntCfg->enCntMode));
-    DDL_ASSERT(IS_VALID_COUNT_DIR(pstcTimer6BaseCntCfg->enCntDir));
-    DDL_ASSERT(IS_VALID_COUNT_CLK_DIV(pstcTimer6BaseCntCfg->enCntClkDiv));
 
-
-    TMR6x->GCONR_f.MODE = pstcTimer6BaseCntCfg->enCntMode;
-    TMR6x->GCONR_f.DIR = pstcTimer6BaseCntCfg->enCntDir;
-    TMR6x->GCONR_f.CKDIV = pstcTimer6BaseCntCfg->enCntClkDiv;
-
+        TMR6x->GCONR_f.MODE = pstcTimer6BaseCntCfg->enCntMode;
+        TMR6x->GCONR_f.DIR = pstcTimer6BaseCntCfg->enCntDir;
+        TMR6x->GCONR_f.CKDIV = pstcTimer6BaseCntCfg->enCntClkDiv;
+    }
     return enRet;
 }
 
@@ -532,7 +533,7 @@ en_result_t Timer6_StartCount(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->GCONR_f.START = 1;
+    TMR6x->GCONR_f.START = 1ul;
 
     return enRet;
 }
@@ -552,7 +553,7 @@ en_result_t Timer6_StopCount(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->GCONR_f.START = 0;
+    TMR6x->GCONR_f.START = 0ul;
 
     return enRet;
 }
@@ -594,7 +595,7 @@ uint16_t Timer6_GetCount(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    u16Value = TMR6x->CNTER_f.CNT;
+    u16Value = (uint16_t)TMR6x->CNTER_f.CNT;
 
     return u16Value;
 }
@@ -615,7 +616,7 @@ en_result_t Timer6_ClearCount(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->CNTER_f.CNT = 0;
+    TMR6x->CNTER_f.CNT = 0ul;
 
     return enRet;
 }
@@ -650,7 +651,8 @@ en_result_t Timer6_SetPeriod(M4_TMR6_TypeDef *TMR6x, en_timer6_period_t enTimer6
             TMR6x->PERCR = u16Period;
             break;
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
     return enRet;
@@ -695,7 +697,8 @@ en_result_t Timer6_SetGeneralCmpValue(M4_TMR6_TypeDef *TMR6x, en_timer6_compare_
             TMR6x->GCMFR = u16Compare;
             break;
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
     return enRet;
@@ -740,7 +743,8 @@ en_result_t Timer6_SetSpecialCmpValue(M4_TMR6_TypeDef *TMR6x, en_timer6_special_
             TMR6x->SCMFR = u16SpclCmp;
             break;
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
     return enRet;
@@ -757,7 +761,7 @@ en_result_t Timer6_SetSpecialCmpValue(M4_TMR6_TypeDef *TMR6x, en_timer6_special_
  * \retval  en_result_t  Ok:  Set Successfully
  *
  ******************************************************************************/
-en_result_t Timer6_SetGeneralBuf(M4_TMR6_TypeDef *TMR6x, en_timer6_chx_port_t enTimer6PWMPort, stc_timer6_gcmp_buf_cfg_t* pstcTimer6GenBufCfg)
+en_result_t Timer6_SetGeneralBuf(M4_TMR6_TypeDef *TMR6x, en_timer6_chx_port_t enTimer6PWMPort, const stc_timer6_gcmp_buf_cfg_t* pstcTimer6GenBufCfg)
 {
     en_result_t enRet = Ok;
 
@@ -776,7 +780,8 @@ en_result_t Timer6_SetGeneralBuf(M4_TMR6_TypeDef *TMR6x, en_timer6_chx_port_t en
             TMR6x->BCONR_f.BSEB = pstcTimer6GenBufCfg->enGcmpBufTransType;
             break;
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
     return enRet;
@@ -793,7 +798,7 @@ en_result_t Timer6_SetGeneralBuf(M4_TMR6_TypeDef *TMR6x, en_timer6_chx_port_t en
  * \retval  en_result_t  Ok:  Set Successfully
  *
  ******************************************************************************/
-en_result_t Timer6_SetSpecialBuf(M4_TMR6_TypeDef *TMR6x,en_timer6_special_compare_t enTimer6SpclCmp, stc_timer6_spcl_buf_cfg_t* pstcTimer6SpclBufCfg)
+en_result_t Timer6_SetSpecialBuf(M4_TMR6_TypeDef *TMR6x,en_timer6_special_compare_t enTimer6SpclCmp, const stc_timer6_spcl_buf_cfg_t* pstcTimer6SpclBufCfg)
 {
     en_result_t enRet = Ok;
 
@@ -815,7 +820,8 @@ en_result_t Timer6_SetSpecialBuf(M4_TMR6_TypeDef *TMR6x,en_timer6_special_compar
             TMR6x->BCONR_f.BTRSPB = pstcTimer6SpclBufCfg->enSpclBufOptType;
             break;
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
     return enRet;
@@ -831,7 +837,7 @@ en_result_t Timer6_SetSpecialBuf(M4_TMR6_TypeDef *TMR6x,en_timer6_special_compar
  * \retval  en_result_t  Ok:  Set Successfully
  *
  ******************************************************************************/
-en_result_t Timer6_SetPeriodBuf(M4_TMR6_TypeDef *TMR6x, stc_timer6_period_buf_cfg_t* pstcTimer6PrdBufCfg)
+en_result_t Timer6_SetPeriodBuf(M4_TMR6_TypeDef *TMR6x, const stc_timer6_period_buf_cfg_t* pstcTimer6PrdBufCfg)
 {
     en_result_t enRet = Ok;
 
@@ -857,7 +863,7 @@ en_result_t Timer6_SetPeriodBuf(M4_TMR6_TypeDef *TMR6x, stc_timer6_period_buf_cf
  ******************************************************************************/
 uint16_t Timer6_GetGeneralCmpValue(M4_TMR6_TypeDef *TMR6x, en_timer6_compare_t enTimer6Compare)
 {
-    uint16_t    u16TempValue;
+    uint16_t    u16TempValue = 0u;
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
     DDL_ASSERT(IS_VALID_GEN_CMP_TYPE(enTimer6Compare));
@@ -865,25 +871,25 @@ uint16_t Timer6_GetGeneralCmpValue(M4_TMR6_TypeDef *TMR6x, en_timer6_compare_t e
     switch (enTimer6Compare)
     {
         case Timer6GenCompareA:
-            u16TempValue = TMR6x->GCMAR;
+            u16TempValue = (uint16_t)TMR6x->GCMAR;
             break;
         case Timer6GenCompareB:
-            u16TempValue = TMR6x->GCMBR;
+            u16TempValue = (uint16_t)TMR6x->GCMBR;
             break;
         case Timer6GenCompareC:
-            u16TempValue = TMR6x->GCMCR;
+            u16TempValue = (uint16_t)TMR6x->GCMCR;
             break;
         case Timer6GenCompareD:
-            u16TempValue = TMR6x->GCMDR;
+            u16TempValue = (uint16_t)TMR6x->GCMDR;
             break;
         case Timer6GenCompareE:
-            u16TempValue = TMR6x->GCMER;
+            u16TempValue = (uint16_t)TMR6x->GCMER;
             break;
         case Timer6GenCompareF:
-            u16TempValue = TMR6x->GCMFR;
+            u16TempValue = (uint16_t)TMR6x->GCMFR;
             break;
         default:
-            return ErrorInvalidParameter;
+            break;
     }
 
     return u16TempValue;
@@ -899,24 +905,25 @@ uint16_t Timer6_GetGeneralCmpValue(M4_TMR6_TypeDef *TMR6x, en_timer6_compare_t e
  * \retval  en_result_t  Ok:  Config successfully
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ***********************************************************************/
-en_result_t Timer6_SetValidPeriod(M4_TMR6_TypeDef *TMR6x, stc_timer6_validper_cfg_t* pstcTimer6ValidPerCfg)
+en_result_t Timer6_SetValidPeriod(M4_TMR6_TypeDef *TMR6x, const stc_timer6_validper_cfg_t* pstcTimer6ValidPerCfg)
 {
     en_result_t enRet = Ok;
 
     if (NULL == pstcTimer6ValidPerCfg)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
+    else
+    {
+        DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
+        DDL_ASSERT(IS_VALID_VPERR_PCNT_EN_SOURCE(pstcTimer6ValidPerCfg->enValidCdtEn));
+        DDL_ASSERT(IS_VALID_VPERR_PCNT_NUM(pstcTimer6ValidPerCfg->enValidCntNum));
 
-    DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
-    DDL_ASSERT(IS_VALID_VPERR_PCNT_EN_SOURCE(pstcTimer6ValidPerCfg->enValidCdtEn));
-    DDL_ASSERT(IS_VALID_VPERR_PCNT_NUM(pstcTimer6ValidPerCfg->enValidCntNum));
-
-    TMR6x->VPERR_f.PCNTS   = pstcTimer6ValidPerCfg->enValidCntNum;
-    TMR6x->VPERR_f.PCNTE   = pstcTimer6ValidPerCfg->enValidCdtEn;
-    TMR6x->VPERR_f.SPPERIA = pstcTimer6ValidPerCfg->bPeriodSCMA;
-    TMR6x->VPERR_f.SPPERIB = pstcTimer6ValidPerCfg->bPeriodSCMB;
-
+        TMR6x->VPERR_f.PCNTS   = pstcTimer6ValidPerCfg->enValidCntNum;
+        TMR6x->VPERR_f.PCNTE   = pstcTimer6ValidPerCfg->enValidCdtEn;
+        TMR6x->VPERR_f.SPPERIA = pstcTimer6ValidPerCfg->bPeriodSCMA;
+        TMR6x->VPERR_f.SPPERIB = pstcTimer6ValidPerCfg->bPeriodSCMB;
+    }
     return enRet;
 }
 
@@ -930,7 +937,7 @@ en_result_t Timer6_SetValidPeriod(M4_TMR6_TypeDef *TMR6x, stc_timer6_validper_cf
  * \retval  en_result_t  Ok:  Set successfully
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ******************************************************************************/
-en_result_t Timer6_PortInputConfig(M4_TMR6_TypeDef *TMR6x, stc_timer6_port_input_cfg_t* pstcTimer6PortInputCfg)
+en_result_t Timer6_PortInputConfig(M4_TMR6_TypeDef *TMR6x, const stc_timer6_port_input_cfg_t* pstcTimer6PortInputCfg)
 {
     en_result_t enRet = Ok;
 
@@ -938,37 +945,39 @@ en_result_t Timer6_PortInputConfig(M4_TMR6_TypeDef *TMR6x, stc_timer6_port_input
 
     if (NULL == pstcTimer6PortInputCfg)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
-
-    switch (pstcTimer6PortInputCfg->enPortSel)
+    else
     {
-        case Timer6xCHA:
-            TMR6x->PCONR_f.CAPMDA   = pstcTimer6PortInputCfg->enPortMode;
-            TMR6x->FCONR_f.NOFIENGA = pstcTimer6PortInputCfg->bFltEn;
-            TMR6x->FCONR_f.NOFICKGA = pstcTimer6PortInputCfg->enFltClk;
-            break;
+        switch (pstcTimer6PortInputCfg->enPortSel)
+        {
+            case Timer6xCHA:
+                TMR6x->PCONR_f.CAPMDA   = pstcTimer6PortInputCfg->enPortMode;
+                TMR6x->FCONR_f.NOFIENGA = pstcTimer6PortInputCfg->bFltEn;
+                TMR6x->FCONR_f.NOFICKGA = pstcTimer6PortInputCfg->enFltClk;
+                break;
 
-        case Timer6xCHB:
-            TMR6x->PCONR_f.CAPMDB   = pstcTimer6PortInputCfg->enPortMode;
-            TMR6x->FCONR_f.NOFIENGB = pstcTimer6PortInputCfg->bFltEn;
-            TMR6x->FCONR_f.NOFICKGB = pstcTimer6PortInputCfg->enFltClk;
-            break;
+            case Timer6xCHB:
+                TMR6x->PCONR_f.CAPMDB   = pstcTimer6PortInputCfg->enPortMode;
+                TMR6x->FCONR_f.NOFIENGB = pstcTimer6PortInputCfg->bFltEn;
+                TMR6x->FCONR_f.NOFICKGB = pstcTimer6PortInputCfg->enFltClk;
+                break;
 
-        case Timer6TrigA:
-            TMR6x->FCONR_f.NOFIENTA = pstcTimer6PortInputCfg->bFltEn;
-            TMR6x->FCONR_f.NOFICKTA = pstcTimer6PortInputCfg->enFltClk;
-            break;
+            case Timer6TrigA:
+                TMR6x->FCONR_f.NOFIENTA = pstcTimer6PortInputCfg->bFltEn;
+                TMR6x->FCONR_f.NOFICKTA = pstcTimer6PortInputCfg->enFltClk;
+                break;
 
-        case Timer6TrigB:
-            TMR6x->FCONR_f.NOFIENTB = pstcTimer6PortInputCfg->bFltEn;
-            TMR6x->FCONR_f.NOFICKTB = pstcTimer6PortInputCfg->enFltClk;
-            break;
+            case Timer6TrigB:
+                TMR6x->FCONR_f.NOFIENTB = pstcTimer6PortInputCfg->bFltEn;
+                TMR6x->FCONR_f.NOFICKTB = pstcTimer6PortInputCfg->enFltClk;
+                break;
 
-        default:
-            return ErrorInvalidParameter;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
     }
-
     return enRet;
 }
 
@@ -985,7 +994,7 @@ en_result_t Timer6_PortInputConfig(M4_TMR6_TypeDef *TMR6x, stc_timer6_port_input
  ******************************************************************************/
 en_result_t Timer6_PortOutputConfig(M4_TMR6_TypeDef *TMR6x,
                                 en_timer6_chx_port_t enTimer6PWMPort,
-                                stc_timer6_port_output_cfg_t* pstcTimer6PortOutCfg)
+                                const stc_timer6_port_output_cfg_t* pstcTimer6PortOutCfg)
 {
     en_result_t enRet = Ok;
 
@@ -994,37 +1003,39 @@ en_result_t Timer6_PortOutputConfig(M4_TMR6_TypeDef *TMR6x,
 
     if (NULL == pstcTimer6PortOutCfg)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
-
-    switch (enTimer6PWMPort)
+    else
     {
-        case Timer6PWMA:
-            TMR6x->PCONR_f.CAPMDA = pstcTimer6PortOutCfg->enPortMode;
-            TMR6x->PCONR_f.STACA = pstcTimer6PortOutCfg->enStaOut;
-            TMR6x->PCONR_f.STPCA = pstcTimer6PortOutCfg->enStpOut;
-            TMR6x->PCONR_f.STASTPSA = pstcTimer6PortOutCfg->enStaStp;
-            TMR6x->PCONR_f.CMPCA = pstcTimer6PortOutCfg->enCmpc;
-            TMR6x->PCONR_f.PERCA = pstcTimer6PortOutCfg->enPerc;
-            TMR6x->PCONR_f.OUTENA = pstcTimer6PortOutCfg->bOutEn;
-            TMR6x->PCONR_f.EMBVALA = pstcTimer6PortOutCfg->enDisVal;
-            break;
+        switch (enTimer6PWMPort)
+        {
+            case Timer6PWMA:
+                TMR6x->PCONR_f.CAPMDA = pstcTimer6PortOutCfg->enPortMode;
+                TMR6x->PCONR_f.STACA = pstcTimer6PortOutCfg->enStaOut;
+                TMR6x->PCONR_f.STPCA = pstcTimer6PortOutCfg->enStpOut;
+                TMR6x->PCONR_f.STASTPSA = pstcTimer6PortOutCfg->enStaStp;
+                TMR6x->PCONR_f.CMPCA = pstcTimer6PortOutCfg->enCmpc;
+                TMR6x->PCONR_f.PERCA = pstcTimer6PortOutCfg->enPerc;
+                TMR6x->PCONR_f.OUTENA = pstcTimer6PortOutCfg->bOutEn;
+                TMR6x->PCONR_f.EMBVALA = pstcTimer6PortOutCfg->enDisVal;
+                break;
 
-        case Timer6PWMB:
-            TMR6x->PCONR_f.CAPMDB = pstcTimer6PortOutCfg->enPortMode;
-            TMR6x->PCONR_f.STACB = pstcTimer6PortOutCfg->enStaOut;
-            TMR6x->PCONR_f.STPCB = pstcTimer6PortOutCfg->enStpOut;
-            TMR6x->PCONR_f.STASTPSB = pstcTimer6PortOutCfg->enStaStp;
-            TMR6x->PCONR_f.CMPCB = pstcTimer6PortOutCfg->enCmpc;
-            TMR6x->PCONR_f.PERCB = pstcTimer6PortOutCfg->enPerc;
-            TMR6x->PCONR_f.OUTENB = pstcTimer6PortOutCfg->bOutEn;
-            TMR6x->PCONR_f.EMBVALB = pstcTimer6PortOutCfg->enDisVal;
-            break;
+            case Timer6PWMB:
+                TMR6x->PCONR_f.CAPMDB = pstcTimer6PortOutCfg->enPortMode;
+                TMR6x->PCONR_f.STACB = pstcTimer6PortOutCfg->enStaOut;
+                TMR6x->PCONR_f.STPCB = pstcTimer6PortOutCfg->enStpOut;
+                TMR6x->PCONR_f.STASTPSB = pstcTimer6PortOutCfg->enStaStp;
+                TMR6x->PCONR_f.CMPCB = pstcTimer6PortOutCfg->enCmpc;
+                TMR6x->PCONR_f.PERCB = pstcTimer6PortOutCfg->enPerc;
+                TMR6x->PCONR_f.OUTENB = pstcTimer6PortOutCfg->bOutEn;
+                TMR6x->PCONR_f.EMBVALB = pstcTimer6PortOutCfg->enDisVal;
+                break;
 
-        default:
-            return ErrorInvalidParameter;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
     }
-
     return enRet;
 }
 
@@ -1062,7 +1073,8 @@ en_result_t Timer6_SetDeadTimeValue(M4_TMR6_TypeDef *TMR6x, en_timer6_dead_time_
             TMR6x->DTDBR = u16DTValue;
             break;
         default:
-            return ErrorInvalidParameter;
+            enRet = ErrorInvalidParameter;
+            break;
     }
 
     return enRet;
@@ -1078,7 +1090,7 @@ en_result_t Timer6_SetDeadTimeValue(M4_TMR6_TypeDef *TMR6x, en_timer6_dead_time_
  * \retval  en_result_t  Ok:  Set Successfully
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ******************************************************************************/
-en_result_t Timer6_ConfigDeadTime(M4_TMR6_TypeDef *TMR6x, stc_timer6_deadtime_cfg_t* pstcTimer6DTCfg)
+en_result_t Timer6_ConfigDeadTime(M4_TMR6_TypeDef *TMR6x, const stc_timer6_deadtime_cfg_t* pstcTimer6DTCfg)
 {
     en_result_t enRet = Ok;
 
@@ -1086,14 +1098,15 @@ en_result_t Timer6_ConfigDeadTime(M4_TMR6_TypeDef *TMR6x, stc_timer6_deadtime_cf
 
     if (NULL == pstcTimer6DTCfg)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
-
-    TMR6x->DCONR_f.SEPA   = pstcTimer6DTCfg->bEnDtEqualUpDwn;
-    TMR6x->DCONR_f.DTBENU = pstcTimer6DTCfg->bEnDtBufUp;
-    TMR6x->DCONR_f.DTBEND = pstcTimer6DTCfg->bEnDtBufDwn;
-    TMR6x->DCONR_f.DTCEN  = pstcTimer6DTCfg->bEnDeadtime;
-
+    else
+    {
+        TMR6x->DCONR_f.SEPA   = pstcTimer6DTCfg->bEnDtEqualUpDwn;
+        TMR6x->DCONR_f.DTBENU = pstcTimer6DTCfg->bEnDtBufUp;
+        TMR6x->DCONR_f.DTBEND = pstcTimer6DTCfg->bEnDtBufDwn;
+        TMR6x->DCONR_f.DTCEN  = pstcTimer6DTCfg->bEnDeadtime;
+    }
     return enRet;
 }
 
@@ -1106,31 +1119,32 @@ en_result_t Timer6_ConfigDeadTime(M4_TMR6_TypeDef *TMR6x, stc_timer6_deadtime_cf
  * \retval  en_result_t    Ok:  Set successfully
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ******************************************************************************/
-en_result_t Timer6_SwSyncStart(stc_timer6_sw_sync_t* pstcTimer6SwSyncStart)
+en_result_t Timer6_SwSyncStart(const stc_timer6_sw_sync_t* pstcTimer6SwSyncStart)
 {
     en_result_t enRet = Ok;
-    uint32_t u32Val = 0;
+    uint32_t u32Val = 0ul;
 
     if (NULL == pstcTimer6SwSyncStart)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
-
-    if (pstcTimer6SwSyncStart->bTimer61)
+    else
     {
-        u32Val |= 0x1;
-    }
-    if (pstcTimer6SwSyncStart->bTimer62)
-    {
-        u32Val |= 0x2;
-    }
-    if (pstcTimer6SwSyncStart->bTimer63)
-    {
-        u32Val |= 0x4;
-    }
+        if (pstcTimer6SwSyncStart->bTimer61)
+        {
+            u32Val |= 0x1ul;
+        }
+        if (pstcTimer6SwSyncStart->bTimer62)
+        {
+            u32Val |= 0x2ul;
+        }
+        if (pstcTimer6SwSyncStart->bTimer63)
+        {
+            u32Val |= 0x4ul;
+        }
 
-    M4_TMR6_CR->SSTAR = u32Val;
-
+        M4_TMR6_CR->SSTAR = u32Val;
+    }
     return enRet;
 }
 
@@ -1143,31 +1157,32 @@ en_result_t Timer6_SwSyncStart(stc_timer6_sw_sync_t* pstcTimer6SwSyncStart)
  * \retval  en_result_t    Ok:  Set successfully
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ******************************************************************************/
-en_result_t Timer6_SwSyncStop(stc_timer6_sw_sync_t* pstcTimer6SwSyncStop)
+en_result_t Timer6_SwSyncStop(const stc_timer6_sw_sync_t* pstcTimer6SwSyncStop)
 {
     en_result_t enRet = Ok;
-    uint32_t u32Val = 0;
+    uint32_t u32Val = 0ul;
 
     if (NULL == pstcTimer6SwSyncStop)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
-
-    if (pstcTimer6SwSyncStop->bTimer61)
+    else
     {
-        u32Val |= 0x1;
-    }
-    if (pstcTimer6SwSyncStop->bTimer62)
-    {
-        u32Val |= 0x2;
-    }
-    if (pstcTimer6SwSyncStop->bTimer63)
-    {
-        u32Val |= 0x4;
-    }
+        if (pstcTimer6SwSyncStop->bTimer61)
+        {
+            u32Val |= 0x1ul;
+        }
+        if (pstcTimer6SwSyncStop->bTimer62)
+        {
+            u32Val |= 0x2ul;
+        }
+        if (pstcTimer6SwSyncStop->bTimer63)
+        {
+            u32Val |= 0x4ul;
+        }
 
-    M4_TMR6_CR->SSTPR = u32Val;
-
+        M4_TMR6_CR->SSTPR = u32Val;
+    }
     return enRet;
 }
 
@@ -1180,31 +1195,32 @@ en_result_t Timer6_SwSyncStop(stc_timer6_sw_sync_t* pstcTimer6SwSyncStop)
  * \retval  en_result_t    Ok:  Set successfully
  * \retval  en_result_t  ErrorInvalidParameter: Provided parameter is not valid
  ******************************************************************************/
-en_result_t Timer6_SwSyncClear(stc_timer6_sw_sync_t* pstcTimer6SwSyncClear)
+en_result_t Timer6_SwSyncClear(const stc_timer6_sw_sync_t* pstcTimer6SwSyncClear)
 {
     en_result_t enRet = Ok;
-    uint32_t u32Val = 0;
+    uint32_t u32Val = 0ul;
 
     if (NULL == pstcTimer6SwSyncClear)
     {
-        return ErrorInvalidParameter;
+        enRet = ErrorInvalidParameter;
     }
-
-    if (pstcTimer6SwSyncClear->bTimer61)
+    else
     {
-        u32Val |= 0x1;
-    }
-    if (pstcTimer6SwSyncClear->bTimer62)
-    {
-        u32Val |= 0x2;
-    }
-    if (pstcTimer6SwSyncClear->bTimer63)
-    {
-        u32Val |= 0x4;
-    }
+        if (pstcTimer6SwSyncClear->bTimer61)
+        {
+            u32Val |= 0x1ul;
+        }
+        if (pstcTimer6SwSyncClear->bTimer62)
+        {
+            u32Val |= 0x2ul;
+        }
+        if (pstcTimer6SwSyncClear->bTimer63)
+        {
+            u32Val |= 0x4ul;
+        }
 
-    M4_TMR6_CR->SCLRR = u32Val;
-
+        M4_TMR6_CR->SCLRR = u32Val;
+    }
     return enRet;
 }
 
@@ -1223,32 +1239,34 @@ en_result_t Timer6_GetSwSyncState(stc_timer6_sw_sync_t* pstcTimer6SwSyncState)
 
     if (NULL == pstcTimer6SwSyncState)
     {
-        return ErrorInvalidParameter;
-    }
-
-    if (M4_TMR6_CR->SSTAR & 0x1)
-    {
-        pstcTimer6SwSyncState->bTimer61 = true;
+        enRet = ErrorInvalidParameter;
     }
     else
     {
-        pstcTimer6SwSyncState->bTimer61 = false;
-    }
-    if (M4_TMR6_CR->SSTAR & 0x2)
-    {
-        pstcTimer6SwSyncState->bTimer62 = true;
-    }
-    else
-    {
-        pstcTimer6SwSyncState->bTimer62 = false;
-    }
-    if (M4_TMR6_CR->SSTAR & 0x4)
-    {
-        pstcTimer6SwSyncState->bTimer63 = true;
-    }
-    else
-    {
-        pstcTimer6SwSyncState->bTimer63 = false;
+        if (M4_TMR6_CR->SSTAR & 0x1ul)
+        {
+            pstcTimer6SwSyncState->bTimer61 = true;
+        }
+        else
+        {
+            pstcTimer6SwSyncState->bTimer61 = false;
+        }
+        if (M4_TMR6_CR->SSTAR & 0x2ul)
+        {
+            pstcTimer6SwSyncState->bTimer62 = true;
+        }
+        else
+        {
+            pstcTimer6SwSyncState->bTimer62 = false;
+        }
+        if (M4_TMR6_CR->SSTAR & 0x4ul)
+        {
+            pstcTimer6SwSyncState->bTimer63 = true;
+        }
+        else
+        {
+            pstcTimer6SwSyncState->bTimer63 = false;
+        }
     }
 
     return enRet;
@@ -1271,7 +1289,7 @@ en_result_t Timer6_ConfigHwCntUp(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_cnt_t enTi
     DDL_ASSERT(IS_VALID_HW_COUNT_TYPE(enTimer6HwCntUp));
 
     u32Val = TMR6x->HCUPR;
-    TMR6x->HCUPR = u32Val | (1u<<enTimer6HwCntUp);
+    TMR6x->HCUPR = u32Val | (1ul << enTimer6HwCntUp);
 
     return enRet;
 }
@@ -1290,7 +1308,7 @@ en_result_t Timer6_ClearHwCntUp(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HCUPR = 0;
+    TMR6x->HCUPR = 0ul;
 
     return enRet;
 }
@@ -1313,7 +1331,7 @@ en_result_t Timer6_ConfigHwCntDwn(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_cnt_t enT
     DDL_ASSERT(IS_VALID_HW_COUNT_TYPE(enTimer6HwCntDwn));
 
     u32Val = TMR6x->HCDOR;
-    TMR6x->HCDOR = u32Val | (1u<<enTimer6HwCntDwn);
+    TMR6x->HCDOR = u32Val | (1ul << enTimer6HwCntDwn);
 
     return enRet;
 }
@@ -1333,7 +1351,7 @@ en_result_t Timer6_ClearHwCntDwn(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HCDOR = 0;
+    TMR6x->HCDOR = 0ul;
 
     return enRet;
 }
@@ -1353,12 +1371,11 @@ en_result_t Timer6_ConfigHwStart(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_trig_t enT
     en_result_t enRet = Ok;
     uint32_t u32Val;
 
-
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
     DDL_ASSERT(IS_VALID_HW_STA_STP_CLR_CAP_TYPE(enTimer6HwStart));
 
     u32Val = TMR6x->HSTAR;
-    TMR6x->HSTAR = u32Val | (1u<<enTimer6HwStart);
+    TMR6x->HSTAR = u32Val | (1ul << enTimer6HwStart);
 
     return enRet;
 }
@@ -1378,7 +1395,7 @@ en_result_t Timer6_ClearHwStart(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HSTAR = 0;
+    TMR6x->HSTAR = 0ul;
 
     return enRet;
 }
@@ -1400,7 +1417,7 @@ en_result_t Timer6_EnableHwStart(M4_TMR6_TypeDef *TMR6x)
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
     u32Val = TMR6x->HSTAR;
-    TMR6x->HSTAR = u32Val | (1u<<31);
+    TMR6x->HSTAR = u32Val | (1ul << 31u);
 
     return enRet;
 }
@@ -1422,7 +1439,7 @@ en_result_t Timer6_DisableHwStart(M4_TMR6_TypeDef *TMR6x)
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
     u32Val = TMR6x->HSTAR;
-    TMR6x->HSTAR = u32Val & 0x7FFFFFFF;
+    TMR6x->HSTAR = u32Val & 0x7FFFFFFFul;
 
     return enRet;
 }
@@ -1446,7 +1463,7 @@ en_result_t Timer6_ConfigHwStop(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_trig_t enTi
     DDL_ASSERT(IS_VALID_HW_STA_STP_CLR_CAP_TYPE(enTimer6HwStop));
 
     u32Val = TMR6x->HSTPR;
-    TMR6x->HSTPR = u32Val | (1u<<enTimer6HwStop);
+    TMR6x->HSTPR = u32Val | (1ul << enTimer6HwStop);
 
     return enRet;
 }
@@ -1466,7 +1483,7 @@ en_result_t Timer6_ClearHwStop(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HSTPR = 0;
+    TMR6x->HSTPR = 0ul;
     return enRet;
 }
 
@@ -1487,7 +1504,7 @@ en_result_t Timer6_EnableHwStop(M4_TMR6_TypeDef *TMR6x)
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
     u32Val = TMR6x->HSTPR;
-    TMR6x->HSTPR = u32Val | (1u<<31);
+    TMR6x->HSTPR = u32Val | (1ul << 31u);
     return enRet;
 }
 
@@ -1508,7 +1525,7 @@ en_result_t Timer6_DisableHwStop(M4_TMR6_TypeDef *TMR6x)
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
     u32Val = TMR6x->HSTPR;
-    TMR6x->HSTPR = u32Val & 0x7FFFFFFF;
+    TMR6x->HSTPR = u32Val & 0x7FFFFFFFul;
 
     return enRet;
 }
@@ -1532,7 +1549,7 @@ en_result_t Timer6_ConfigHwClear(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_trig_t enT
     DDL_ASSERT(IS_VALID_HW_STA_STP_CLR_CAP_TYPE(enTimer6HwClear));
 
     u32Val = TMR6x->HCLRR;
-    TMR6x->HCLRR = u32Val | (1u<<enTimer6HwClear);
+    TMR6x->HCLRR = u32Val | (1ul << enTimer6HwClear);
 
     return enRet;
 }
@@ -1552,7 +1569,7 @@ en_result_t Timer6_ClearHwClear(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HCLRR = 0;
+    TMR6x->HCLRR = 0ul;
 
     return enRet;
 }
@@ -1574,7 +1591,7 @@ en_result_t Timer6_EnableHwClear(M4_TMR6_TypeDef *TMR6x)
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
     u32Val = TMR6x->HCLRR;
-    TMR6x->HCLRR = u32Val | (1u<<31);
+    TMR6x->HCLRR = u32Val | (1ul << 31u);
 
     return enRet;
 }
@@ -1596,7 +1613,7 @@ en_result_t Timer6_DisableHwClear(M4_TMR6_TypeDef *TMR6x)
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
     u32Val = TMR6x->HCLRR;
-    TMR6x->HCLRR = u32Val & 0x7FFFFFFF;
+    TMR6x->HCLRR = u32Val & 0x7FFFFFFFul;
 
     return enRet;
 }
@@ -1620,7 +1637,7 @@ en_result_t Timer6_ConfigHwCaptureA(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_trig_t 
     DDL_ASSERT(IS_VALID_HW_STA_STP_CLR_CAP_TYPE(enTimer6HwCaptureA));
 
     u32Val = TMR6x->HCPAR;
-    TMR6x->HCPAR = u32Val | (1u<<enTimer6HwCaptureA);
+    TMR6x->HCPAR = u32Val | (1ul << enTimer6HwCaptureA);
     //TMR6x->PCONR_f.CAPMDA = 1;
 
     return enRet;
@@ -1641,7 +1658,7 @@ en_result_t Timer6_ClearHwCaptureA(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HCPAR = 0;
+    TMR6x->HCPAR = 0ul;
 
     return enRet;
 }
@@ -1665,7 +1682,7 @@ en_result_t Timer6_ConfigHwCaptureB(M4_TMR6_TypeDef *TMR6x, en_timer6_hw_trig_t 
     DDL_ASSERT(IS_VALID_HW_STA_STP_CLR_CAP_TYPE(enTimer6HwCaptureB));
 
     u32Val = TMR6x->HCPBR;
-    TMR6x->HCPBR =  u32Val | (1u<<enTimer6HwCaptureB);
+    TMR6x->HCPBR =  u32Val | (1ul << enTimer6HwCaptureB);
     //TMR6x->PCONR_f.CAPMDB = 1;
 
     return enRet;
@@ -1686,7 +1703,7 @@ en_result_t Timer6_ClearHwCaptureB(M4_TMR6_TypeDef *TMR6x)
 
     DDL_ASSERT(IS_VALID_NORMAL_TIMER6_UNIT(TMR6x));
 
-    TMR6x->HCPBR = 0;
+    TMR6x->HCPBR = 0ul;
 
     return enRet;
 }
@@ -1701,7 +1718,7 @@ en_result_t Timer6_ClearHwCaptureB(M4_TMR6_TypeDef *TMR6x)
  * \retval  en_result_t  Ok:  Set successfully
  *
  ******************************************************************************/
-en_result_t Timer6_ConfigZMask(M4_TMR6_TypeDef *TMR6x, stc_timer6_zmask_cfg_t* pstcTimer6ZMaskCfg)
+en_result_t Timer6_ConfigZMask(M4_TMR6_TypeDef *TMR6x, const stc_timer6_zmask_cfg_t* pstcTimer6ZMaskCfg)
 {
     en_result_t enRet = Ok;
 

@@ -56,8 +56,8 @@
  * Include files
  ******************************************************************************/
 
+#include "hc32_common.h"
 #include "ddl_config.h"
-#include "hc32_ddl.h"
 
 #if (DDL_TIMER0_ENABLE == DDL_ON)
 
@@ -212,7 +212,7 @@ void TIMER0_BaseInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
 void TIMER0_DeInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh);
 void TIMER0_HardTriggerInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
                                 const stc_tim0_trigger_init_t* pStcInit);
-void TIMER0_SetTriggerSrc(M4_TMR0_TypeDef* pstcTim0Reg, en_event_src_t enEvent);
+void TIMER0_SetTriggerSrc(en_event_src_t enEvent);
 
 //@} // Timer0Group
 

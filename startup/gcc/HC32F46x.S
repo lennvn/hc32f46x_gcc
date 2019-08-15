@@ -268,7 +268,7 @@ __Vectors:
                 .long       IRQ142_Handler
                 .long       IRQ143_Handler
 
-                .space      (80 * 4)                          /* Interrupts 144 .. 224 are left out */
+                /*.space      (80 * 4)                          /* Interrupts 144 .. 224 are left out */
 __Vectors_End:
                 .equ        __Vectors_Size, __Vectors_End - __Vectors
                 .size       __Vectors, . - __Vectors
@@ -361,7 +361,7 @@ ClearLoop1:
                 blt         ClearLoop1
 
                 /* Call the clock system initialization function. */
-                /*bl          SystemInit*/
+                bl          SystemInit
                 /* Call the application's entry point. */
                 bl          main
                 bx          lr

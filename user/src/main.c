@@ -128,8 +128,20 @@ int32_t main(void)
     stcPortInit.enExInt   = Enable;
     stcPortInit.enPullUp  = Enable;
 
-    PORT_DeInit();
 
+#if 0
+    /* LED0 Port/Pin initialization */
+    PORT_InitNew(LED0_PORT, LED0_PIN, &stcPortInit);
+
+    /* LED1 Port/Pin initialization */
+    PORT_InitNew(LED1_PORT, LED1_PIN, &stcPortInit);
+
+    /* LED2 Port/Pin initialization */
+    PORT_InitNew(LED2_PORT, LED2_PIN, &stcPortInit);
+
+    /* LED3 Port/Pin initialization */
+    PORT_InitNew(LED3_PORT, LED3_PIN, &stcPortInit);
+#else
     /* LED0 Port/Pin initialization */
     PORT_Init(LED0_PORT, LED0_PIN, &stcPortInit);
 
@@ -141,6 +153,7 @@ int32_t main(void)
 
     /* LED3 Port/Pin initialization */
     PORT_Init(LED3_PORT, LED3_PIN, &stcPortInit);
+#endif
     while(1)
     {
         LED0_TOGGLE();

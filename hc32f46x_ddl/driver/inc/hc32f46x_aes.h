@@ -89,9 +89,6 @@ extern "C"
 /*******************************************************************************
  * Global function prototypes (definition in C source)
  ******************************************************************************/
-void AES_Init(void);
-void AES_DeInit(void);
-
 en_result_t AES_Encrypt(const uint8_t *pu8Plaintext,
                         uint32_t u32PlaintextSize,
                         const uint8_t *pu8Key,

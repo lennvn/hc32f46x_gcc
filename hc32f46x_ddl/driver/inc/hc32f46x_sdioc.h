@@ -317,12 +317,11 @@ typedef enum en_sdioc_speed_mode
  ******************************************************************************/
 typedef enum en_sdioc_response_reg
 {
-    SdiocRegResp01 = 0x10u,                 ///< Response 0/1 Register
-    SdiocRegResp23 = 0x14u,                 ///< Response 2/3 Register
-    SdiocRegResp45 = 0x18u,                 ///< Response 4/5 Register
-    SdiocRegResp67 = 0x1Cu,                 ///< Response 5/6 Register
+    SdiocRegResp01 = 0x00u,                 ///< Response 0/1 Register
+    SdiocRegResp23 = 0x04u,                 ///< Response 2/3 Register
+    SdiocRegResp45 = 0x08u,                 ///< Response 4/5 Register
+    SdiocRegResp67 = 0x0Cu,                 ///< Response 5/6 Register
 } en_sdioc_response_reg_t;
-
 
 /**
  ******************************************************************************
@@ -499,9 +498,9 @@ en_result_t SDIOC_Init(M4_SDIOC_TypeDef *SDIOCx,
 en_result_t SDIOC_DeInit(M4_SDIOC_TypeDef *SDIOCx);
 en_result_t SDIOC_SendCommand(M4_SDIOC_TypeDef *SDIOCx,
                                 const stc_sdioc_cmd_cfg_t *pstcCmdCfg);
-uint32_t SDIOC_GetResponse(M4_SDIOC_TypeDef *SDIOCx,
+uint32_t SDIOC_GetResponse(const M4_SDIOC_TypeDef *SDIOCx,
                                 en_sdioc_response_reg_t enRespReg);
-uint32_t SDIOC_ReadBuffer(M4_SDIOC_TypeDef *SDIOCx,
+en_result_t SDIOC_ReadBuffer(M4_SDIOC_TypeDef *SDIOCx,
                                 uint8_t *pu8Data,
                                 uint32_t u32Len);
 en_result_t SDIOC_WriteBuffer(M4_SDIOC_TypeDef *SDIOCx,

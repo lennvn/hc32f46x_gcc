@@ -149,6 +149,8 @@
  ******************************************************************************/
 en_result_t KEYSCAN_Init(const stc_keyscan_config_t *pstcKeyscanConfig)
 {
+    en_result_t enRet = Ok;
+
     DDL_ASSERT(IS_VALID_HIZ_CLCYE(pstcKeyscanConfig->enHizCycle));
     DDL_ASSERT(IS_VALID_LOW_CLCYE(pstcKeyscanConfig->enLowCycle));
     DDL_ASSERT(IS_VALID_SCAN_CLK(pstcKeyscanConfig->enKeyscanClk));
@@ -157,16 +159,17 @@ en_result_t KEYSCAN_Init(const stc_keyscan_config_t *pstcKeyscanConfig)
     /* cannot configure keyscan control register when running */
     if (Set == M4_KEYSCAN->SER_f.SEN)
     {
-        return ErrorInvalidMode;
+        enRet = ErrorInvalidMode;
     }
-
-    M4_KEYSCAN->SCR_f.T_HIZ = pstcKeyscanConfig->enHizCycle;
-    M4_KEYSCAN->SCR_f.T_LLEVEL = pstcKeyscanConfig->enLowCycle;
-    M4_KEYSCAN->SCR_f.CKSEL = pstcKeyscanConfig->enKeyscanClk;
-    M4_KEYSCAN->SCR_f.KEYOUTSEL = pstcKeyscanConfig->enKeyoutSel;
-    M4_KEYSCAN->SCR_f.KEYINSEL = pstcKeyscanConfig->u16KeyinSel;
-
-    return Ok;
+    else
+    {
+        M4_KEYSCAN->SCR_f.T_HIZ = pstcKeyscanConfig->enHizCycle;
+        M4_KEYSCAN->SCR_f.T_LLEVEL = pstcKeyscanConfig->enLowCycle;
+        M4_KEYSCAN->SCR_f.CKSEL = pstcKeyscanConfig->enKeyscanClk;
+        M4_KEYSCAN->SCR_f.KEYOUTSEL = pstcKeyscanConfig->enKeyoutSel;
+        M4_KEYSCAN->SCR_f.KEYINSEL = pstcKeyscanConfig->u16KeyinSel;
+    }
+    return enRet;
 }
 
 /**
@@ -180,8 +183,8 @@ en_result_t KEYSCAN_Init(const stc_keyscan_config_t *pstcKeyscanConfig)
  ******************************************************************************/
 en_result_t KEYSCAN_DeInit(void)
 {
-    M4_KEYSCAN->SER = 0;
-    M4_KEYSCAN->SCR = 0;
+    M4_KEYSCAN->SER = 0ul;
+    M4_KEYSCAN->SCR = 0ul;
     return Ok;
 }
 
@@ -226,7 +229,7 @@ en_result_t KEYSCAN_Stop(void)
  ******************************************************************************/
 uint8_t KEYSCAN_GetColIdx(void)
 {
-    return M4_KEYSCAN->SSR_f.INDEX;
+    return (uint8_t)(M4_KEYSCAN->SSR_f.INDEX);
 }
 
 //@} // KeyscanGroup

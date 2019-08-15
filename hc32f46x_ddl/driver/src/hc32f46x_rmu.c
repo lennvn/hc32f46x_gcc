@@ -70,12 +70,10 @@
 /*******************************************************************************
  * Local pre-processor symbols/macros ('#define')
  ******************************************************************************/
-#define ENABLE_RMU_REG_WRITE()            (M4_SYSREG->PWR_FPRC = 0xa502)
-#define DISABLE_RMU_REG_WRITE()           (M4_SYSREG->PWR_FPRC = 0xa500)
+#define ENABLE_RMU_REG_WRITE()            (M4_SYSREG->PWR_FPRC = 0xa502u)
+#define DISABLE_RMU_REG_WRITE()           (M4_SYSREG->PWR_FPRC = 0xa500u)
 
-#define RMU_FLAG_TIM                      ((uint16_t)0x1000)
-
-#define IS_VALID_POINTER(x)               (NULL != (x))     ///< Parameter validity check for pointer
+#define RMU_FLAG_TIM                      ((uint16_t)0x1000u)
 
 /*******************************************************************************
  * Global variable definitions (declared in header file with 'extern')
@@ -103,10 +101,8 @@
  ******************************************************************************/
 en_result_t RMU_GetResetCause(stc_rmu_rstcause_t *pstcData)
 {
-    uint16_t u16RstCause = 0;
+    uint16_t u16RstCause = 0u;
     stc_sysreg_rmu_rstf0_field_t *RMU_RSTF0_f = NULL;
-
-    DDL_ASSERT(IS_VALID_POINTER(pstcData));
 
     if(NULL == pstcData)
     {
@@ -116,21 +112,21 @@ en_result_t RMU_GetResetCause(stc_rmu_rstcause_t *pstcData)
     u16RstCause = M4_SYSREG->RMU_RSTF0;
     RMU_RSTF0_f = (stc_sysreg_rmu_rstf0_field_t *)(&u16RstCause);
 
-    pstcData->enMultiRst = ((RMU_RSTF0_f->MULTIRF == 1) ? Set : Reset);
-    pstcData->enXtalErr = ((RMU_RSTF0_f->XTALERF == 1) ? Set : Reset);
-    pstcData->enClkFreqErr = ((RMU_RSTF0_f->CKFERF == 1) ? Set : Reset);
-    pstcData->enRamEcc = ((RMU_RSTF0_f->RAECRF == 1) ? Set : Reset);
-    pstcData->enRamParityErr = ((RMU_RSTF0_f->RAPERF == 1) ? Set : Reset);
-    pstcData->enMpuErr = ((RMU_RSTF0_f->MPUERF == 1) ? Set : Reset);
-    pstcData->enSoftware = ((RMU_RSTF0_f->SWRF == 1) ? Set : Reset);
-    pstcData->enPowerDown = ((RMU_RSTF0_f->PDRF == 1) ? Set : Reset);
-    pstcData->enSwdt = ((RMU_RSTF0_f->SWDRF == 1) ? Set : Reset);
-    pstcData->enWdt = ((RMU_RSTF0_f->WDRF == 1) ? Set : Reset);
-    pstcData->enPvd2 = ((RMU_RSTF0_f->PVD2RF == 1) ? Set : Reset);
-    pstcData->enPvd1 = ((RMU_RSTF0_f->PVD2RF == 1) ? Set : Reset);
-    pstcData->enBrownOut = ((RMU_RSTF0_f->BORF == 1) ? Set : Reset);
-    pstcData->enRstPin = ((RMU_RSTF0_f->PINRF == 1) ? Set : Reset);
-    pstcData->enPowerOn = ((RMU_RSTF0_f->PORF == 1) ? Set : Reset);
+    pstcData->enMultiRst = ((RMU_RSTF0_f->MULTIRF == 1u) ? Set : Reset);
+    pstcData->enXtalErr = ((RMU_RSTF0_f->XTALERF == 1u) ? Set : Reset);
+    pstcData->enClkFreqErr = ((RMU_RSTF0_f->CKFERF == 1u) ? Set : Reset);
+    pstcData->enRamEcc = ((RMU_RSTF0_f->RAECRF == 1u) ? Set : Reset);
+    pstcData->enRamParityErr = ((RMU_RSTF0_f->RAPERF == 1u) ? Set : Reset);
+    pstcData->enMpuErr = ((RMU_RSTF0_f->MPUERF == 1u) ? Set : Reset);
+    pstcData->enSoftware = ((RMU_RSTF0_f->SWRF == 1u) ? Set : Reset);
+    pstcData->enPowerDown = ((RMU_RSTF0_f->PDRF == 1u) ? Set : Reset);
+    pstcData->enSwdt = ((RMU_RSTF0_f->SWDRF == 1u) ? Set : Reset);
+    pstcData->enWdt = ((RMU_RSTF0_f->WDRF == 1u) ? Set : Reset);
+    pstcData->enPvd2 = ((RMU_RSTF0_f->PVD2RF == 1u) ? Set : Reset);
+    pstcData->enPvd1 = ((RMU_RSTF0_f->PVD2RF == 1u) ? Set : Reset);
+    pstcData->enBrownOut = ((RMU_RSTF0_f->BORF == 1u) ? Set : Reset);
+    pstcData->enRstPin = ((RMU_RSTF0_f->PINRF == 1u) ? Set : Reset);
+    pstcData->enPowerOn = ((RMU_RSTF0_f->PORF == 1u) ? Set : Reset);
 
     return Ok;
 }
@@ -147,15 +143,15 @@ en_result_t RMU_GetResetCause(stc_rmu_rstcause_t *pstcData)
  ******************************************************************************/
 en_result_t RMU_ClrResetFlag(void)
 {
-    uint16_t u16status = 0;
-    uint32_t u32timeout;
+    uint16_t u16status  = 0u;
+    uint32_t u32timeout = 0u;
 
     ENABLE_RMU_REG_WRITE();
 
     do
     {
         u32timeout++;
-        M4_SYSREG->RMU_RSTF0_f.CLRF = 1;
+        M4_SYSREG->RMU_RSTF0_f.CLRF = 1u;
         u16status = M4_SYSREG->RMU_RSTF0;
     }while((u32timeout != RMU_FLAG_TIM) && u16status);
 

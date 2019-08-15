@@ -178,7 +178,7 @@
 /*******************************************************************************
  * Local function prototypes ('static')
  ******************************************************************************/
-static uint32_t UsartGetClk(M4_USART_TypeDef *USARTx);
+static uint32_t UsartGetClk(const M4_USART_TypeDef *USARTx);
 static en_result_t SetUartBaudrate(M4_USART_TypeDef *USARTx,
                                 uint32_t u32Baudrate);
 static en_result_t SetClkSyncBaudrate(M4_USART_TypeDef *USARTx,
@@ -219,72 +219,70 @@ en_result_t USART_UART_Init(M4_USART_TypeDef *USARTx,
     stc_usart_cr1_field_t CR1_f = {0};
     stc_usart_cr2_field_t CR2_f = {0};
     stc_usart_cr3_field_t CR3_f = {0};
-
-    /* Check parameters */
-    DDL_ASSERT(IS_VALID_USART_CLK_DIV(pstcInitCfg->enClkDiv));
-    DDL_ASSERT(IS_VALID_USART_CLK_MODE(pstcInitCfg->enClkMode));
-    DDL_ASSERT(IS_VALID_USART_STOP_BIT(pstcInitCfg->enStopBit));
-    DDL_ASSERT(IS_VALID_USART_PARITY_BIT(pstcInitCfg->enParity));
-    DDL_ASSERT(IS_VALID_USART_DATA_DIR(pstcInitCfg->enDirection));
-    DDL_ASSERT(IS_VALID_USART_DATA_LEN(pstcInitCfg->enDataLength));
-    DDL_ASSERT(IS_VALID_USART_HW_FLOW_MODE(pstcInitCfg->enHwFlow));
-    DDL_ASSERT(IS_VALID_USART_SAMPLE_MODE(pstcInitCfg->enSampleMode));
-    DDL_ASSERT(IS_VALID_USART_SB_DETECT_MODE(pstcInitCfg->enDetectMode));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx && pstcInitCfg pointer */
-    if ((!IS_VALID_USART(USARTx)) || (NULL == pstcInitCfg))
+    if ((IS_VALID_USART(USARTx)) && (NULL != pstcInitCfg))
     {
-        return ErrorInvalidParameter;
+        enRet = Ok;
+        /* Check parameters */
+        DDL_ASSERT(IS_VALID_USART_CLK_DIV(pstcInitCfg->enClkDiv));
+        DDL_ASSERT(IS_VALID_USART_CLK_MODE(pstcInitCfg->enClkMode));
+        DDL_ASSERT(IS_VALID_USART_STOP_BIT(pstcInitCfg->enStopBit));
+        DDL_ASSERT(IS_VALID_USART_PARITY_BIT(pstcInitCfg->enParity));
+        DDL_ASSERT(IS_VALID_USART_DATA_DIR(pstcInitCfg->enDirection));
+        DDL_ASSERT(IS_VALID_USART_DATA_LEN(pstcInitCfg->enDataLength));
+        DDL_ASSERT(IS_VALID_USART_HW_FLOW_MODE(pstcInitCfg->enHwFlow));
+        DDL_ASSERT(IS_VALID_USART_SAMPLE_MODE(pstcInitCfg->enSampleMode));
+        DDL_ASSERT(IS_VALID_USART_SB_DETECT_MODE(pstcInitCfg->enDetectMode));
+
+        /* Set default value */
+        USARTx->CR1 = 0xFFFFFFF3ul;
+        USARTx->CR1 = 0x80000000ul;
+        USARTx->CR2 = 0x00000000ul;
+        USARTx->CR3 = 0x00000000ul;
+        USARTx->BRR = 0x0000FFFFul;
+        USARTx->PR = 0x00000000ul;
+
+        /* Set USART mode */
+        CR3_f.SCEN = 0ul;
+        CR1_f.MS = 0ul;
+
+        PR_f.PSC = pstcInitCfg->enClkDiv;
+        CR1_f.M = pstcInitCfg->enDataLength;
+        CR1_f.ML = pstcInitCfg->enDirection;
+        CR2_f.STOP = pstcInitCfg->enStopBit;
+        CR2_f.CLKC = pstcInitCfg->enClkMode;
+
+        switch(pstcInitCfg->enParity)
+        {
+            case UsartParityNone:
+                CR1_f.PCE = 0ul;
+                break;
+            case UsartParityEven:
+                CR1_f.PS = 0ul;
+                CR1_f.PCE = 1ul;
+                break;
+            case UsartParityOdd:
+                CR1_f.PS = 1ul;
+                CR1_f.PCE = 1ul;
+                break;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
+
+        CR3_f.CTSE = pstcInitCfg->enHwFlow;
+        CR1_f.SBS = pstcInitCfg->enDetectMode;
+        CR1_f.OVER8 = pstcInitCfg->enSampleMode;
+
+        USARTx->PR_f = PR_f;
+        USARTx->CR1_f= CR1_f;
+        USARTx->CR2_f= CR2_f;
+        USARTx->CR3_f= CR3_f;
     }
-    else
-    {
-    }
 
-    /* Set default value */
-    USARTx->CR1 = 0xFFFFFFF3ul;
-    USARTx->CR1 = 0x80000000ul;
-    USARTx->CR2 = 0x00000000ul;
-    USARTx->CR3 = 0x00000000ul;
-    USARTx->BRR = 0x0000FFFFul;
-    USARTx->PR = 0x00000000ul;
-
-    /* Set USART mode */
-    CR3_f.SCEN = 0u;
-    CR1_f.MS = 0u;
-
-    PR_f.PSC = pstcInitCfg->enClkDiv;
-    CR1_f.M = pstcInitCfg->enDataLength;
-    CR1_f.ML = pstcInitCfg->enDirection;
-    CR2_f.STOP = pstcInitCfg->enStopBit;
-    CR2_f.CLKC = pstcInitCfg->enClkMode;
-
-    switch(pstcInitCfg->enParity)
-    {
-        case UsartParityNone:
-            CR1_f.PCE = 0u;
-            break;
-        case UsartParityEven:
-            CR1_f.PS = 0u;
-            CR1_f.PCE = 1u;
-            break;
-        case UsartParityOdd:
-            CR1_f.PS = 1u;
-            CR1_f.PCE = 1u;
-            break;
-        default:
-            return ErrorInvalidParameter;
-    }
-
-    CR3_f.CTSE = pstcInitCfg->enHwFlow;
-    CR1_f.SBS = pstcInitCfg->enDetectMode;
-    CR1_f.OVER8 = pstcInitCfg->enSampleMode;
-
-    USARTx->PR_f = PR_f;
-    USARTx->CR1_f= CR1_f;
-    USARTx->CR2_f= CR2_f;
-    USARTx->CR3_f= CR3_f;
-
-    return Ok;
+    return enRet;
 }
 /**
  *******************************************************************************
@@ -312,44 +310,41 @@ en_result_t USART_CLKSYNC_Init(M4_USART_TypeDef *USARTx,
     stc_usart_cr1_field_t CR1_f = {0};
     stc_usart_cr2_field_t CR2_f = {0};
     stc_usart_cr3_field_t CR3_f = {0};
-
-    /* Check parameters */
-    DDL_ASSERT(IS_VALID_USART_CLK_DIV(pstcInitCfg->enClkDiv));
-    DDL_ASSERT(IS_VALID_USART_CLK_MODE(pstcInitCfg->enClkMode));
-    DDL_ASSERT(IS_VALID_USART_DATA_DIR(pstcInitCfg->enDirection));
-    DDL_ASSERT(IS_VALID_USART_HW_FLOW_MODE(pstcInitCfg->enHwFlow));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx && pstcInitCfg pointer */
-    if ((!IS_VALID_USART(USARTx)) || (NULL == pstcInitCfg))
+    if ((IS_VALID_USART(USARTx)) && (NULL != pstcInitCfg))
     {
-        return ErrorInvalidParameter;
+        /* Check parameters */
+        DDL_ASSERT(IS_VALID_USART_CLK_DIV(pstcInitCfg->enClkDiv));
+        DDL_ASSERT(IS_VALID_USART_CLK_MODE(pstcInitCfg->enClkMode));
+        DDL_ASSERT(IS_VALID_USART_DATA_DIR(pstcInitCfg->enDirection));
+        DDL_ASSERT(IS_VALID_USART_HW_FLOW_MODE(pstcInitCfg->enHwFlow));
+
+        /* Set default value */
+        USARTx->CR1 = 0xFFFFFFF3ul;
+        USARTx->CR1 = 0x80000000ul;
+        USARTx->CR2 = 0x00000000ul;
+        USARTx->CR3 = 0x00000000ul;
+        USARTx->BRR = 0x0000FFFFul;
+        USARTx->PR = 0x00000000ul;
+
+        /* Set Clock Sync mode */
+        CR3_f.SCEN = 0ul;
+        CR1_f.MS = 1ul;
+        CR1_f.ML = pstcInitCfg->enDirection;
+        PR_f.PSC = pstcInitCfg->enClkDiv;
+        CR2_f.CLKC = pstcInitCfg->enClkMode;
+        CR3_f.CTSE = pstcInitCfg->enHwFlow;
+
+        USARTx->PR_f = PR_f;
+        USARTx->CR1_f= CR1_f;
+        USARTx->CR2_f= CR2_f;
+        USARTx->CR3_f= CR3_f;
+        enRet = Ok;
     }
-    else
-    {
-    }
 
-    /* Set default value */
-    USARTx->CR1 = 0xFFFFFFF3ul;
-    USARTx->CR1 = 0x80000000ul;
-    USARTx->CR2 = 0x00000000ul;
-    USARTx->CR3 = 0x00000000ul;
-    USARTx->BRR = 0x0000FFFFul;
-    USARTx->PR = 0x00000000ul;
-
-    /* Set Clock Sync mode */
-    CR3_f.SCEN = 0u;
-    CR1_f.MS = 1u;
-    CR1_f.ML = pstcInitCfg->enDirection;
-    PR_f.PSC = pstcInitCfg->enClkDiv;
-    CR2_f.CLKC = pstcInitCfg->enClkMode;
-    CR3_f.CTSE = pstcInitCfg->enHwFlow;
-
-    USARTx->PR_f = PR_f;
-    USARTx->CR1_f= CR1_f;
-    USARTx->CR2_f= CR2_f;
-    USARTx->CR3_f= CR3_f;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -378,42 +373,39 @@ en_result_t USART_SC_Init(M4_USART_TypeDef *USARTx,
     stc_usart_cr1_field_t CR1_f = {0};
     stc_usart_cr2_field_t CR2_f = {0};
     stc_usart_cr3_field_t CR3_f = {0};
-
-    /* Check parameters */
-    DDL_ASSERT(IS_VALID_USART_CLK_DIV(pstcInitCfg->enClkDiv));
-    DDL_ASSERT(IS_VALID_USART_CLK_MODE(pstcInitCfg->enClkMode));
-    DDL_ASSERT(IS_VALID_USART_DATA_DIR(pstcInitCfg->enDirection));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx && pstcInitCfg pointer */
-    if ((!IS_VALID_USART(USARTx)) || (NULL == pstcInitCfg))
+    if ((IS_VALID_USART(USARTx)) && (NULL != pstcInitCfg))
     {
-        return ErrorInvalidParameter;
+        /* Check parameters */
+        DDL_ASSERT(IS_VALID_USART_CLK_DIV(pstcInitCfg->enClkDiv));
+        DDL_ASSERT(IS_VALID_USART_CLK_MODE(pstcInitCfg->enClkMode));
+        DDL_ASSERT(IS_VALID_USART_DATA_DIR(pstcInitCfg->enDirection));
+        
+        /* Set default value */
+        USARTx->CR1 = 0xFFFFFFF3ul;
+        USARTx->CR1 = 0x80000000ul;
+        USARTx->CR2 = 0x00000000ul;
+        USARTx->CR3 = 0x00000000ul;
+        USARTx->BRR = 0x0000FFFFul;
+        USARTx->PR = 0x00000000ul;
+        
+        CR1_f.PCE = 1ul;
+        CR1_f.ML = pstcInitCfg->enDirection;
+        CR2_f.CLKC = pstcInitCfg->enClkMode;
+        CR3_f.SCEN = 1ul;                  /* Set USART mode */
+        CR3_f.BCN = UsartScEtuClk372;     /* ETU = 372 * CK */
+        PR_f.PSC = pstcInitCfg->enClkDiv;
+        
+        USARTx->PR_f = PR_f;
+        USARTx->CR1_f= CR1_f;
+        USARTx->CR2_f= CR2_f;
+        USARTx->CR3_f= CR3_f;
+        enRet = Ok;
     }
-    else
-    {
-    }
 
-    /* Set default value */
-    USARTx->CR1 = 0xFFFFFFF3ul;
-    USARTx->CR1 = 0x80000000ul;
-    USARTx->CR2 = 0x00000000ul;
-    USARTx->CR3 = 0x00000000ul;
-    USARTx->BRR = 0x0000FFFFul;
-    USARTx->PR = 0x00000000ul;
-
-    CR1_f.PCE = 1u;
-    CR1_f.ML = pstcInitCfg->enDirection;
-    CR2_f.CLKC = pstcInitCfg->enClkMode;
-    CR3_f.SCEN = 1u;                  /* Set USART mode */
-    CR3_f.BCN = UsartScEtuClk372;     /* ETU = 372 * CK */
-    PR_f.PSC = pstcInitCfg->enClkDiv;
-
-    USARTx->PR_f = PR_f;
-    USARTx->CR1_f= CR1_f;
-    USARTx->CR2_f= CR2_f;
-    USARTx->CR3_f= CR3_f;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -432,24 +424,22 @@ en_result_t USART_SC_Init(M4_USART_TypeDef *USARTx,
  ******************************************************************************/
 en_result_t USART_DeInit(M4_USART_TypeDef *USARTx)
 {
+    en_result_t enRet = ErrorInvalidParameter;
+
     /* Check for USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Set default value */
+        USARTx->CR1 = 0xFFFFFFF3ul;
+        USARTx->CR1 = 0x80000000ul;
+        USARTx->CR2 = 0x00000000ul;
+        USARTx->CR3 = 0x00000000ul;
+        USARTx->BRR = 0x0000FFFFul;
+        USARTx->PR = 0x00000000ul;
+        enRet = Ok;
     }
 
-    /* Set default value */
-    USARTx->CR1 = 0xFFFFFFF3ul;
-    USARTx->CR1 = 0x80000000ul;
-    USARTx->CR2 = 0x00000000ul;
-    USARTx->CR3 = 0x00000000ul;
-    USARTx->BRR = 0x0000FFFFul;
-    USARTx->PR = 0x00000000ul;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -509,37 +499,33 @@ en_flag_status_t USART_GetStatus(M4_USART_TypeDef *USARTx,
 en_result_t USART_ClearStatus(M4_USART_TypeDef *USARTx,
                                 en_usart_status_t enStatus)
 {
-    en_result_t enRet = Ok;
-
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_STATUS(enStatus));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_STATUS(enStatus));
 
-    switch (enStatus)
-    {
-        case UsartParityErr:
-            USARTx->CR1_f.CPE = 1u;
-            break;
-        case UsartFrameErr:
-            USARTx->CR1_f.CFE = 1u;
-            break;
-        case UsartOverrunErr:
-            USARTx->CR1_f.CORE = 1u;
-            break;
-        case UsartRxTimeOut:
-            USARTx->CR1_f.CRTOF = 1u;
-            break;
-        default:
-            enRet = ErrorInvalidParameter;
-            break;
+        enRet = Ok;
+        switch (enStatus)
+        {
+            case UsartParityErr:
+                USARTx->CR1_f.CPE = 1ul;
+                break;
+            case UsartFrameErr:
+                USARTx->CR1_f.CFE = 1ul;
+                break;
+            case UsartOverrunErr:
+                USARTx->CR1_f.CORE = 1ul;
+                break;
+            case UsartRxTimeOut:
+                USARTx->CR1_f.CRTOF = 1ul;
+                break;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
     }
 
     return enRet;
@@ -579,72 +565,70 @@ en_result_t USART_FuncCmd(M4_USART_TypeDef *USARTx,
                                 en_usart_func_t enFunc,
                                 en_functional_state_t enCmd)
 {
-    en_result_t enRet = Ok;
+    uint32_t u32Addr;
     __IO stc_usart_cr1_field_t CR1_f;
-    uint8_t u8Cmd = (Enable == enCmd ? 1u : 0u);
+    uint32_t u32Cmd = (Enable == enCmd ? 1ul : 0ul);
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
-
-    switch(enFunc)
-    {
-        case UsartRx:
-            USARTx->CR1_f.RE = u8Cmd;
-            break;
-        case UsartRxInt:
-            USARTx->CR1_f.RIE = u8Cmd;
-            break;
-        case UsartTx:
-            USARTx->CR1_f.TE = u8Cmd;
-            break;
-        case UsartTxEmptyInt:
-            USARTx->CR1_f.TXEIE = u8Cmd;
-            break;
-        case UsartTimeOut:
-            USARTx->CR1_f.RTOE = u8Cmd;
-            break;
-        case UsartTimeOutInt:
-            USARTx->CR1_f.RTOIE = u8Cmd;
-            break;
-        case UsartSilentMode:
-            USARTx->CR1_f.SLME = u8Cmd;
-            break;
-        case UsartParityCheck:
-            USARTx->CR1_f.PCE = u8Cmd;
-            break;
-        case UsartNoiseFilter:
-            USARTx->CR1_f.NFE = u8Cmd;
-            break;
-        case UsartTxCmpltInt:
-            USARTx->CR1_f.TCIE = u8Cmd;
-            break;
-        case UsartTxAndTxEmptyInt:
-            CR1_f = USARTx->CR1_f;
-            CR1_f.TE = u8Cmd;
-            CR1_f.TXEIE = u8Cmd;
-            USARTx->CR1 = *(__IO uint32_t *)(&CR1_f);
-            break;
-        case UsartFracBaudrate:
-            USARTx->CR1_f.FBME = u8Cmd;
-            break;
-        case UsartMulProcessor:
-            USARTx->CR2_f.MPE = u8Cmd;
-            break;
-        case UsartSmartCard:
-            USARTx->CR3_f.SCEN = u8Cmd;
-            break;
-        case UsartCts:
-            USARTx->CR3_f.CTSE = u8Cmd;
-            break;
-        default:
-            enRet = ErrorInvalidParameter;
-            break;
+        enRet = Ok;
+        switch(enFunc)
+        {
+            case UsartRx:
+                USARTx->CR1_f.RE = u32Cmd;
+                break;
+            case UsartRxInt:
+                USARTx->CR1_f.RIE = u32Cmd;
+                break;
+            case UsartTx:
+                USARTx->CR1_f.TE = u32Cmd;
+                break;
+            case UsartTxEmptyInt:
+                USARTx->CR1_f.TXEIE = u32Cmd;
+                break;
+            case UsartTimeOut:
+                USARTx->CR1_f.RTOE = u32Cmd;
+                break;
+            case UsartTimeOutInt:
+                USARTx->CR1_f.RTOIE = u32Cmd;
+                break;
+            case UsartSilentMode:
+                USARTx->CR1_f.SLME = u32Cmd;
+                break;
+            case UsartParityCheck:
+                USARTx->CR1_f.PCE = u32Cmd;
+                break;
+            case UsartNoiseFilter:
+                USARTx->CR1_f.NFE = u32Cmd;
+                break;
+            case UsartTxCmpltInt:
+                USARTx->CR1_f.TCIE = u32Cmd;
+                break;
+            case UsartTxAndTxEmptyInt:
+                CR1_f = USARTx->CR1_f;
+                CR1_f.TE = u32Cmd;
+                CR1_f.TXEIE = u32Cmd;
+                u32Addr = (uint32_t)&CR1_f;
+                USARTx->CR1 = *(__IO uint32_t *)u32Addr;
+                break;
+            case UsartFracBaudrate:
+                USARTx->CR1_f.FBME = u32Cmd;
+                break;
+            case UsartMulProcessor:
+                USARTx->CR2_f.MPE = u32Cmd;
+                break;
+            case UsartSmartCard:
+                USARTx->CR3_f.SCEN = u32Cmd;
+                break;
+            case UsartCts:
+                USARTx->CR3_f.CTSE = u32Cmd;
+                break;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
     }
 
     return enRet;
@@ -673,36 +657,32 @@ en_result_t USART_FuncCmd(M4_USART_TypeDef *USARTx,
 en_result_t USART_SetParity(M4_USART_TypeDef *USARTx,
                                 en_usart_parity_t enParity)
 {
-    en_result_t enRet = Ok;
-
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_PARITY_BIT(enParity));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_PARITY_BIT(enParity));
 
-    switch(enParity)
-    {
-        case UsartParityNone:
-            USARTx->CR1_f.PCE = 0u;
-            break;
-        case UsartParityEven:
-            USARTx->CR1_f.PS = 0u;
-            USARTx->CR1_f.PCE = 1u;
-            break;
-        case UsartParityOdd:
-            USARTx->CR1_f.PS = 1u;
-            USARTx->CR1_f.PCE = 1u;
-            break;
-        default:
-            enRet = ErrorInvalidParameter;
-            break;
+        enRet = Ok;
+        switch(enParity)
+        {
+            case UsartParityNone:
+                USARTx->CR1_f.PCE = 0ul;
+                break;
+            case UsartParityEven:
+                USARTx->CR1_f.PS = 0ul;
+                USARTx->CR1_f.PCE = 1u;
+                break;
+            case UsartParityOdd:
+                USARTx->CR1_f.PS = 1ul;
+                USARTx->CR1_f.PCE = 1ul;
+                break;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
     }
 
     return enRet;
@@ -730,20 +710,21 @@ en_usart_parity_t USART_GetParity(M4_USART_TypeDef *USARTx)
     /* Check USARTx pointer */
     DDL_ASSERT(IS_VALID_USART(USARTx));
 
-    if(0u == USARTx->CR1_f.PCE)
+    if(0ul == USARTx->CR1_f.PCE)
     {
         enParity = UsartParityNone;
     }
-    else if(0u == USARTx->CR1_f.PS)
+    else if(0ul == USARTx->CR1_f.PS)
     {
         enParity = UsartParityEven;
     }
-    else if(1u == USARTx->CR1_f.PS)
+    else if(1ul == USARTx->CR1_f.PS)
     {
         enParity = UsartParityOdd;
     }
     else
     {
+        enParity = UsartParityNone;
     }
 
     return enParity;
@@ -769,21 +750,19 @@ en_usart_parity_t USART_GetParity(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetOverSampling(M4_USART_TypeDef *USARTx,
                                 en_usart_sample_mode_t enSampleMode)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_SAMPLE_MODE(enSampleMode));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_SAMPLE_MODE(enSampleMode));
+
+        USARTx->CR1_f.OVER8 = enSampleMode;
+        enRet = Ok;
     }
 
-    USARTx->CR1_f.OVER8 = enSampleMode;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -828,21 +807,19 @@ en_usart_sample_mode_t USART_GetOverSampling(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetTransferDirection(M4_USART_TypeDef *USARTx,
                                 en_usart_data_dir_t enDir)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_DATA_DIR(enDir));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_DATA_DIR(enDir));
+
+        USARTx->CR1_f.ML = enDir;
+        enRet = Ok;
     }
 
-    USARTx->CR1_f.ML = enDir;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -887,21 +864,19 @@ en_usart_data_dir_t USART_GetTransferDirection(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetDataLength(M4_USART_TypeDef *USARTx,
                                 en_usart_data_len_t enDataLen)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_DATA_LEN(enDataLen));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_DATA_LEN(enDataLen));
+
+        USARTx->CR1_f.M = enDataLen;
+        enRet = Ok;
     }
 
-    USARTx->CR1_f.M = enDataLen;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -947,21 +922,19 @@ en_usart_data_len_t USART_GetDataLength(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetClkMode(M4_USART_TypeDef *USARTx,
                                 en_usart_clk_mode_t enClkMode)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_CLK_MODE(enClkMode));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_CLK_MODE(enClkMode));
+
+        USARTx->CR2_f.CLKC = enClkMode;
+        enRet = Ok;
     }
 
-    USARTx->CR2_f.CLKC = enClkMode;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1010,36 +983,32 @@ en_usart_clk_mode_t USART_GetClkMode(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetMode(M4_USART_TypeDef *USARTx,
                                 en_usart_mode_t enMode)
 {
-    en_result_t enRet = Ok;
-
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_MODE(enMode));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if(!IS_VALID_USART(USARTx))
+    if(IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_MODE(enMode));
 
-    switch(enMode)
-    {
-        case UsartUartMode:
-            USARTx->CR3_f.SCEN = 0u;
-            USARTx->CR1_f.MS = 0u;
-            break;
-        case UsartClkSyncMode:
-            USARTx->CR3_f.SCEN = 0u;
-            USARTx->CR1_f.MS = 1u;
-            break;
-        case UsartSmartCardMode:
-            USARTx->CR3_f.SCEN = 1u;
-            break;
-        default:
-            enRet = ErrorInvalidParameter;
-            break;
+        enRet = Ok;
+        switch(enMode)
+        {
+            case UsartUartMode:
+                USARTx->CR3_f.SCEN = 0ul;
+                USARTx->CR1_f.MS = 0ul;
+                break;
+            case UsartClkSyncMode:
+                USARTx->CR3_f.SCEN = 0ul;
+                USARTx->CR1_f.MS = 1ul;
+                break;
+            case UsartSmartCardMode:
+                USARTx->CR3_f.SCEN = 1ul;
+                break;
+            default:
+                enRet = ErrorInvalidParameter;
+                break;
+        }
     }
 
     return enRet;
@@ -1068,16 +1037,17 @@ en_usart_mode_t USART_GetMode(M4_USART_TypeDef *USARTx)
     DDL_ASSERT(IS_VALID_USART(USARTx));
     DDL_ASSERT(IS_VALID_USART_MODE(enMode));
 
-    if (1u == USARTx->CR3_f.SCEN)
+    if (1ul == USARTx->CR3_f.SCEN)
     {
         enMode = UsartSmartCardMode;
     }
-    else if (1u == USARTx->CR1_f.MS)
+    else if (1ul == USARTx->CR1_f.MS)
     {
         enMode = UsartClkSyncMode;
     }
     else
     {
+        enMode = UsartUartMode;
     }
 
     return enMode;
@@ -1103,21 +1073,17 @@ en_usart_mode_t USART_GetMode(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetStopBitsLength(M4_USART_TypeDef *USARTx,
                                 en_usart_stop_bit_t enStopBit)
 {
-    en_result_t enRet = Ok;
-
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_STOP_BIT(enStopBit));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_STOP_BIT(enStopBit));
 
-    USARTx->CR2_f.STOP = enStopBit;
+        USARTx->CR2_f.STOP = enStopBit;
+        enRet = Ok;
+    }
 
     return enRet;
 }
@@ -1164,21 +1130,17 @@ en_usart_stop_bit_t USART_GetStopBitsLength(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetSbDetectMode(M4_USART_TypeDef *USARTx,
                                 en_usart_sb_detect_mode_t enDetectMode)
 {
-    en_result_t enRet = Ok;
-
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_SB_DETECT_MODE(enDetectMode));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_SB_DETECT_MODE(enDetectMode));
 
-    USARTx->CR1_f.SBS = enDetectMode;
+        USARTx->CR1_f.SBS = enDetectMode;
+        enRet = Ok;
+    }
 
     return enRet;
 }
@@ -1226,21 +1188,19 @@ en_usart_sb_detect_mode_t USART_GetSbDetectMode(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetHwFlowCtrl(M4_USART_TypeDef *USARTx,
                                 en_usart_hw_flow_ctrl_t enHwFlowCtrl)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_HW_FLOW_MODE(enHwFlowCtrl));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_HW_FLOW_MODE(enHwFlowCtrl));
+
+        USARTx->CR3_f.CTSE = enHwFlowCtrl;
+        enRet = Ok;
     }
 
-    USARTx->CR3_f.CTSE = enHwFlowCtrl;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1287,21 +1247,19 @@ en_usart_hw_flow_ctrl_t USART_GetHwFlowCtrl(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetClockDiv(M4_USART_TypeDef *USARTx,
                                 en_usart_clk_div_t enClkPrescale)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_CLK_DIV(enClkPrescale));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_CLK_DIV(enClkPrescale));
+
+        USARTx->PR_f.PSC = enClkPrescale;
+        enRet = Ok;
     }
 
-    USARTx->PR_f.PSC = enClkPrescale;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1354,21 +1312,19 @@ en_usart_clk_div_t USART_GetClockDiv(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetScEtuClk(M4_USART_TypeDef *USARTx,
                                 en_usart_sc_etu_clk_t enEtuClk)
 {
-    /* Check parameter */
-    DDL_ASSERT(IS_VALID_USART_ETU_CLK(enEtuClk));
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
+        /* Check parameter */
+        DDL_ASSERT(IS_VALID_USART_ETU_CLK(enEtuClk));
+
+        USARTx->CR3_f.BCN = enEtuClk;
+        enRet = Ok;
     }
 
-    USARTx->CR3_f.BCN = enEtuClk;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1441,7 +1397,7 @@ uint16_t USART_RecData(M4_USART_TypeDef *USARTx)
     /* Check USARTx pointer */
     DDL_ASSERT(IS_VALID_USART(USARTx));
 
-    return (USARTx->DR_f.RDR);
+    return ((uint16_t)(USARTx->DR_f.RDR));
 }
 
 /**
@@ -1462,28 +1418,23 @@ uint16_t USART_RecData(M4_USART_TypeDef *USARTx)
 en_result_t USART_SetBaudrate(M4_USART_TypeDef *USARTx,
                                 uint32_t u32Baudrate)
 {
-    en_result_t enRet = Ok;
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
-
-    if(1u == USARTx->CR3_f.SCEN)
-    {
-        enRet = SetScBaudrate(USARTx, u32Baudrate);
-    }
-    else if(1u == USARTx->CR1_f.MS)
-    {
-        enRet = SetClkSyncBaudrate(USARTx, u32Baudrate);
-    }
-    else
-    {
-        enRet = SetUartBaudrate(USARTx, u32Baudrate);
+        if(1ul == USARTx->CR3_f.SCEN)
+        {
+            enRet = SetScBaudrate(USARTx, u32Baudrate);
+        }
+        else if(1ul == USARTx->CR1_f.MS)
+        {
+            enRet = SetClkSyncBaudrate(USARTx, u32Baudrate);
+        }
+        else
+        {
+            enRet = SetUartBaudrate(USARTx, u32Baudrate);
+        }
     }
 
     return enRet;
@@ -1507,57 +1458,52 @@ en_result_t USART_SetBaudrate(M4_USART_TypeDef *USARTx,
 static en_result_t SetUartBaudrate(M4_USART_TypeDef *USARTx,
                                 uint32_t u32Baudrate)
 {
-    uint32_t B;
-    uint32_t C;
-    uint32_t OVER8;
-    float32_t DIV = 0.0;
+    uint32_t B = 0ul;
+    uint32_t C = 0ul;
+    uint32_t OVER8 = 0ul;
+    float32_t DIV = 0.0f;
     uint64_t u64Tmp = 0u;
-    uint32_t DIV_Integer = 0u;
+    uint32_t DIV_Integer = 0ul;
     uint32_t DIV_Fraction = 0xFFFFFFFFul;
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        C = UsartGetClk(USARTx);
 
-    B = u32Baudrate;
-    C = UsartGetClk(USARTx);
-    OVER8 = USARTx->CR1_f.OVER8;
+        if (C > 0ul)
+        {
+            B = u32Baudrate;
+            OVER8 = USARTx->CR1_f.OVER8;
+            /* FBME = 0 Calculation formula */
+            /* B = C / (8 * (2 - OVER8) * (DIV_Integer + 1)) */
+            /* DIV_Integer = (C / (B * 8 * (2 - OVER8))) - 1 */
+            DIV = ((float)C / ((float)B * 8.0f * (2.0f - (float)OVER8))) - 1.0f;
+            DIV_Integer = (uint32_t)(DIV);
 
-    /* FBME = 0 Calculation formula */
-    /* B = C / (8 * (2 - OVER8) * (DIV_Integer + 1)) */
-    /* DIV_Integer = (C / (B * 8 * (2 - OVER8))) - 1 */
-    DIV = (C / (B * 8.0 * (2.0 - OVER8))) - 1.0;
-    DIV_Integer = (uint32_t)(DIV);
+            if (!((DIV < 0.0f) || (DIV_Integer > 0xFFul)))
+            {
+                if ((DIV - (float32_t)DIV_Integer) > 0.00001f)
+                {
+                    /* FBME = 1 Calculation formula */
+                    /* B = C * (128 + DIV_Fraction) / (8 * (2 - OVER8) * (DIV_Integer + 1) * 256) */
+                    /* DIV_Fraction = ((8 * (2 - OVER8) * (DIV_Integer + 1) * 256 * B) / C) - 128 */
+                    /* E = (C * (128 + DIV_Fraction) / (8 * (2 - OVER8) * (DIV_Integer + 1) * 256 * B)) - 1 */
+                    /* DIV_Fraction = (((2 - OVER8) * (DIV_Integer + 1) * 2048 * B) / C) - 128 */
+                    u64Tmp = (uint64_t)(((uint64_t)2ul - (uint64_t)OVER8) * ((uint64_t)DIV_Integer + 1ul) * (uint64_t)B);
+                    DIV_Fraction = (uint32_t)(2048ul * u64Tmp / C - 128ul);
+                }
 
-    if ((DIV < 0) || (DIV_Integer > 0xFFu))
-    {
-        //DDL_ASSERT(false);
-        return ErrorInvalidParameter;
-    }
-
-    if (DIV != DIV_Integer)
-    {
-        /* FBME = 1 Calculation formula */
-        /* B = C * (128 + DIV_Fraction) / (8 * (2 - OVER8) * (DIV_Integer + 1) * 256) */
-        /* DIV_Fraction = ((8 * (2 - OVER8) * (DIV_Integer + 1) * 256 * B) / C) - 128 */
-        /* E = (C * (128 + DIV_Fraction) / (8 * (2 - OVER8) * (DIV_Integer + 1) * 256 * B)) - 1 */
-        /* DIV_Fraction = (((2 - OVER8) * (DIV_Integer + 1) * 2048 * B) / C) - 128 */
-        u64Tmp = (2 - OVER8) * (DIV_Integer + 1) * B;
-        DIV_Fraction = 2048 * u64Tmp / C - 128;
-    }
-    else
-    {
+                USARTx->CR1_f.FBME = (0xFFFFFFFFul == DIV_Fraction) ? 0ul : 1ul;
+                USARTx->BRR_f.DIV_FRACTION = DIV_Fraction;
+                USARTx->BRR_f.DIV_INTEGER = DIV_Integer;
+                enRet = Ok;
+            }
+        }
     }
 
-    USARTx->CR1_f.FBME = (0xFFFFFFFFul == DIV_Fraction) ? 0u : 1u;
-    USARTx->BRR_f.DIV_FRACTION = DIV_Fraction;
-    USARTx->BRR_f.DIV_INTEGER = DIV_Integer;
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1578,61 +1524,53 @@ static en_result_t SetUartBaudrate(M4_USART_TypeDef *USARTx,
 static en_result_t SetScBaudrate(M4_USART_TypeDef *USARTx,
                                 uint32_t u32Baudrate)
 {
-    uint32_t B;
-    uint32_t C;
-    uint32_t S;
-    float32_t DIV = 0.0;
+    uint32_t B = 0ul;
+    uint32_t C = 0ul;
+    uint32_t S = 0ul;
+    float32_t DIV = 0.0f;
     uint64_t u64Tmp = 0u;
-    uint32_t DIV_Integer = 0u;
+    uint32_t DIV_Integer = 0ul;
     uint32_t DIV_Fraction = 0xFFFFFFFFul;
-    const uint16_t au16EtuClkCnts[] = {32, 64, 93, 128, 186, 256, 372, 512};
+    const uint16_t au16EtuClkCnts[] = {32u, 64u, 93u, 128u, 186u, 256u, 372u, 512u};
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        C = UsartGetClk(USARTx);
 
-    B = u32Baudrate;
-    C = UsartGetClk(USARTx);
-    S = au16EtuClkCnts[USARTx->CR3_f.BCN];
+        if (C > 0ul)
+        {
+            B = u32Baudrate;
+            S = au16EtuClkCnts[USARTx->CR3_f.BCN];
 
-    /* FBME = 0 Calculation formula */
-    /* B = C / (2 * S * (DIV_Integer + 1)) */
-    /* DIV_Integer = (C / (B * 2 * S)) - 1 */
-    DIV = (C / (B * S * 2.0)) - 1.0;
-    DIV_Integer = (uint32_t)DIV;
+            /* FBME = 0 Calculation formula */
+            /* B = C / (2 * S * (DIV_Integer + 1)) */
+            /* DIV_Integer = (C / (B * 2 * S)) - 1 */
+            DIV = ((float)C / ((float)B * (float)S * 2.0f)) - 1.0f;
+            DIV_Integer = (uint32_t)DIV;
 
-    if ((DIV < 0) || (DIV_Integer > 0xFFu))
-    {
-        DDL_ASSERT(false);
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+            if (!((DIV < 0.0f) || (DIV_Integer > 0xFFul)))
+            {
+                if ((DIV - (float32_t)DIV_Integer) > 0.00001f)
+                {
+                    /* FBME = 1 Calculation formula */
+                    /* B = C * (128 + DIV_Fraction) / ((2 * S) * (DIV_Integer + 1) * 256) */
+                    /* DIV_Fraction = ((2 * S) * (DIV_Integer + 1) * 256 * B / C) - 128 */
+                    /* DIV_Fraction = ((DIV_Integer + 1) * B * S * 512 / C) - 128 */
+                    u64Tmp = (uint64_t)(((uint64_t)DIV_Integer + 1ul) * B * S);
+                    DIV_Fraction = (uint32_t)(512ul * u64Tmp / C - 128ul);
+                }
 
-    if (DIV != DIV_Integer)
-    {
-        /* FBME = 1 Calculation formula */
-        /* B = C * (128 + DIV_Fraction) / ((2 * S) * (DIV_Integer + 1) * 256) */
-        /* DIV_Fraction = ((2 * S) * (DIV_Integer + 1) * 256 * B / C) - 128 */
-        /* DIV_Fraction = ((DIV_Integer + 1) * B * S * 512 / C) - 128 */
-        u64Tmp = (DIV_Integer + 1) * B * S;
-        DIV_Fraction = 512 * u64Tmp / C - 128;
-    }
-    else
-    {
+                USARTx->CR1_f.FBME = (0xFFFFFFFFul == DIV_Fraction) ? 0ul : 1ul;
+                USARTx->BRR_f.DIV_FRACTION = (0xFFFFFFFFul == DIV_Fraction) ? 0x7Ful: (DIV_Fraction + 1ul);
+                USARTx->BRR_f.DIV_INTEGER = DIV_Integer;
+                enRet = Ok;
+            }
+        }
     }
 
-    USARTx->CR1_f.FBME = (0xFFFFFFFFul == DIV_Fraction) ? 0u : 1u;
-    USARTx->BRR_f.DIV_FRACTION = (0xFFFFFFFFul == DIV_Fraction) ? 0x7F : (DIV_Fraction + 1);
-    USARTx->BRR_f.DIV_INTEGER = DIV_Integer;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1653,58 +1591,49 @@ static en_result_t SetScBaudrate(M4_USART_TypeDef *USARTx,
 static en_result_t SetClkSyncBaudrate(M4_USART_TypeDef *USARTx,
                                 uint32_t u32Baudrate)
 {
-    uint32_t C;
-    uint32_t B;
+    uint32_t C = 0ul;
+    uint32_t B = 0ul;
     uint64_t u64Tmp = 0u;
-    float32_t DIV = 0.0;
-    uint32_t DIV_Integer = 0u;
+    float32_t DIV = 0.0f;
+    uint32_t DIV_Integer = 0ul;
     uint32_t DIV_Fraction = 0xFFFFFFFFul;
+    en_result_t enRet = ErrorInvalidParameter;
 
     /* Check USARTx pointer */
-    if (!IS_VALID_USART(USARTx))
+    if (IS_VALID_USART(USARTx))
     {
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
+        C = UsartGetClk(USARTx);
+        if (C > 0ul)
+        {
+            B = u32Baudrate;
 
-    B = u32Baudrate;
-    C = UsartGetClk(USARTx);
+            /* FBME = 0 Calculation formula */
+            /* B = C / (4 * (DIV_Integer + 1)) */
+            /* DIV_Integer = (C / (B * 4)) - 1 */
+            DIV = ((float)C / ((float)B * 4.0f)) - 1.0f;
+            DIV_Integer = (uint32_t)DIV;
 
-    /* FBME = 0 Calculation formula */
-    /* B = C / (4 * (DIV_Integer + 1)) */
-    /* DIV_Integer = (C / (B * 4)) - 1 */
-    DIV = (C / (B * 4.0)) - 1.0;
-    DIV_Integer = (uint32_t)DIV;
+            if (!((DIV < 0.0f) || (DIV_Integer > 0xFFul)))
+            {
+                if ((DIV - (float32_t)DIV_Integer) > 0.00001f)
+                {
+                    /* FBME = 1 Calculation formula */
+                    /* B = C * (128 + DIV_Fraction) / (4 * (DIV_Integer + 1) * 256) */
+                    /* DIV_Fraction = (4 * (DIV_Integer + 1) * 256 * B / C) - 128 */
+                    /* DIV_Fraction = ((DIV_Integer + 1) * B * 1024 / C) - 128 */
+                    u64Tmp = (uint64_t)(((uint64_t)DIV_Integer + 1ul) * (uint64_t)B);
+                    DIV_Fraction = (uint32_t)(1024ul * u64Tmp / C - 128ul);
+                }
 
-    if ((DIV < 0) || (DIV_Integer > 0xFFu))
-    {
-        DDL_ASSERT(false);
-        return ErrorInvalidParameter;
-    }
-    else
-    {
-    }
-
-    if (DIV != DIV_Integer)
-    {
-        /* FBME = 1 Calculation formula */
-        /* B = C * (128 + DIV_Fraction) / (4 * (DIV_Integer + 1) * 256) */
-        /* DIV_Fraction = (4 * (DIV_Integer + 1) * 256 * B / C) - 128 */
-        /* DIV_Fraction = ((DIV_Integer + 1) * B * 1024 / C) - 128 */
-        u64Tmp = (DIV_Integer + 1) * B;
-        DIV_Fraction = 1024 * u64Tmp / C - 128;
-    }
-    else
-    {
+                USARTx->CR1_f.FBME = (0xFFFFFFFFul == DIV_Fraction) ? 0ul : 1ul;
+                USARTx->BRR_f.DIV_FRACTION = DIV_Fraction;
+                USARTx->BRR_f.DIV_INTEGER = DIV_Integer;
+                enRet = Ok;
+            }
+        }
     }
 
-    USARTx->CR1_f.FBME = (0xFFFFFFFFul == DIV_Fraction) ? 0u : 1u;
-    USARTx->BRR_f.DIV_FRACTION = DIV_Fraction;
-    USARTx->BRR_f.DIV_INTEGER = DIV_Integer;
-
-    return Ok;
+    return enRet;
 }
 
 /**
@@ -1720,16 +1649,16 @@ static en_result_t SetClkSyncBaudrate(M4_USART_TypeDef *USARTx,
  ** \retval USART clock frequency
  **
  ******************************************************************************/
-static uint32_t UsartGetClk(M4_USART_TypeDef *USARTx)
+static uint32_t UsartGetClk(const M4_USART_TypeDef *USARTx)
 {
-    uint32_t u32PClk1 = 0u;
-    uint32_t u32UartClk = 0u;
+    uint32_t u32PClk1 = 0ul;
+    uint32_t u32UartClk = 0ul;
 
     /* Check USARTx pointer */
     DDL_ASSERT(IS_VALID_USART(USARTx));
 
-    u32PClk1 = SystemCoreClock / (1u << M4_SYSREG->CMU_SCFGR_f.PCLK1S);
-    u32UartClk = u32PClk1 / (1u << (2 * USARTx->PR_f.PSC));
+    u32PClk1 = SystemCoreClock / (1ul << M4_SYSREG->CMU_SCFGR_f.PCLK1S);
+    u32UartClk = u32PClk1 / (1ul << (2ul * USARTx->PR_f.PSC));
 
     return u32UartClk;
 }

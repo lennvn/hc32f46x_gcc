@@ -53,6 +53,7 @@
  * Include files
  ******************************************************************************/
 #include "hc32f46x_timer0.h"
+#include "hc32f46x_utility.h"
 
 #if (DDL_TIMER0_ENABLE == DDL_ON)
 
@@ -69,9 +70,6 @@
 /*******************************************************************************
  * Local pre-processor symbols/macros ('#define')
  ******************************************************************************/
-/* Parameter valid check for peripheral Instances. */
-#define IS_VALID_POINTER(x)           (NULL != (x))
-
 /* Parameter validity check for unit. */
 #define IS_VALID_UNIT(x)                                                       \
 (   ((x) == M4_TMR01)                              ||                          \
@@ -187,7 +185,7 @@
  ******************************************************************************/
 en_flag_status_t TIMER0_GetFlag(M4_TMR0_TypeDef* pstcTim0Reg, en_tim0_channel_t enCh)
 {
-    en_flag_status_t enFlag;
+    en_flag_status_t enFlag = Reset;
     DDL_ASSERT(IS_VALID_UNIT(pstcTim0Reg));
     DDL_ASSERT(IS_VALID_CHANNEL(enCh));
 
@@ -225,12 +223,18 @@ void TIMER0_ClearFlag(M4_TMR0_TypeDef* pstcTim0Reg, en_tim0_channel_t enCh)
     if(Tim0_ChannelA == enCh)
     {
         pstcTim0Reg->STFLR_f.CMAF =0u;
-        while(0u != pstcTim0Reg->STFLR_f.CMAF);
+        while(0u != pstcTim0Reg->STFLR_f.CMAF)
+        {
+            ;
+        }
     }
-    else if(Tim0_ChannelB == enCh)
+    else
     {
         pstcTim0Reg->STFLR_f.CMBF = 0u;
-        while(0u != pstcTim0Reg->STFLR_f.CMBF);
+        while(0u != pstcTim0Reg->STFLR_f.CMBF)
+        {
+            ;
+        }
     }
 }
 
@@ -258,11 +262,17 @@ void TIMER0_Cmd(M4_TMR0_TypeDef* pstcTim0Reg, en_tim0_channel_t enCh,
     {
         case Tim0_ChannelA:
             pstcTim0Reg->BCONR_f.CSTA = enCmd;
-            while(enCmd != pstcTim0Reg->BCONR_f.CSTA);
+            while(enCmd != pstcTim0Reg->BCONR_f.CSTA)
+            {
+                ;
+            }
             break;
         case Tim0_ChannelB:
             pstcTim0Reg->BCONR_f.CSTB = enCmd;
-            while(enCmd != pstcTim0Reg->BCONR_f.CSTB);
+            while(enCmd != pstcTim0Reg->BCONR_f.CSTB)
+            {
+                ;
+            }
             break;
         default:
             break;
@@ -348,18 +358,19 @@ void TIMER0_IntCmd(M4_TMR0_TypeDef* pstcTim0Reg, en_tim0_channel_t enCh,
  ******************************************************************************/
 uint16_t TIMER0_GetCntReg(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh)
 {
-    uint16_t u16Value = 0;
+    uint16_t u16Value = 0u;
     DDL_ASSERT(IS_VALID_UNIT(pstcTim0Reg));
     DDL_ASSERT(IS_VALID_CHANNEL(enCh));
 
     if(Tim0_ChannelA == enCh)
     {
-        u16Value = pstcTim0Reg->CNTAR&0xFFFF;
+        u16Value = (uint16_t)((pstcTim0Reg->CNTAR)&0xFFFFu);
     }
-    else if(Tim0_ChannelB == enCh)
+    else
     {
-        u16Value = pstcTim0Reg->CNTBR&0xFFFF;
+        u16Value = (uint16_t)((pstcTim0Reg->CNTBR)&0xFFFFu);
     }
+
     return u16Value;
 }
 
@@ -385,12 +396,18 @@ void TIMER0_WriteCntReg(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
     if(Tim0_ChannelA == enCh)
     {
         pstcTim0Reg->CNTAR = (uint32_t)u16Cnt;
-        while(u16Cnt != (uint16_t)pstcTim0Reg->CNTAR);
+        while(u16Cnt != (uint16_t)pstcTim0Reg->CNTAR)
+        {
+            ;
+        }
     }
-    else if(Tim0_ChannelB == enCh)
+    else
     {
         pstcTim0Reg->CNTBR = (uint32_t)u16Cnt;
-        while(u16Cnt != (uint16_t)pstcTim0Reg->CNTBR);
+        while(u16Cnt != (uint16_t)pstcTim0Reg->CNTBR)
+        {
+            ;
+        }
     }
 }
 
@@ -407,17 +424,17 @@ void TIMER0_WriteCntReg(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
  ******************************************************************************/
 uint16_t TIMER0_GetCmpReg(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh)
 {
-    uint16_t u16Value = 0;
+    uint16_t u16Value = 0u;
     DDL_ASSERT(IS_VALID_UNIT(pstcTim0Reg));
     DDL_ASSERT(IS_VALID_CHANNEL(enCh));
 
     if(Tim0_ChannelA == enCh)
     {
-        u16Value = pstcTim0Reg->CMPAR&0xFFFF;
+        u16Value = (uint16_t)((pstcTim0Reg->CMPAR)&0xFFFFu);
     }
-    else if(Tim0_ChannelB == enCh)
+    else
     {
-        u16Value = pstcTim0Reg->CMPBR&0xFFFF;
+        u16Value = (uint16_t)((pstcTim0Reg->CMPBR)&0xFFFFu);
     }
     return u16Value;
 }
@@ -444,12 +461,18 @@ void TIMER0_WriteCmpReg(M4_TMR0_TypeDef* pstcTim0Reg, en_tim0_channel_t enCh,
     if(Tim0_ChannelA == enCh)
     {
         pstcTim0Reg->CMPAR = (uint32_t)u16Cnt;
-        while(u16Cnt != (uint16_t)pstcTim0Reg->CMPAR);
+        while(u16Cnt != (uint16_t)pstcTim0Reg->CMPAR)
+        {
+            ;
+        }
     }
-    else if(Tim0_ChannelB == enCh)
+    else
     {
         pstcTim0Reg->CMPBR = (uint32_t)u16Cnt;
-        while(u16Cnt != (uint16_t)pstcTim0Reg->CMPBR);
+        while(u16Cnt != (uint16_t)pstcTim0Reg->CMPBR)
+        {
+            ;
+        }
     }
 }
 
@@ -471,9 +494,12 @@ void TIMER0_BaseInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
 {
     stc_tmr0_bconr_field_t stcBconrTmp;
 
+    if (NULL == pstcBaseInit)
+    {
+        return;
+    }
     DDL_ASSERT(IS_VALID_UNIT(pstcTim0Reg));
     DDL_ASSERT(IS_VALID_CHANNEL(enCh));
-    DDL_ASSERT(IS_VALID_POINTER(pstcBaseInit));
     DDL_ASSERT(IS_VALID_CLK_DIVISION(pstcBaseInit->Tim0_ClockDivision));
     DDL_ASSERT(IS_VALID_CLK_SYN_SRC(pstcBaseInit->Tim0_SyncClockSource));
     DDL_ASSERT(IS_VALID_CLK_ASYN_SRC(pstcBaseInit->Tim0_AsyncClockSource));
@@ -509,7 +535,10 @@ void TIMER0_BaseInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
             pstcTim0Reg->BCONR_f = stcBconrTmp;
             /*set timer compare value*/
             pstcTim0Reg->CMPAR = pstcBaseInit->Tim0_CmpValue;
-            while(pstcBaseInit->Tim0_CmpValue != (uint16_t)pstcTim0Reg->CMPAR);
+            while(pstcBaseInit->Tim0_CmpValue != (uint16_t)pstcTim0Reg->CMPAR)
+            {
+                ;
+            }
 
             break;
 
@@ -533,7 +562,10 @@ void TIMER0_BaseInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
             pstcTim0Reg->BCONR_f = stcBconrTmp;
             /*set timer compare value*/
             pstcTim0Reg->CMPBR = pstcBaseInit->Tim0_CmpValue;
-            while(pstcBaseInit->Tim0_CmpValue != (uint16_t)pstcTim0Reg->CMPBR);
+            while(pstcBaseInit->Tim0_CmpValue != (uint16_t)pstcTim0Reg->CMPBR)
+            {
+                ;
+            }
 
             break;
         default:
@@ -560,16 +592,16 @@ void TIMER0_DeInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh)
     switch(enCh)
     {
         case Tim0_ChannelA:
-            pstcTim0Reg->BCONR &= 0xFFFF0000;
-            pstcTim0Reg->CMPAR = 0x0000FFFF;
-            pstcTim0Reg->CNTAR = 0x00000000;
+            pstcTim0Reg->BCONR &= 0xFFFF0000ul;
+            pstcTim0Reg->CMPAR = 0x0000FFFFul;
+            pstcTim0Reg->CNTAR = 0x00000000ul;
             pstcTim0Reg->STFLR_f.CMAF =0u;
             break;
 
         case Tim0_ChannelB:
-            pstcTim0Reg->BCONR &= 0x0000FFFF;
-            pstcTim0Reg->CMPBR = 0x0000FFFF;
-            pstcTim0Reg->CNTBR = 0x00000000;
+            pstcTim0Reg->BCONR &= 0x0000FFFFul;
+            pstcTim0Reg->CMPBR = 0x0000FFFFul;
+            pstcTim0Reg->CNTBR = 0x00000000ul;
             pstcTim0Reg->STFLR_f.CMBF =0u;
             break;
         default:
@@ -581,16 +613,13 @@ void TIMER0_DeInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh)
  *******************************************************************************
  ** \brief  Set external trigger source for Timer0
  **
- ** \param [in] pstcTim0Reg     Pointer to Timer0 register
- **
  ** \param [in] enEvent         External event source
  **
  ** \retval None
  **
  ******************************************************************************/
-void TIMER0_SetTriggerSrc(M4_TMR0_TypeDef* pstcTim0Reg, en_event_src_t enEvent)
+void TIMER0_SetTriggerSrc(en_event_src_t enEvent)
 {
-    DDL_ASSERT(IS_VALID_UNIT(pstcTim0Reg));
     DDL_ASSERT(IS_VALID_TRIG_SRC_EVENT(enEvent));
 
     M4_AOS->TMR0_HTSSR_f.TRGSEL = enEvent;
@@ -613,9 +642,13 @@ void TIMER0_HardTriggerInit(M4_TMR0_TypeDef* pstcTim0Reg,en_tim0_channel_t enCh,
                                 const stc_tim0_trigger_init_t* pStcInit)
 {
     stc_tmr0_bconr_field_t stcBconrTmp;
+    if(NULL == pStcInit)
+    {
+        return;
+    }
+
     DDL_ASSERT(IS_VALID_UNIT(pstcTim0Reg));
     DDL_ASSERT(IS_VALID_CHANNEL(enCh));
-    DDL_ASSERT(IS_VALID_POINTER(pStcInit));
     DDL_ASSERT(IS_VALID_FUNCTION(pStcInit->Tim0_OCMode));
     DDL_ASSERT(IS_VALID_TRIG_SRC_EVENT(pStcInit->Tim0_SelTrigSrc));
 

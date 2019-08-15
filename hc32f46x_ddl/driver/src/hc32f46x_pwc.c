@@ -70,29 +70,29 @@
 /*******************************************************************************
  * Local pre-processor symbols/macros ('#define')
  ******************************************************************************/
-#define ENABLE_FCG0_REG_WRITE()             (M4_MSTP->FCG0PC = 0xa5a50001)
-#define DISABLE_FCG0_REG_WRITE()            (M4_MSTP->FCG0PC = 0xa5a50000)
+#define ENABLE_FCG0_REG_WRITE()             (M4_MSTP->FCG0PC = 0xa5a50001u)
+#define DISABLE_FCG0_REG_WRITE()            (M4_MSTP->FCG0PC = 0xa5a50000u)
 
-#define ENABLE_PWR_REG0_WRITE()             (M4_SYSREG->PWR_FPRC = 0xa501)
-#define DISABLE_PWR_REG0_WRITE()            (M4_SYSREG->PWR_FPRC = 0xa500)
+#define ENABLE_PWR_REG0_WRITE()             (M4_SYSREG->PWR_FPRC = 0xa501u)
+#define DISABLE_PWR_REG0_WRITE()            (M4_SYSREG->PWR_FPRC = 0xa500u)
 
-#define ENABLE_PWR_REG_WRITE()              (M4_SYSREG->PWR_FPRC = 0xa502)
-#define DISABLE_PWR_REG_WRITE()             (M4_SYSREG->PWR_FPRC = 0xa500)
+#define ENABLE_PWR_REG_WRITE()              (M4_SYSREG->PWR_FPRC = 0xa502u)
+#define DISABLE_PWR_REG_WRITE()             (M4_SYSREG->PWR_FPRC = 0xa500u)
 
-#define ENABLE_PVD_REG_WRITE()              (M4_SYSREG->PWR_FPRC = 0xa508)
-#define DISABLE_PVD_REG_WRITE()             (M4_SYSREG->PWR_FPRC = 0xa500)
-
-/*! Parameter validity check for wake up event. */
-#define IS_PWC_WKUP_EVENT(evt)              ((0x00) != (evt))
+#define ENABLE_PVD_REG_WRITE()              (M4_SYSREG->PWR_FPRC = 0xa508u)
+#define DISABLE_PVD_REG_WRITE()             (M4_SYSREG->PWR_FPRC = 0xa500u)
 
 /*! Parameter validity check for wake up event. */
-#define IS_PWC_WKUP2_EVENT(evt)             ((0x08) != (evt))
+#define IS_PWC_WKUP_EVENT(evt)              ((0x00u) != (evt))
+
+/*! Parameter validity check for wake up event. */
+#define IS_PWC_WKUP2_EVENT(evt)             ((0x08u) != (evt))
 
 /*! Parameter validity check for wake up flag. */
-#define IS_PWC_WKUP0_FLAG(flag)             ((0x80) != (flag))
+#define IS_PWC_WKUP0_FLAG(flag)             ((0x80u) != (flag))
 
 /*! Parameter validity check for wake up flag. */
-#define IS_PWC_WKUP1_FLAG(flag)             ((0x07) != (flag))
+#define IS_PWC_WKUP1_FLAG(flag)             ((0x07u) != (flag))
 
 /*! Parameter validity check for power down mode. */
 #define IS_PWC_PWR_DOWN_MODE(md)                                               \
@@ -138,23 +138,23 @@
 
 /*! Parameter validity check for peripheral in fcg0. */
 #define IS_PWC_FCG0_PERIPH(per)                                                \
-(   (((per) & (0x700C3AEE)) == (0X00))  &&                                     \
-    ((0x00) != (per)))
+(   (((per) & (0x700C3AEEu)) == (0X00u))  &&                                   \
+    ((0x00u) != (per)))
 
 /*! Parameter validity check for peripheral in fcg1. */
 #define IS_PWC_FCG1_PERIPH(per)                                                \
-(   (((per) & (0xF0F00286)) == (0X00))  &&                                     \
-    ((0x00) != (per)))
+(   (((per) & (0xF0F00286u)) == (0X00u))  &&                                     \
+    ((0x00u) != (per)))
 
 /*! Parameter validity check for peripheral in fcg2. */
 #define IS_PWC_FCG2_PERIPH(per)                                                \
-(   (((per) & (0xFFF87800)) == (0X00))  &&                                     \
-    ((0x00) != (per)))
+(   (((per) & (0xFFF87800u)) == (0X00u))  &&                                   \
+    ((0x00u) != (per)))
 
 /*! Parameter validity check for peripheral in fcg3. */
 #define IS_PWC_FCG3_PERIPH(per)                                                \
-(   (((per) & (0XFFFFEEEC)) == (0X00))  &&                                     \
-    ((0x00) != (per)))
+(   (((per) & (0XFFFFEEECu)) == (0X00u))  &&                                   \
+    ((0x00u) != (per)))
 
 /*! Parameter validity check for clock value while stop mode mode. */
 #define IS_PWC_STOP_MODE_CLK(clk)                                              \
@@ -278,16 +278,16 @@ void PWC_PowerModeCfg(const stc_pwc_pwr_mode_cfg_t* pstcPwrMdCfg)
 
     ENABLE_PWR_REG_WRITE();
 
-    M4_SYSREG->PWR_PWRC0 = (pstcPwrMdCfg->enPwrDownMd       |
-                           ((~pstcPwrMdCfg->enRLdo) << 2)   |
-                           (pstcPwrMdCfg->enRetSram << 3)   |
+    M4_SYSREG->PWR_PWRC0 = (pstcPwrMdCfg->enPwrDownMd          |
+                           ((~pstcPwrMdCfg->enRLdo) << 2)      |
+                           ((~pstcPwrMdCfg->enRetSram) << 3)   |
                            (pstcPwrMdCfg->enIoRetain << 4));
 
-    M4_SYSREG->PWR_PWRC1 = (pstcPwrMdCfg->enVPll            |
-                           (pstcPwrMdCfg->enVHrc << 1)      |
+    M4_SYSREG->PWR_PWRC1 = ((~pstcPwrMdCfg->enVPll)            |
+                           ((~pstcPwrMdCfg->enVHrc) << 1)      |
                            (pstcPwrMdCfg->enStpDrvAbi << 6));
 
-    M4_SYSREG->PWR_PWRC2 = (pstcPwrMdCfg->enDrvAbility      |
+    M4_SYSREG->PWR_PWRC2 = (pstcPwrMdCfg->enDrvAbility         |
                            (pstcPwrMdCfg->enDynVol << 4));
 
     M4_SYSREG->PWR_PWRC3_f.PDTS = pstcPwrMdCfg->enPwrDWkupTm;
@@ -348,11 +348,11 @@ void PWC_PdWakeup0Cmd(uint32_t u32Wkup0Event, en_functional_state_t enNewState)
 
     if(Enable == enNewState)
     {
-        M4_SYSREG->PWR_PDWKE0 |= u32Wkup0Event;
+        M4_SYSREG->PWR_PDWKE0 |= (uint8_t)u32Wkup0Event;
     }
     else
     {
-        M4_SYSREG->PWR_PDWKE0 &= ~u32Wkup0Event;
+        M4_SYSREG->PWR_PDWKE0 &= (uint8_t)(~u32Wkup0Event);
     }
 
     DISABLE_PWR_REG_WRITE();
@@ -390,11 +390,11 @@ void PWC_PdWakeup1Cmd(uint32_t u32Wkup1Event, en_functional_state_t enNewState)
 
     if(Enable == enNewState)
     {
-        M4_SYSREG->PWR_PDWKE1 |= u32Wkup1Event;
+        M4_SYSREG->PWR_PDWKE1 |= (uint8_t)u32Wkup1Event;
     }
     else
     {
-        M4_SYSREG->PWR_PDWKE1 &= ~u32Wkup1Event;
+        M4_SYSREG->PWR_PDWKE1 &= (uint8_t)(~u32Wkup1Event);
     }
 
     DISABLE_PWR_REG_WRITE();
@@ -431,11 +431,11 @@ void PWC_PdWakeup2Cmd(uint32_t u32Wkup2Event, en_functional_state_t enNewState)
 
     if(Enable == enNewState)
     {
-        M4_SYSREG->PWR_PDWKE2 |= u32Wkup2Event;
+        M4_SYSREG->PWR_PDWKE2 |= (uint8_t)u32Wkup2Event;
     }
     else
     {
-        M4_SYSREG->PWR_PDWKE2 &= ~u32Wkup2Event;
+        M4_SYSREG->PWR_PDWKE2 &= (uint8_t)(~u32Wkup2Event);
     }
 
     DISABLE_PWR_REG_WRITE();
@@ -486,7 +486,7 @@ void PWC_PdWkupEdgeCfg(const stc_pwc_wkup_edge_cfg_t* pstcWkupEdgeCfg)
  *******************************************************************************
  ** \brief  Get wake_up event in PDWKF0 flag.
  **
- ** \param  [in] u32WkupFlag            The wake_up event in PDWKF0.
+ ** \param  [in] u8WkupFlag             The wake_up event in PDWKF0.
  ** \arg    PWC_PTWK0_WKUPFLAG          Ptwk0 wake_up flag
  ** \arg    PWC_PTWK1_WKUPFLAG          Ptwk1 wake_up flag
  ** \arg    PWC_PTWK2_WKUPFLAG          Ptwk2 wake_up flag
@@ -500,21 +500,21 @@ void PWC_PdWkupEdgeCfg(const stc_pwc_wkup_edge_cfg_t* pstcWkupEdgeCfg)
  ** \note   None
  **
  ******************************************************************************/
-en_flag_status_t PWC_GetWakeup0Flag(uint32_t u32WkupFlag)
+en_flag_status_t PWC_GetWakeup0Flag(uint8_t u8WkupFlag)
 {
     uint8_t u8flag;
-    DDL_ASSERT(IS_PWC_WKUP0_FLAG(u32WkupFlag));
+    DDL_ASSERT(IS_PWC_WKUP0_FLAG(u8WkupFlag));
 
-    u8flag = (M4_SYSREG->PWR_PDWKF0 & u32WkupFlag);
+    u8flag = (M4_SYSREG->PWR_PDWKF0 & u8WkupFlag);
 
-    return ((0 == u8flag) ? Reset : Set);
+    return ((0u == u8flag) ? Reset : Set);
 }
 
 /**
  *******************************************************************************
  ** \brief  Get wake_up event in PDWKF1 flag.
  **
- ** \param  [in] u32WkupFlag            The wake_up event in PDWKF1.
+ ** \param  [in] u8WkupFlag             The wake_up event in PDWKF1.
  ** \arg    PWC_RXD0_WKUPFLAG           Rxd0 wake_up flag
  ** \arg    PWC_RTCPRD_WKUPFALG         Rtcprd wake_up flag
  ** \arg    PWC_RTCAL_WKUPFLAG          Rtcal wake_up flag
@@ -526,21 +526,21 @@ en_flag_status_t PWC_GetWakeup0Flag(uint32_t u32WkupFlag)
  ** \note   None
  **
  ******************************************************************************/
-en_flag_status_t PWC_GetWakeup1Flag(uint32_t u32WkupFlag)
+en_flag_status_t PWC_GetWakeup1Flag(uint8_t u8WkupFlag)
 {
     uint8_t u8flag;
-    DDL_ASSERT(IS_PWC_WKUP1_FLAG(u32WkupFlag));
+    DDL_ASSERT(IS_PWC_WKUP1_FLAG(u8WkupFlag));
 
-    u8flag = (M4_SYSREG->PWR_PDWKF1 & u32WkupFlag);
+    u8flag = (M4_SYSREG->PWR_PDWKF1 & u8WkupFlag);
 
-    return ((0 == u8flag) ? Reset : Set);
+    return ((0u == u8flag) ? Reset : Set);
 }
 
 /**
  *******************************************************************************
  ** \brief  clear wake_up event in PDWKF0 flag.
  **
- ** \param  [in] u32WkupFlag            The wake_up event in PDWKF0.
+ ** \param  [in] u8WkupFlag             The wake_up event in PDWKF0.
  ** \arg    PWC_PTWK0_WKUPFLAG          Ptwk0 wake_up flag
  ** \arg    PWC_PTWK1_WKUPFLAG          Ptwk1 wake_up flag
  ** \arg    PWC_PTWK2_WKUPFLAG          Ptwk2 wake_up flag
@@ -554,13 +554,13 @@ en_flag_status_t PWC_GetWakeup1Flag(uint32_t u32WkupFlag)
  ** \note   None
  **
  ******************************************************************************/
-void PWC_ClearWakeup0Flag(uint32_t u32WkupFlag)
+void PWC_ClearWakeup0Flag(uint8_t u8WkupFlag)
 {
-    DDL_ASSERT(IS_PWC_WKUP0_FLAG(u32WkupFlag));
+    DDL_ASSERT(IS_PWC_WKUP0_FLAG(u8WkupFlag));
 
     ENABLE_PWR_REG_WRITE();
 
-    M4_SYSREG->PWR_PDWKF0 &= (~u32WkupFlag);
+    M4_SYSREG->PWR_PDWKF0 &= (uint8_t)(~u8WkupFlag);
 
     DISABLE_PWR_REG_WRITE();
 }
@@ -569,7 +569,7 @@ void PWC_ClearWakeup0Flag(uint32_t u32WkupFlag)
  *******************************************************************************
  ** \brief  clear wake_up event in PDWKF1 flag.
  **
- ** \param  [in] u32WkupFlag            The wake_up event in PDWKF1.
+ ** \param  [in] u8WkupFlag             The wake_up event in PDWKF1.
  ** \arg    PWC_RXD0_WKUPFLAG           Rxd0 wake_up flag
  ** \arg    PWC_RTCPRD_WKUPFALG         Rtcprd wake_up flag
  ** \arg    PWC_RTCAL_WKUPFLAG          Rtcal wake_up flag
@@ -581,13 +581,13 @@ void PWC_ClearWakeup0Flag(uint32_t u32WkupFlag)
  ** \note   None
  **
  ******************************************************************************/
-void PWC_ClearWakeup1Flag(uint32_t u32WkupFlag)
+void PWC_ClearWakeup1Flag(uint8_t u8WkupFlag)
 {
-    DDL_ASSERT(IS_PWC_WKUP1_FLAG(u32WkupFlag));
+    DDL_ASSERT(IS_PWC_WKUP1_FLAG(u8WkupFlag));
 
     ENABLE_PWR_REG_WRITE();
 
-    M4_SYSREG->PWR_PDWKF1 &= (~u32WkupFlag);
+    M4_SYSREG->PWR_PDWKF1 &= (uint8_t)(~u8WkupFlag);
 
     DISABLE_PWR_REG_WRITE();
 }
@@ -830,28 +830,34 @@ en_result_t PWC_StopModeCfg(const stc_pwc_stop_mode_cfg_t*  pstcStpMdCfg)
     ENABLE_PWR_REG_WRITE();
 
     M4_SYSREG->PWR_STPMCR = (pstcStpMdCfg->enStopFlash          |
-                            (pstcStpMdCfg->enStopClk << 1));
+                            (pstcStpMdCfg->enStopClk << 1u));
 
     /* if should close HRC & PLL while stop mode, please disable before modifying the register */
     if(Disable == pstcStpMdCfg->enHrc)
     {
         /* HRC is system clock */
-        if(0 == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        if(0u == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        {
             return ErrorInvalidParameter;
+        }
+
         /* Disable HRC */
-        M4_SYSREG->CMU_HRCCR_f.HRCSTP = 1;
+        M4_SYSREG->CMU_HRCCR_f.HRCSTP = 1u;
     }
     if(Disable == pstcStpMdCfg->enPll)
     {
         /* PLL is system clock */
-        if(5 == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        if(5u == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        {
             return ErrorInvalidParameter;
+        }
+
         /* Disable PLL */
-        M4_SYSREG->CMU_PLLCR_f.MPLLOFF = 1;
+        M4_SYSREG->CMU_PLLCR_f.MPLLOFF = 1u;
     }
 
-    M4_SYSREG->PWR_PWRC1_f.VHRCSD = ((Enable == pstcStpMdCfg->enHrc) ? 0 : 1);
-    M4_SYSREG->PWR_PWRC1_f.VPLLSD = ((Enable == pstcStpMdCfg->enPll) ? 0 : 1);
+    M4_SYSREG->PWR_PWRC1_f.VHRCSD = ((Enable == pstcStpMdCfg->enHrc) ? 0u : 1u);
+    M4_SYSREG->PWR_PWRC1_f.VPLLSD = ((Enable == pstcStpMdCfg->enPll) ? 0u : 1u);
     M4_SYSREG->PWR_PWRC1_f.STPDAS = pstcStpMdCfg->enStpDrvAbi;
 
     DISABLE_PWR_REG_WRITE();
@@ -975,7 +981,7 @@ void PWC_EnterSleepMd(void)
  ** \note   None
  **
  ******************************************************************************/
-void PWC_RamCfg(stc_pwc_ram_cfg_t* pstcRamCfg)
+void PWC_RamCfg(const stc_pwc_ram_cfg_t* pstcRamCfg)
 {
     DDL_ASSERT(IS_PWC_RAM_PWR_CTL(pstcRamCfg->enRam0));
     DDL_ASSERT(IS_PWC_RAM_PWR_CTL(pstcRamCfg->enRam1));
@@ -1042,7 +1048,7 @@ void PWC_Xtal32CsCmd(en_functional_state_t enNewState)
  ** \note   None
  **
  ******************************************************************************/
-void PWC_WktmControl(stc_pwc_wktm_ctl_t* pstcWktmCtl)
+void PWC_WktmControl(const stc_pwc_wktm_ctl_t* pstcWktmCtl)
 {
     DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcWktmCtl->enWktmEn));
     DDL_ASSERT(IS_PWC_WKTM_CLK(pstcWktmCtl->enWkclk));
@@ -1075,7 +1081,7 @@ void PWC_WktmControl(stc_pwc_wktm_ctl_t* pstcWktmCtl)
  ** \note   None
  **
  ******************************************************************************/
-void PWC_PvdCfg(stc_pwc_pvd_cfg_t* pstcPvdCfg)
+void PWC_PvdCfg(const stc_pwc_pvd_cfg_t* pstcPvdCfg)
 {
     DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcPvdCfg->stcPvd1Ctl.enPvdIREn));
     DDL_ASSERT(IS_PWC_PVD_MD(pstcPvdCfg->stcPvd1Ctl.enPvdMode));
@@ -1203,7 +1209,7 @@ void PWC_ExVccCmd(en_functional_state_t enNewState)
  ******************************************************************************/
 en_flag_status_t PWC_GetPvdFlag(en_pwc_pvd_flag_t enPvdFlag)
 {
-    uint8_t u8flag;
+    uint8_t u8flag = 0u;
 
     switch(enPvdFlag)
     {
@@ -1215,7 +1221,7 @@ en_flag_status_t PWC_GetPvdFlag(en_pwc_pvd_flag_t enPvdFlag)
             break;
     }
 
-    return ((1 == u8flag) ? Set : Reset);
+    return ((1u == u8flag) ? Set : Reset);
 }
 
 #endif /* DDL_PWC_ENABLE */

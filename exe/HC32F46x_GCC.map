@@ -1,0 +1,1036 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+NVIC_ISER_BAK       0x14              obj/hc32f46x_interrupts.o
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 obj/HC32F46x.o
+ .data          0x0000000000000000        0x0 obj/HC32F46x.o
+ .bss           0x0000000000000000        0x0 obj/HC32F46x.o
+ .bss           0x0000000000000000        0x0 obj/system_hc32f46x.o
+ .text          0x0000000000000000       0x70 obj/hc32f46x_swdt.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_swdt.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_swdt.o
+ .debug_info    0x0000000000000000      0xc3a obj/hc32f46x_swdt.o
+ .debug_abbrev  0x0000000000000000      0x2b8 obj/hc32f46x_swdt.o
+ .debug_loc     0x0000000000000000       0xc2 obj/hc32f46x_swdt.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_swdt.o
+ .debug_line    0x0000000000000000      0x2c2 obj/hc32f46x_swdt.o
+ .debug_str     0x0000000000000000      0x7f2 obj/hc32f46x_swdt.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_swdt.o
+ .debug_frame   0x0000000000000000       0x50 obj/hc32f46x_swdt.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_swdt.o
+ .text          0x0000000000000000      0x710 obj/hc32f46x_timer6.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer6.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer6.o
+ .debug_info    0x0000000000000000     0x3ec2 obj/hc32f46x_timer6.o
+ .debug_abbrev  0x0000000000000000      0x2e8 obj/hc32f46x_timer6.o
+ .debug_loc     0x0000000000000000     0x1787 obj/hc32f46x_timer6.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer6.o
+ .debug_line    0x0000000000000000      0xf6a obj/hc32f46x_timer6.o
+ .debug_str     0x0000000000000000     0x2975 obj/hc32f46x_timer6.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer6.o
+ .debug_frame   0x0000000000000000      0x320 obj/hc32f46x_timer6.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer6.o
+ .text          0x0000000000000000      0x43c obj/hc32f46x_timer4_pwm.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer4_pwm.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer4_pwm.o
+ .debug_info    0x0000000000000000     0x2e6d obj/hc32f46x_timer4_pwm.o
+ .debug_abbrev  0x0000000000000000      0x2b7 obj/hc32f46x_timer4_pwm.o
+ .debug_loc     0x0000000000000000      0xcdf obj/hc32f46x_timer4_pwm.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer4_pwm.o
+ .debug_line    0x0000000000000000      0x742 obj/hc32f46x_timer4_pwm.o
+ .debug_str     0x0000000000000000     0x1810 obj/hc32f46x_timer4_pwm.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer4_pwm.o
+ .debug_frame   0x0000000000000000       0xe8 obj/hc32f46x_timer4_pwm.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer4_pwm.o
+ .text          0x0000000000000000      0x478 obj/hc32f46x_efm.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_efm.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_efm.o
+ .debug_info    0x0000000000000000     0x1f1e obj/hc32f46x_efm.o
+ .debug_abbrev  0x0000000000000000      0x43e obj/hc32f46x_efm.o
+ .debug_loc     0x0000000000000000      0x798 obj/hc32f46x_efm.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_efm.o
+ .debug_ranges  0x0000000000000000       0x18 obj/hc32f46x_efm.o
+ .debug_line    0x0000000000000000      0x9d9 obj/hc32f46x_efm.o
+ .debug_str     0x0000000000000000      0xf22 obj/hc32f46x_efm.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_efm.o
+ .debug_frame   0x0000000000000000      0x1d0 obj/hc32f46x_efm.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_efm.o
+ .text          0x0000000000000000      0x120 obj/hc32f46x_rmu.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_rmu.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_rmu.o
+ .debug_info    0x0000000000000000     0x2b85 obj/hc32f46x_rmu.o
+ .debug_abbrev  0x0000000000000000      0x292 obj/hc32f46x_rmu.o
+ .debug_loc     0x0000000000000000       0xf0 obj/hc32f46x_rmu.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_rmu.o
+ .debug_line    0x0000000000000000      0x39b obj/hc32f46x_rmu.o
+ .debug_str     0x0000000000000000     0x19ae obj/hc32f46x_rmu.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_rmu.o
+ .debug_frame   0x0000000000000000       0x3c obj/hc32f46x_rmu.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_rmu.o
+ .text          0x0000000000000000       0x94 obj/hc32f46x_keyscan.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_keyscan.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_keyscan.o
+ .debug_info    0x0000000000000000      0xe34 obj/hc32f46x_keyscan.o
+ .debug_abbrev  0x0000000000000000      0x28b obj/hc32f46x_keyscan.o
+ .debug_loc     0x0000000000000000       0x65 obj/hc32f46x_keyscan.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_keyscan.o
+ .debug_line    0x0000000000000000      0x2ff obj/hc32f46x_keyscan.o
+ .debug_str     0x0000000000000000      0xa07 obj/hc32f46x_keyscan.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_keyscan.o
+ .debug_frame   0x0000000000000000       0x60 obj/hc32f46x_keyscan.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_keyscan.o
+ .text          0x0000000000000000      0x598 obj/hc32f46x_pwc.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_pwc.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_pwc.o
+ .debug_info    0x0000000000000000     0x6aee obj/hc32f46x_pwc.o
+ .debug_abbrev  0x0000000000000000      0x2f5 obj/hc32f46x_pwc.o
+ .debug_loc     0x0000000000000000      0x296 obj/hc32f46x_pwc.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_pwc.o
+ .debug_line    0x0000000000000000      0x77c obj/hc32f46x_pwc.o
+ .debug_str     0x0000000000000000     0x3717 obj/hc32f46x_pwc.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_pwc.o
+ .debug_frame   0x0000000000000000      0x1cc obj/hc32f46x_pwc.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_pwc.o
+ .text          0x0000000000000000      0x224 obj/hc32f46x_timer0.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer0.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer0.o
+ .debug_info    0x0000000000000000     0x33b8 obj/hc32f46x_timer0.o
+ .debug_abbrev  0x0000000000000000      0x308 obj/hc32f46x_timer0.o
+ .debug_loc     0x0000000000000000      0x337 obj/hc32f46x_timer0.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer0.o
+ .debug_line    0x0000000000000000      0x6ab obj/hc32f46x_timer0.o
+ .debug_str     0x0000000000000000     0x2629 obj/hc32f46x_timer0.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer0.o
+ .debug_frame   0x0000000000000000       0xe0 obj/hc32f46x_timer0.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer0.o
+ .text          0x0000000000000000      0x184 obj/hc32f46x_crc.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_crc.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_crc.o
+ .debug_info    0x0000000000000000     0x1049 obj/hc32f46x_crc.o
+ .debug_abbrev  0x0000000000000000      0x314 obj/hc32f46x_crc.o
+ .debug_loc     0x0000000000000000      0x698 obj/hc32f46x_crc.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_crc.o
+ .debug_line    0x0000000000000000      0x48d obj/hc32f46x_crc.o
+ .debug_str     0x0000000000000000      0x847 obj/hc32f46x_crc.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_crc.o
+ .debug_frame   0x0000000000000000       0xa8 obj/hc32f46x_crc.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_crc.o
+ .text          0x0000000000000000      0xadc obj/hc32f46x_usart.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_usart.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_usart.o
+ .rodata        0x0000000000000000       0x10 obj/hc32f46x_usart.o
+ .debug_info    0x0000000000000000     0x4381 obj/hc32f46x_usart.o
+ .debug_abbrev  0x0000000000000000      0x3ec obj/hc32f46x_usart.o
+ .debug_loc     0x0000000000000000     0x2036 obj/hc32f46x_usart.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_usart.o
+ .debug_ranges  0x0000000000000000       0x80 obj/hc32f46x_usart.o
+ .debug_line    0x0000000000000000     0x10d3 obj/hc32f46x_usart.o
+ .debug_str     0x0000000000000000     0x23c8 obj/hc32f46x_usart.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_usart.o
+ .debug_frame   0x0000000000000000      0x27c obj/hc32f46x_usart.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_usart.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_interrupts.o
+ .text          0x0000000000000000      0x2ec obj/hc32f46x_ots.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_ots.o
+ .bss           0x0000000000000000        0x9 obj/hc32f46x_ots.o
+ .debug_info    0x0000000000000000     0x357c obj/hc32f46x_ots.o
+ .debug_abbrev  0x0000000000000000      0x415 obj/hc32f46x_ots.o
+ .debug_loc     0x0000000000000000      0x67a obj/hc32f46x_ots.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_ots.o
+ .debug_ranges  0x0000000000000000       0x28 obj/hc32f46x_ots.o
+ .debug_line    0x0000000000000000      0x5e7 obj/hc32f46x_ots.o
+ .debug_str     0x0000000000000000     0x24e9 obj/hc32f46x_ots.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_ots.o
+ .debug_frame   0x0000000000000000      0x110 obj/hc32f46x_ots.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_ots.o
+ .text          0x0000000000000000      0x1e4 obj/hc32f46x_hash.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_hash.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_hash.o
+ .debug_info    0x0000000000000000      0xf42 obj/hc32f46x_hash.o
+ .debug_abbrev  0x0000000000000000      0x391 obj/hc32f46x_hash.o
+ .debug_loc     0x0000000000000000      0x567 obj/hc32f46x_hash.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_hash.o
+ .debug_ranges  0x0000000000000000       0x18 obj/hc32f46x_hash.o
+ .debug_line    0x0000000000000000      0x4bb obj/hc32f46x_hash.o
+ .debug_str     0x0000000000000000      0x856 obj/hc32f46x_hash.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_hash.o
+ .debug_frame   0x0000000000000000       0x7c obj/hc32f46x_hash.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_hash.o
+ .text          0x0000000000000000      0x2fc obj/hc32f46x_timer4_sevt.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer4_sevt.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer4_sevt.o
+ .debug_info    0x0000000000000000     0x2ed7 obj/hc32f46x_timer4_sevt.o
+ .debug_abbrev  0x0000000000000000      0x2d9 obj/hc32f46x_timer4_sevt.o
+ .debug_loc     0x0000000000000000      0x883 obj/hc32f46x_timer4_sevt.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer4_sevt.o
+ .debug_line    0x0000000000000000      0x5e4 obj/hc32f46x_timer4_sevt.o
+ .debug_str     0x0000000000000000     0x1a41 obj/hc32f46x_timer4_sevt.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer4_sevt.o
+ .debug_frame   0x0000000000000000       0xc4 obj/hc32f46x_timer4_sevt.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer4_sevt.o
+ .text          0x0000000000000000      0x9e8 obj/hc32f46x_sdioc.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_sdioc.o
+ .bss           0x0000000000000000       0x88 obj/hc32f46x_sdioc.o
+ .debug_info    0x0000000000000000     0x510a obj/hc32f46x_sdioc.o
+ .debug_abbrev  0x0000000000000000      0x38e obj/hc32f46x_sdioc.o
+ .debug_loc     0x0000000000000000     0x1897 obj/hc32f46x_sdioc.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_sdioc.o
+ .debug_line    0x0000000000000000     0x11c9 obj/hc32f46x_sdioc.o
+ .debug_str     0x0000000000000000     0x3168 obj/hc32f46x_sdioc.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_sdioc.o
+ .debug_frame   0x0000000000000000      0x2f4 obj/hc32f46x_sdioc.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_sdioc.o
+ .text          0x0000000000000000     0x101c obj/hc32f46x_timera.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timera.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timera.o
+ .debug_info    0x0000000000000000     0x4f9a obj/hc32f46x_timera.o
+ .debug_abbrev  0x0000000000000000      0x2e3 obj/hc32f46x_timera.o
+ .debug_loc     0x0000000000000000     0x19c2 obj/hc32f46x_timera.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timera.o
+ .debug_line    0x0000000000000000     0x141e obj/hc32f46x_timera.o
+ .debug_str     0x0000000000000000     0x3c06 obj/hc32f46x_timera.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timera.o
+ .debug_frame   0x0000000000000000      0x244 obj/hc32f46x_timera.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timera.o
+ .text          0x0000000000000000      0x3b8 obj/hc32f46x_timer4_cnt.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer4_cnt.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer4_cnt.o
+ .debug_info    0x0000000000000000     0x3083 obj/hc32f46x_timer4_cnt.o
+ .debug_abbrev  0x0000000000000000      0x2d1 obj/hc32f46x_timer4_cnt.o
+ .debug_loc     0x0000000000000000      0x99a obj/hc32f46x_timer4_cnt.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer4_cnt.o
+ .debug_line    0x0000000000000000      0x752 obj/hc32f46x_timer4_cnt.o
+ .debug_str     0x0000000000000000     0x1a8b obj/hc32f46x_timer4_cnt.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer4_cnt.o
+ .debug_frame   0x0000000000000000      0x160 obj/hc32f46x_timer4_cnt.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer4_cnt.o
+ .text          0x0000000000000000      0x31c obj/hc32f46x_event_port.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_event_port.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_event_port.o
+ .debug_info    0x0000000000000000     0x2ee0 obj/hc32f46x_event_port.o
+ .debug_abbrev  0x0000000000000000      0x2d2 obj/hc32f46x_event_port.o
+ .debug_loc     0x0000000000000000      0x7c2 obj/hc32f46x_event_port.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_event_port.o
+ .debug_line    0x0000000000000000      0x684 obj/hc32f46x_event_port.o
+ .debug_str     0x0000000000000000     0x241f obj/hc32f46x_event_port.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_event_port.o
+ .debug_frame   0x0000000000000000       0x90 obj/hc32f46x_event_port.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_event_port.o
+ .text          0x0000000000000000      0xcf4 obj/hc32f46x_clk.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_clk.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_clk.o
+ .debug_info    0x0000000000000000     0x4ee3 obj/hc32f46x_clk.o
+ .debug_abbrev  0x0000000000000000      0x397 obj/hc32f46x_clk.o
+ .debug_loc     0x0000000000000000      0xb8b obj/hc32f46x_clk.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_clk.o
+ .debug_ranges  0x0000000000000000       0x60 obj/hc32f46x_clk.o
+ .debug_line    0x0000000000000000     0x1229 obj/hc32f46x_clk.o
+ .debug_str     0x0000000000000000     0x3156 obj/hc32f46x_clk.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_clk.o
+ .debug_frame   0x0000000000000000      0x2e0 obj/hc32f46x_clk.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_clk.o
+ .text          0x0000000000000000      0x298 obj/hc32f46x_i2c.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_i2c.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_i2c.o
+ .rodata        0x0000000000000000        0x8 obj/hc32f46x_i2c.o
+ .debug_info    0x0000000000000000     0x1e43 obj/hc32f46x_i2c.o
+ .debug_abbrev  0x0000000000000000      0x39a obj/hc32f46x_i2c.o
+ .debug_loc     0x0000000000000000      0x566 obj/hc32f46x_i2c.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_i2c.o
+ .debug_ranges  0x0000000000000000       0x18 obj/hc32f46x_i2c.o
+ .debug_line    0x0000000000000000      0x643 obj/hc32f46x_i2c.o
+ .debug_str     0x0000000000000000     0x101f obj/hc32f46x_i2c.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_i2c.o
+ .debug_frame   0x0000000000000000      0x1dc obj/hc32f46x_i2c.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_i2c.o
+ .text          0x0000000000000000      0x404 obj/hc32f46x_dcu.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_dcu.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_dcu.o
+ .debug_info    0x0000000000000000     0x3691 obj/hc32f46x_dcu.o
+ .debug_abbrev  0x0000000000000000      0x362 obj/hc32f46x_dcu.o
+ .debug_loc     0x0000000000000000      0xaaa obj/hc32f46x_dcu.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_dcu.o
+ .debug_ranges  0x0000000000000000       0x38 obj/hc32f46x_dcu.o
+ .debug_line    0x0000000000000000      0x7a0 obj/hc32f46x_dcu.o
+ .debug_str     0x0000000000000000     0x2731 obj/hc32f46x_dcu.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_dcu.o
+ .debug_frame   0x0000000000000000      0x16c obj/hc32f46x_dcu.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_dcu.o
+ .text          0x0000000000000000      0xa3c obj/hc32f46x_adc.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_adc.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_adc.o
+ .debug_info    0x0000000000000000     0x4bbb obj/hc32f46x_adc.o
+ .debug_abbrev  0x0000000000000000      0x40c obj/hc32f46x_adc.o
+ .debug_loc     0x0000000000000000     0x1d84 obj/hc32f46x_adc.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_adc.o
+ .debug_ranges  0x0000000000000000       0x38 obj/hc32f46x_adc.o
+ .debug_line    0x0000000000000000     0x10b4 obj/hc32f46x_adc.o
+ .debug_str     0x0000000000000000     0x32b3 obj/hc32f46x_adc.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_adc.o
+ .debug_frame   0x0000000000000000      0x37c obj/hc32f46x_adc.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_adc.o
+ .text          0x0000000000000000      0x630 obj/hc32f46x_mpu.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_mpu.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_mpu.o
+ .debug_info    0x0000000000000000     0x4ec4 obj/hc32f46x_mpu.o
+ .debug_abbrev  0x0000000000000000      0x2e7 obj/hc32f46x_mpu.o
+ .debug_loc     0x0000000000000000      0xf70 obj/hc32f46x_mpu.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_mpu.o
+ .debug_line    0x0000000000000000      0x97d obj/hc32f46x_mpu.o
+ .debug_str     0x0000000000000000     0x2c1f obj/hc32f46x_mpu.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_mpu.o
+ .debug_frame   0x0000000000000000      0x190 obj/hc32f46x_mpu.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_mpu.o
+ .text          0x0000000000000000      0x69c obj/hc32f46x_spi.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_spi.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_spi.o
+ .debug_info    0x0000000000000000     0x1cf8 obj/hc32f46x_spi.o
+ .debug_abbrev  0x0000000000000000      0x2c2 obj/hc32f46x_spi.o
+ .debug_loc     0x0000000000000000      0xd34 obj/hc32f46x_spi.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_spi.o
+ .debug_line    0x0000000000000000      0xab2 obj/hc32f46x_spi.o
+ .debug_str     0x0000000000000000     0x17b8 obj/hc32f46x_spi.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_spi.o
+ .debug_frame   0x0000000000000000      0x160 obj/hc32f46x_spi.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_spi.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_gpio.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_gpio.o
+ .text          0x0000000000000000      0x474 obj/hc32f46x_cmp.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_cmp.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_cmp.o
+ .debug_info    0x0000000000000000     0x1ada obj/hc32f46x_cmp.o
+ .debug_abbrev  0x0000000000000000      0x2f8 obj/hc32f46x_cmp.o
+ .debug_loc     0x0000000000000000      0xc28 obj/hc32f46x_cmp.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_cmp.o
+ .debug_line    0x0000000000000000      0x892 obj/hc32f46x_cmp.o
+ .debug_str     0x0000000000000000     0x1030 obj/hc32f46x_cmp.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_cmp.o
+ .debug_frame   0x0000000000000000      0x1e4 obj/hc32f46x_cmp.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_cmp.o
+ .text          0x0000000000000000      0xcec obj/hc32f46x_timer4_oco.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer4_oco.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer4_oco.o
+ .debug_info    0x0000000000000000     0x33f5 obj/hc32f46x_timer4_oco.o
+ .debug_abbrev  0x0000000000000000      0x2b7 obj/hc32f46x_timer4_oco.o
+ .debug_loc     0x0000000000000000     0x2551 obj/hc32f46x_timer4_oco.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer4_oco.o
+ .debug_line    0x0000000000000000     0x1083 obj/hc32f46x_timer4_oco.o
+ .debug_str     0x0000000000000000     0x1e1b obj/hc32f46x_timer4_oco.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer4_oco.o
+ .debug_frame   0x0000000000000000      0x16c obj/hc32f46x_timer4_oco.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer4_oco.o
+ .text          0x0000000000000000      0x220 obj/hc32f46x_aes.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_aes.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_aes.o
+ .debug_info    0x0000000000000000      0xf33 obj/hc32f46x_aes.o
+ .debug_abbrev  0x0000000000000000      0x351 obj/hc32f46x_aes.o
+ .debug_loc     0x0000000000000000      0xc30 obj/hc32f46x_aes.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_aes.o
+ .debug_ranges  0x0000000000000000       0x30 obj/hc32f46x_aes.o
+ .debug_line    0x0000000000000000      0x540 obj/hc32f46x_aes.o
+ .debug_str     0x0000000000000000      0x7ec obj/hc32f46x_aes.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_aes.o
+ .debug_frame   0x0000000000000000       0xb0 obj/hc32f46x_aes.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_aes.o
+ .text          0x0000000000000000      0x18c obj/hc32f46x_timer4_emb.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_timer4_emb.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_timer4_emb.o
+ .debug_info    0x0000000000000000     0x2bd5 obj/hc32f46x_timer4_emb.o
+ .debug_abbrev  0x0000000000000000      0x2c8 obj/hc32f46x_timer4_emb.o
+ .debug_loc     0x0000000000000000      0x30a obj/hc32f46x_timer4_emb.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_timer4_emb.o
+ .debug_line    0x0000000000000000      0x429 obj/hc32f46x_timer4_emb.o
+ .debug_str     0x0000000000000000     0x1690 obj/hc32f46x_timer4_emb.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_timer4_emb.o
+ .debug_frame   0x0000000000000000       0x70 obj/hc32f46x_timer4_emb.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_timer4_emb.o
+ .text          0x0000000000000000      0x298 obj/hc32f46x_emb.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_emb.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_emb.o
+ .debug_info    0x0000000000000000     0x134c obj/hc32f46x_emb.o
+ .debug_abbrev  0x0000000000000000      0x31b obj/hc32f46x_emb.o
+ .debug_loc     0x0000000000000000      0x6d1 obj/hc32f46x_emb.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_emb.o
+ .debug_line    0x0000000000000000      0x6a9 obj/hc32f46x_emb.o
+ .debug_str     0x0000000000000000      0xcf1 obj/hc32f46x_emb.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_emb.o
+ .debug_frame   0x0000000000000000       0x90 obj/hc32f46x_emb.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_emb.o
+ .text          0x0000000000000000      0xa1c obj/hc32f46x_dmac.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_dmac.o
+ .bss           0x0000000000000000        0x1 obj/hc32f46x_dmac.o
+ .debug_info    0x0000000000000000     0x4f0e obj/hc32f46x_dmac.o
+ .debug_abbrev  0x0000000000000000      0x364 obj/hc32f46x_dmac.o
+ .debug_loc     0x0000000000000000     0x1744 obj/hc32f46x_dmac.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_dmac.o
+ .debug_line    0x0000000000000000      0xe21 obj/hc32f46x_dmac.o
+ .debug_str     0x0000000000000000     0x31b3 obj/hc32f46x_dmac.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_dmac.o
+ .debug_frame   0x0000000000000000      0x2e8 obj/hc32f46x_dmac.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_dmac.o
+ .text          0x0000000000000000      0x118 obj/hc32f46x_trng.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_trng.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_trng.o
+ .debug_info    0x0000000000000000      0xcdb obj/hc32f46x_trng.o
+ .debug_abbrev  0x0000000000000000      0x2d8 obj/hc32f46x_trng.o
+ .debug_loc     0x0000000000000000      0x123 obj/hc32f46x_trng.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_trng.o
+ .debug_line    0x0000000000000000      0x3c0 obj/hc32f46x_trng.o
+ .debug_str     0x0000000000000000      0x898 obj/hc32f46x_trng.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_trng.o
+ .debug_frame   0x0000000000000000       0x80 obj/hc32f46x_trng.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_trng.o
+ .text          0x0000000000000000        0x0 obj/hc32f46x_icg.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_icg.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_icg.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_utility.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_utility.o
+ .text          0x0000000000000000      0x2d8 obj/hc32f46x_can.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_can.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_can.o
+ .debug_info    0x0000000000000000     0x20cd obj/hc32f46x_can.o
+ .debug_abbrev  0x0000000000000000      0x364 obj/hc32f46x_can.o
+ .debug_loc     0x0000000000000000      0x2ef obj/hc32f46x_can.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_can.o
+ .debug_line    0x0000000000000000      0x558 obj/hc32f46x_can.o
+ .debug_str     0x0000000000000000     0x1494 obj/hc32f46x_can.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_can.o
+ .debug_frame   0x0000000000000000      0x114 obj/hc32f46x_can.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_can.o
+ .text          0x0000000000000000       0xfc obj/hc32f46x_sram.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_sram.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_sram.o
+ .debug_info    0x0000000000000000     0x10fa obj/hc32f46x_sram.o
+ .debug_abbrev  0x0000000000000000      0x2b4 obj/hc32f46x_sram.o
+ .debug_loc     0x0000000000000000      0x110 obj/hc32f46x_sram.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_sram.o
+ .debug_line    0x0000000000000000      0x436 obj/hc32f46x_sram.o
+ .debug_str     0x0000000000000000      0xb75 obj/hc32f46x_sram.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_sram.o
+ .debug_frame   0x0000000000000000       0xa4 obj/hc32f46x_sram.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_sram.o
+ .text          0x0000000000000000      0x660 obj/hc32f46x_rtc.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_rtc.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_rtc.o
+ .debug_info    0x0000000000000000     0x1af3 obj/hc32f46x_rtc.o
+ .debug_abbrev  0x0000000000000000      0x338 obj/hc32f46x_rtc.o
+ .debug_loc     0x0000000000000000      0x81f obj/hc32f46x_rtc.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_rtc.o
+ .debug_line    0x0000000000000000      0xb08 obj/hc32f46x_rtc.o
+ .debug_str     0x0000000000000000      0xf61 obj/hc32f46x_rtc.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_rtc.o
+ .debug_frame   0x0000000000000000      0x17c obj/hc32f46x_rtc.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_rtc.o
+ .text          0x0000000000000000      0x2f6 obj/hc32f46x_qspi.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_qspi.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_qspi.o
+ .debug_info    0x0000000000000000     0x1a27 obj/hc32f46x_qspi.o
+ .debug_abbrev  0x0000000000000000      0x310 obj/hc32f46x_qspi.o
+ .debug_loc     0x0000000000000000      0x3c2 obj/hc32f46x_qspi.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_qspi.o
+ .debug_line    0x0000000000000000      0x639 obj/hc32f46x_qspi.o
+ .debug_str     0x0000000000000000     0x18d0 obj/hc32f46x_qspi.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_qspi.o
+ .debug_frame   0x0000000000000000      0x120 obj/hc32f46x_qspi.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_qspi.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_exint_nmi_swi.o
+ .text          0x0000000000000000      0x170 obj/hc32f46x_i2s.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_i2s.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_i2s.o
+ .debug_info    0x0000000000000000     0x130f obj/hc32f46x_i2s.o
+ .debug_abbrev  0x0000000000000000      0x329 obj/hc32f46x_i2s.o
+ .debug_loc     0x0000000000000000      0x3d0 obj/hc32f46x_i2s.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_i2s.o
+ .debug_line    0x0000000000000000      0x4c3 obj/hc32f46x_i2s.o
+ .debug_str     0x0000000000000000      0xbf1 obj/hc32f46x_i2s.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_i2s.o
+ .debug_frame   0x0000000000000000       0xb8 obj/hc32f46x_i2s.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_i2s.o
+ .text          0x0000000000000000       0xa8 obj/hc32f46x_wdt.o
+ .data          0x0000000000000000        0x0 obj/hc32f46x_wdt.o
+ .bss           0x0000000000000000        0x0 obj/hc32f46x_wdt.o
+ .debug_info    0x0000000000000000      0xeed obj/hc32f46x_wdt.o
+ .debug_abbrev  0x0000000000000000      0x2df obj/hc32f46x_wdt.o
+ .debug_loc     0x0000000000000000      0x146 obj/hc32f46x_wdt.o
+ .debug_aranges
+                0x0000000000000000       0x20 obj/hc32f46x_wdt.o
+ .debug_line    0x0000000000000000      0x316 obj/hc32f46x_wdt.o
+ .debug_str     0x0000000000000000      0xbe1 obj/hc32f46x_wdt.o
+ .comment       0x0000000000000000       0x77 obj/hc32f46x_wdt.o
+ .debug_frame   0x0000000000000000       0x60 obj/hc32f46x_wdt.o
+ .ARM.attributes
+                0x0000000000000000       0x34 obj/hc32f46x_wdt.o
+ .data          0x0000000000000000        0x0 obj/main.o
+ .bss           0x0000000000000000        0x0 obj/main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH_ISR        0x0000000000000000 0x0000000000000400 xr
+FLASH_ICG        0x0000000000000400 0x0000000000000020 xr
+FLASH            0x0000000000000420 0x000000000007fbe0 xr
+RAM              0x000000001fff8000 0x000000000002f000 xrw
+RAM_RET          0x00000000200f0000 0x0000000000001000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD obj/HC32F46x.o
+LOAD obj/system_hc32f46x.o
+LOAD obj/hc32f46x_swdt.o
+LOAD obj/hc32f46x_timer6.o
+LOAD obj/hc32f46x_timer4_pwm.o
+LOAD obj/hc32f46x_efm.o
+LOAD obj/hc32f46x_rmu.o
+LOAD obj/hc32f46x_keyscan.o
+LOAD obj/hc32f46x_pwc.o
+LOAD obj/hc32f46x_timer0.o
+LOAD obj/hc32f46x_crc.o
+LOAD obj/hc32f46x_usart.o
+LOAD obj/hc32f46x_interrupts.o
+LOAD obj/hc32f46x_ots.o
+LOAD obj/hc32f46x_hash.o
+LOAD obj/hc32f46x_timer4_sevt.o
+LOAD obj/hc32f46x_sdioc.o
+LOAD obj/hc32f46x_timera.o
+LOAD obj/hc32f46x_timer4_cnt.o
+LOAD obj/hc32f46x_event_port.o
+LOAD obj/hc32f46x_clk.o
+LOAD obj/hc32f46x_i2c.o
+LOAD obj/hc32f46x_dcu.o
+LOAD obj/hc32f46x_adc.o
+LOAD obj/hc32f46x_mpu.o
+LOAD obj/hc32f46x_spi.o
+LOAD obj/hc32f46x_gpio.o
+LOAD obj/hc32f46x_cmp.o
+LOAD obj/hc32f46x_timer4_oco.o
+LOAD obj/hc32f46x_aes.o
+LOAD obj/hc32f46x_timer4_emb.o
+LOAD obj/hc32f46x_emb.o
+LOAD obj/hc32f46x_dmac.o
+LOAD obj/hc32f46x_trng.o
+LOAD obj/hc32f46x_icg.o
+LOAD obj/hc32f46x_utility.o
+LOAD obj/hc32f46x_can.o
+LOAD obj/hc32f46x_sram.o
+LOAD obj/hc32f46x_rtc.o
+LOAD obj/hc32f46x_qspi.o
+LOAD obj/hc32f46x_exint_nmi_swi.o
+LOAD obj/hc32f46x_i2s.o
+LOAD obj/hc32f46x_wdt.o
+LOAD obj/main.o
+
+.vectors        0x0000000000000000      0x280
+ *(.vectors)
+ .vectors       0x0000000000000000      0x280 obj/HC32F46x.o
+                0x0000000000000000                __Vectors
+                0x0000000000000280                __Vectors_End
+
+.icg_sec        0x0000000000000400       0x20
+ *(.icg_sec)
+ .icg_sec       0x0000000000000400       0x20 obj/hc32f46x_icg.o
+                0x0000000000000400                u32ICG
+
+.text           0x0000000000000420     0x3464
+ *(.text)
+ .text          0x0000000000000420       0xb0 obj/system_hc32f46x.o
+                0x0000000000000420                SystemCoreClockUpdate
+                0x00000000000004c8                SystemInit
+ .text          0x00000000000004d0     0x2c58 obj/hc32f46x_interrupts.o
+                0x00000000000004d0                enNvicBackup
+                0x0000000000000ae0                enNvicRecover
+                0x0000000000000b04                enIrqRegistration
+                0x0000000000000b68                enIrqResign
+                0x0000000000000b98                enShareIrqEnable
+                0x0000000000000bb8                enShareIrqDisable
+                0x0000000000000bdc                enIntWakeupEnable
+                0x0000000000000bf8                enIntWakeupDisable
+                0x0000000000000c14                enEventEnable
+                0x0000000000000c28                enEventDisable
+                0x0000000000000c40                enIntEnable
+                0x0000000000000c54                enIntDisable
+                0x0000000000000c6c                NMI_Handler
+                0x0000000000000c74                HardFault_Handler
+                0x0000000000000c7c                MemManage_Handler
+                0x0000000000000c84                BusFault_Handler
+                0x0000000000000c8c                UsageFault_Handler
+                0x0000000000000c94                SVC_Handler
+                0x0000000000000c9c                DebugMon_Handler
+                0x0000000000000ca4                PendSV_Handler
+                0x0000000000000cac                SysTick_Handler
+                0x0000000000000cb4                IRQ000_Handler
+                0x0000000000000cc4                IRQ001_Handler
+                0x0000000000000cd4                IRQ002_Handler
+                0x0000000000000ce4                IRQ003_Handler
+                0x0000000000000cf4                IRQ004_Handler
+                0x0000000000000d04                IRQ005_Handler
+                0x0000000000000d14                IRQ006_Handler
+                0x0000000000000d24                IRQ007_Handler
+                0x0000000000000d34                IRQ008_Handler
+                0x0000000000000d44                IRQ009_Handler
+                0x0000000000000d54                IRQ010_Handler
+                0x0000000000000d64                IRQ011_Handler
+                0x0000000000000d74                IRQ012_Handler
+                0x0000000000000d84                IRQ013_Handler
+                0x0000000000000d94                IRQ014_Handler
+                0x0000000000000da4                IRQ015_Handler
+                0x0000000000000db4                IRQ016_Handler
+                0x0000000000000dc4                IRQ017_Handler
+                0x0000000000000dd4                IRQ018_Handler
+                0x0000000000000de4                IRQ019_Handler
+                0x0000000000000df4                IRQ020_Handler
+                0x0000000000000e04                IRQ021_Handler
+                0x0000000000000e14                IRQ022_Handler
+                0x0000000000000e24                IRQ023_Handler
+                0x0000000000000e34                IRQ024_Handler
+                0x0000000000000e44                IRQ025_Handler
+                0x0000000000000e54                IRQ026_Handler
+                0x0000000000000e64                IRQ027_Handler
+                0x0000000000000e74                IRQ028_Handler
+                0x0000000000000e84                IRQ029_Handler
+                0x0000000000000e94                IRQ030_Handler
+                0x0000000000000ea4                IRQ031_Handler
+                0x0000000000000eb4                IRQ032_Handler
+                0x0000000000000ec8                IRQ033_Handler
+                0x0000000000000edc                IRQ034_Handler
+                0x0000000000000ef0                IRQ035_Handler
+                0x0000000000000f04                IRQ036_Handler
+                0x0000000000000f18                IRQ037_Handler
+                0x0000000000000f2c                IRQ038_Handler
+                0x0000000000000f40                IRQ039_Handler
+                0x0000000000000f54                IRQ040_Handler
+                0x0000000000000f68                IRQ041_Handler
+                0x0000000000000f7c                IRQ042_Handler
+                0x0000000000000f90                IRQ043_Handler
+                0x0000000000000fa4                IRQ044_Handler
+                0x0000000000000fb8                IRQ045_Handler
+                0x0000000000000fcc                IRQ046_Handler
+                0x0000000000000fe0                IRQ047_Handler
+                0x0000000000000ff4                IRQ048_Handler
+                0x0000000000001008                IRQ049_Handler
+                0x000000000000101c                IRQ050_Handler
+                0x0000000000001030                IRQ051_Handler
+                0x0000000000001044                IRQ052_Handler
+                0x0000000000001058                IRQ053_Handler
+                0x000000000000106c                IRQ054_Handler
+                0x0000000000001080                IRQ055_Handler
+                0x0000000000001094                IRQ056_Handler
+                0x00000000000010a8                IRQ057_Handler
+                0x00000000000010bc                IRQ058_Handler
+                0x00000000000010d0                IRQ059_Handler
+                0x00000000000010e4                IRQ060_Handler
+                0x00000000000010f8                IRQ061_Handler
+                0x000000000000110c                IRQ062_Handler
+                0x0000000000001120                IRQ063_Handler
+                0x0000000000001134                IRQ064_Handler
+                0x0000000000001148                IRQ065_Handler
+                0x000000000000115c                IRQ066_Handler
+                0x0000000000001170                IRQ067_Handler
+                0x0000000000001184                IRQ068_Handler
+                0x0000000000001198                IRQ069_Handler
+                0x00000000000011ac                IRQ070_Handler
+                0x00000000000011c0                IRQ071_Handler
+                0x00000000000011d4                IRQ072_Handler
+                0x00000000000011e8                IRQ073_Handler
+                0x00000000000011fc                IRQ074_Handler
+                0x0000000000001210                IRQ075_Handler
+                0x0000000000001224                IRQ076_Handler
+                0x0000000000001238                IRQ077_Handler
+                0x000000000000124c                IRQ078_Handler
+                0x0000000000001260                IRQ079_Handler
+                0x0000000000001274                IRQ080_Handler
+                0x0000000000001288                IRQ081_Handler
+                0x000000000000129c                IRQ082_Handler
+                0x00000000000012b0                IRQ083_Handler
+                0x00000000000012c4                IRQ084_Handler
+                0x00000000000012d8                IRQ085_Handler
+                0x00000000000012ec                IRQ086_Handler
+                0x0000000000001300                IRQ087_Handler
+                0x0000000000001314                IRQ088_Handler
+                0x0000000000001328                IRQ089_Handler
+                0x000000000000133c                IRQ090_Handler
+                0x0000000000001350                IRQ091_Handler
+                0x0000000000001364                IRQ092_Handler
+                0x0000000000001378                IRQ093_Handler
+                0x000000000000138c                IRQ094_Handler
+                0x00000000000013a0                IRQ095_Handler
+                0x00000000000013b4                IRQ096_Handler
+                0x00000000000013c8                IRQ097_Handler
+                0x00000000000013dc                IRQ098_Handler
+                0x00000000000013f0                IRQ099_Handler
+                0x0000000000001404                IRQ100_Handler
+                0x0000000000001418                IRQ101_Handler
+                0x000000000000142c                IRQ102_Handler
+                0x0000000000001440                IRQ103_Handler
+                0x0000000000001454                IRQ104_Handler
+                0x0000000000001468                IRQ105_Handler
+                0x000000000000147c                IRQ106_Handler
+                0x0000000000001490                IRQ107_Handler
+                0x00000000000014a4                IRQ108_Handler
+                0x00000000000014b8                IRQ109_Handler
+                0x00000000000014cc                IRQ110_Handler
+                0x00000000000014e0                IRQ111_Handler
+                0x00000000000014f4                IRQ112_Handler
+                0x0000000000001508                IRQ113_Handler
+                0x000000000000151c                IRQ114_Handler
+                0x0000000000001530                IRQ115_Handler
+                0x0000000000001544                IRQ116_Handler
+                0x0000000000001558                IRQ117_Handler
+                0x000000000000156c                IRQ118_Handler
+                0x0000000000001580                IRQ119_Handler
+                0x0000000000001594                IRQ120_Handler
+                0x00000000000015a8                IRQ121_Handler
+                0x00000000000015bc                IRQ122_Handler
+                0x00000000000015d0                IRQ123_Handler
+                0x00000000000015e4                IRQ124_Handler
+                0x00000000000015f8                IRQ125_Handler
+                0x000000000000160c                IRQ126_Handler
+                0x0000000000001620                IRQ127_Handler
+                0x0000000000001634                IRQ128_Handler
+                0x00000000000017c4                IRQ129_Handler
+                0x0000000000001b42                IRQ130_Handler
+                0x0000000000001c38                IRQ131_Handler
+                0x0000000000001fbc                IRQ132_Handler
+                0x000000000000214c                IRQ136_Handler
+                0x0000000000002484                IRQ137_Handler
+                0x0000000000002720                IRQ138_Handler
+                0x0000000000002954                IRQ139_Handler
+                0x0000000000002a6c                IRQ140_Handler
+                0x0000000000002c9c                IRQ141_Handler
+                0x0000000000002f30                IRQ142_Handler
+                0x0000000000003070                IRQ143_Handler
+ .text          0x0000000000003128      0x3c8 obj/hc32f46x_gpio.o
+                0x0000000000003128                PORT_Init
+                0x000000000000320c                PORT_DeInit
+                0x00000000000032cc                PORT_DebugPortSetting
+                0x0000000000003310                PORT_PubSetting
+                0x0000000000003348                PORT_Unlock
+                0x0000000000003358                PORT_Lock
+                0x0000000000003368                PORT_GetData
+                0x0000000000003376                PORT_GetBit
+                0x000000000000338c                PORT_SetPortData
+                0x00000000000033a0                PORT_ResetPortData
+                0x00000000000033b8                PORT_OE
+                0x00000000000033dc                PORT_SetBits
+                0x00000000000033f0                PORT_ResetBits
+                0x0000000000003404                PORT_Toggle
+                0x0000000000003418                PORT_AlwaysOn
+                0x0000000000003464                PORT_SetFunc
+                0x00000000000034c8                PORT_SetSubFunc
+ .text          0x00000000000034f0       0x38 obj/hc32f46x_utility.o
+                0x00000000000034f0                Ddl_Delay1ms
+ .text          0x0000000000003528      0x198 obj/hc32f46x_exint_nmi_swi.o
+                0x0000000000003528                EXINT_Init
+                0x0000000000003558                EXINT_IrqFlgGet
+                0x000000000000356c                EXINT_IrqFlgClr
+                0x0000000000003584                NMI_Init
+                0x00000000000035bc                NMI_DeInit
+                0x00000000000035d4                NMI_IrqFlgGet
+                0x0000000000003674                NMI_IrqFlgClr
+                0x0000000000003684                NMI_IrqHandler
+                0x0000000000003694                SWI_Enable
+                0x00000000000036a8                SWI_Disable
+ .text          0x00000000000036c0      0x13c obj/main.o
+                0x00000000000036c0                main
+ *(.text*)
+ .text.Reset_Handler
+                0x00000000000037fc       0x84 obj/HC32F46x.o
+                0x00000000000037fc                Reset_Handler
+ .text.Default_Handler
+                0x0000000000003880        0x4 obj/HC32F46x.o
+                0x0000000000003880                IRQ133_Handler
+                0x0000000000003880                IRQ134_Handler
+                0x0000000000003880                IRQ135_Handler
+ *(.glue_7)
+ .glue_7        0x0000000000003884        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x0000000000003884        0x0 linker stubs
+ *(.eh_fream)
+ *(.init)
+ *(.fini)
+
+.vfp11_veneer   0x0000000000003884        0x0
+ .vfp11_veneer  0x0000000000003884        0x0 linker stubs
+
+.v4_bx          0x0000000000003884        0x0
+ .v4_bx         0x0000000000003884        0x0 linker stubs
+
+.iplt           0x0000000000003884        0x0
+ .iplt          0x0000000000003884        0x0 obj/HC32F46x.o
+
+.rodata         0x0000000000003884        0x8
+                0x0000000000003884                . = ALIGN (0x4)
+ *(.rodata)
+ .rodata        0x0000000000003884        0x8 obj/main.o
+ *(.rodata*)
+                0x000000000000388c                . = ALIGN (0x4)
+
+.rel.dyn        0x000000000000388c        0x0
+ .rel.iplt      0x000000000000388c        0x0 obj/HC32F46x.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x000000000000388c                __exidx_start = .
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x000000000000388c                __exidx_end = .
+
+.preinit_array  0x000000000000388c        0x0
+                [!provide]                        PROVIDE (__preinit_array_start = .)
+ *(.preinit_array)
+                [!provide]                        PROVIDE (__preinit_array_end = .)
+
+.init_array     0x000000000000388c        0x0
+                [!provide]                        PROVIDE (__init_array_start = .)
+ *(SORT_BY_NAME(.init_array.*))
+ *(.init_array)
+                [!provide]                        PROVIDE (__init_array_end = .)
+
+.fini_array     0x000000000000388c        0x0
+                [!provide]                        PROVIDE (__fini_array_start = .)
+ *(SORT_BY_NAME(.fini_array.*))
+ *(.fini_array)
+                [!provide]                        PROVIDE (__fini_array_end = .)
+                0x000000000000388c                __etext = LOADADDR (.data)
+
+.data           0x000000001fff8000        0x4 load address 0x000000000000388c
+                0x000000001fff8000                . = ALIGN (0x4)
+                0x000000001fff8000                __data_start__ = .
+ *(vtable)
+ *(.data)
+ .data          0x000000001fff8000        0x4 obj/system_hc32f46x.o
+                0x000000001fff8000                SystemCoreClock
+ *(.data*)
+                0x000000001fff8004                . = ALIGN (0x4)
+                0x000000001fff8004                __data_end__ = .
+                0x0000000000003890                __ram_ret_data_start = LOADADDR (.ram_ret_data)
+
+.igot.plt       0x000000001fff8004        0x0 load address 0x0000000000003890
+ .igot.plt      0x000000001fff8004        0x0 obj/HC32F46x.o
+
+.ram_ret_data   0x00000000200f0000        0x0 load address 0x0000000000003890
+                0x00000000200f0000                . = ALIGN (0x4)
+                0x00000000200f0000                __data_start_ram_ret__ = .
+ *(.ram_ret_data)
+ *(.ram_ret_data*)
+                0x00000000200f0000                . = ALIGN (0x4)
+                0x00000000200f0000                __data_end_ram_ret__ = .
+
+.bss            0x000000001fff8004      0x218
+                0x000000001fff8004                . = ALIGN (0x4)
+                0x000000001fff8004                __bss_start__ = .
+ *(.bss*)
+ .bss           0x000000001fff8004      0x200 obj/hc32f46x_interrupts.o
+                0x000000001fff8004                IrqHandler
+ .bss           0x000000001fff8204        0x4 obj/hc32f46x_exint_nmi_swi.o
+ *(COMMON)
+ COMMON         0x000000001fff8208       0x14 obj/hc32f46x_interrupts.o
+                0x000000001fff8208                NVIC_ISER_BAK
+                0x000000001fff821c                . = ALIGN (0x4)
+                0x000000001fff821c                __bss_end__ = .
+
+.ram_ret_bss    0x00000000200f0000        0x0
+                0x00000000200f0000                . = ALIGN (0x4)
+                0x00000000200f0000                __bss_start_ram_ret__ = .
+ *(.ram_ret_bss)
+ *(.ram_ret_bss*)
+                0x00000000200f0000                . = ALIGN (0x4)
+                0x00000000200f0000                __bss_end_ram_ret__ = .
+
+.heap           0x000000001fff8220      0xc00
+                0x000000001fff8220                __end__ = .
+                [!provide]                        PROVIDE (end = .)
+ *(.heap*)
+ .heap          0x000000001fff8220      0xc00 obj/HC32F46x.o
+                0x000000001fff8220                __HeapBase
+                0x000000001fff8e20                __HeapLimit = .
+
+.stack_dummy    0x000000001fff8220      0x400
+ *(.stack*)
+ .stack         0x000000001fff8220      0x400 obj/HC32F46x.o
+                0x0000000020027000                __StackTop = (ORIGIN (RAM) + LENGTH (RAM))
+                0x0000000020026c00                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
+                [!provide]                        PROVIDE (_stack = __StackTop)
+                0x0000000000000001                ASSERT ((__StackLimit >= __HeapLimit), region RAM overflowed with stack)
+OUTPUT(exe/HC32F46x_GCC.elf elf32-littlearm)
+
+.ARM.attributes
+                0x0000000000000000       0x35
+ .ARM.attributes
+                0x0000000000000000       0x21 obj/HC32F46x.o
+ .ARM.attributes
+                0x0000000000000021       0x34 obj/system_hc32f46x.o
+ .ARM.attributes
+                0x0000000000000055       0x34 obj/hc32f46x_interrupts.o
+ .ARM.attributes
+                0x0000000000000089       0x34 obj/hc32f46x_gpio.o
+ .ARM.attributes
+                0x00000000000000bd       0x39 obj/hc32f46x_icg.o
+ .ARM.attributes
+                0x00000000000000f6       0x34 obj/hc32f46x_utility.o
+ .ARM.attributes
+                0x000000000000012a       0x34 obj/hc32f46x_exint_nmi_swi.o
+ .ARM.attributes
+                0x000000000000015e       0x34 obj/main.o
+
+.comment        0x0000000000000000       0x76
+ .comment       0x0000000000000000       0x76 obj/system_hc32f46x.o
+                                         0x77 (size before relaxing)
+ .comment       0x0000000000000076       0x77 obj/hc32f46x_interrupts.o
+ .comment       0x0000000000000076       0x77 obj/hc32f46x_gpio.o
+ .comment       0x0000000000000076       0x77 obj/hc32f46x_icg.o
+ .comment       0x0000000000000076       0x77 obj/hc32f46x_utility.o
+ .comment       0x0000000000000076       0x77 obj/hc32f46x_exint_nmi_swi.o
+ .comment       0x0000000000000076       0x77 obj/main.o
+
+.debug_info     0x0000000000000000    0x22c69
+ .debug_info    0x0000000000000000     0x2a1b obj/system_hc32f46x.o
+ .debug_info    0x0000000000002a1b    0x15e68 obj/hc32f46x_interrupts.o
+ .debug_info    0x0000000000018883     0x451f obj/hc32f46x_gpio.o
+ .debug_info    0x000000000001cda2      0x9c5 obj/hc32f46x_icg.o
+ .debug_info    0x000000000001d767      0xa37 obj/hc32f46x_utility.o
+ .debug_info    0x000000000001e19e     0x3bad obj/hc32f46x_exint_nmi_swi.o
+ .debug_info    0x0000000000021d4b      0xf1e obj/main.o
+
+.debug_abbrev   0x0000000000000000     0x12f9
+ .debug_abbrev  0x0000000000000000      0x28c obj/system_hc32f46x.o
+ .debug_abbrev  0x000000000000028c      0x423 obj/hc32f46x_interrupts.o
+ .debug_abbrev  0x00000000000006af      0x2d4 obj/hc32f46x_gpio.o
+ .debug_abbrev  0x0000000000000983      0x1cb obj/hc32f46x_icg.o
+ .debug_abbrev  0x0000000000000b4e      0x249 obj/hc32f46x_utility.o
+ .debug_abbrev  0x0000000000000d97      0x306 obj/hc32f46x_exint_nmi_swi.o
+ .debug_abbrev  0x000000000000109d      0x25c obj/main.o
+
+.debug_loc      0x0000000000000000     0x2a1b
+ .debug_loc     0x0000000000000000      0x119 obj/system_hc32f46x.o
+ .debug_loc     0x0000000000000119     0x1eea obj/hc32f46x_interrupts.o
+ .debug_loc     0x0000000000002003      0x663 obj/hc32f46x_gpio.o
+ .debug_loc     0x0000000000002666       0x52 obj/hc32f46x_utility.o
+ .debug_loc     0x00000000000026b8      0x363 obj/hc32f46x_exint_nmi_swi.o
+
+.debug_aranges  0x0000000000000000       0xd8
+ .debug_aranges
+                0x0000000000000000       0x20 obj/system_hc32f46x.o
+ .debug_aranges
+                0x0000000000000020       0x20 obj/hc32f46x_interrupts.o
+ .debug_aranges
+                0x0000000000000040       0x20 obj/hc32f46x_gpio.o
+ .debug_aranges
+                0x0000000000000060       0x18 obj/hc32f46x_icg.o
+ .debug_aranges
+                0x0000000000000078       0x20 obj/hc32f46x_utility.o
+ .debug_aranges
+                0x0000000000000098       0x20 obj/hc32f46x_exint_nmi_swi.o
+ .debug_aranges
+                0x00000000000000b8       0x20 obj/main.o
+
+.debug_line     0x0000000000000000     0x4729
+ .debug_line    0x0000000000000000      0x285 obj/system_hc32f46x.o
+ .debug_line    0x0000000000000285     0x321a obj/hc32f46x_interrupts.o
+ .debug_line    0x000000000000349f      0x73f obj/hc32f46x_gpio.o
+ .debug_line    0x0000000000003bde      0x1da obj/hc32f46x_icg.o
+ .debug_line    0x0000000000003db8      0x254 obj/hc32f46x_utility.o
+ .debug_line    0x000000000000400c      0x429 obj/hc32f46x_exint_nmi_swi.o
+ .debug_line    0x0000000000004435      0x2f4 obj/main.o
+
+.debug_str      0x0000000000000000     0xcc61
+ .debug_str     0x0000000000000000     0x1732 obj/system_hc32f46x.o
+                                       0x17eb (size before relaxing)
+ .debug_str     0x0000000000001732     0x97fd obj/hc32f46x_interrupts.o
+                                       0xa384 (size before relaxing)
+ .debug_str     0x000000000000af2f     0x1914 obj/hc32f46x_gpio.o
+                                       0x20a0 (size before relaxing)
+ .debug_str     0x000000000000c843       0x30 obj/hc32f46x_icg.o
+                                        0x5ee (size before relaxing)
+ .debug_str     0x000000000000c873       0x48 obj/hc32f46x_utility.o
+                                        0x6bc (size before relaxing)
+ .debug_str     0x000000000000c8bb      0x389 obj/hc32f46x_exint_nmi_swi.o
+                                       0x1ba9 (size before relaxing)
+ .debug_str     0x000000000000cc44       0x1d obj/main.o
+                                        0x7d2 (size before relaxing)
+
+.debug_frame    0x0000000000000000     0x11c8
+ .debug_frame   0x0000000000000000       0x38 obj/system_hc32f46x.o
+ .debug_frame   0x0000000000000038      0xf18 obj/hc32f46x_interrupts.o
+ .debug_frame   0x0000000000000f50      0x16c obj/hc32f46x_gpio.o
+ .debug_frame   0x00000000000010bc       0x28 obj/hc32f46x_utility.o
+ .debug_frame   0x00000000000010e4       0xb8 obj/hc32f46x_exint_nmi_swi.o
+ .debug_frame   0x000000000000119c       0x2c obj/main.o
+
+.debug_ranges   0x0000000000000000       0x18
+ .debug_ranges  0x0000000000000000       0x18 obj/hc32f46x_interrupts.o

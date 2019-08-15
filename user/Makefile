@@ -7,7 +7,8 @@
 # Makefile belongs to User
 
 CC = arm-none-eabi-gcc
-CFLAGS = -g -O0 -Wall
+CFLAGS = -g -O3 -Wall -nostdlib
+CFLAGS += -Wno-main
 
 CUR_DIR = $(shell pwd)
 SRCDIR  = ./src/
@@ -15,7 +16,7 @@ INCDIR  = ./inc/
 OBJDIR  = ../out/objects/
 #######################################################
 # GLOBAL DEFINITIONS
-CFLAGS += -D__xDEBUG -DHC32F46x -DUSE_DEVICE_DRIVER_LIB
+CFLAGS += -D__DEBUG -DHC32F46x -DUSE_DEVICE_DRIVER_LIB
 
 # Includes
 CFLAGS += -I${INCDIR}

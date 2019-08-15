@@ -70,88 +70,78 @@
 /*******************************************************************************
  * Local pre-processor symbols/macros ('#define')
  ******************************************************************************/
-#define CLK_XTAL_TIMEOUT                    ((uint16_t)0x1000)
-#define CLK_XTAL32_TIMEOUT                  ((uint8_t)0x05)
-#define CLK_HRC_TIMEOUT                     ((uint16_t)0x1000)
-#define CLK_MRC_TIMEOUT                     ((uint8_t)0x05)
-#define CLK_LRC_TIMEOUT                     ((uint8_t)0x05)
-#define CLK_MPLL_TIMEOUT                    ((uint16_t)0x1000)
-#define CLK_UPLL_TIMEOUT                    ((uint16_t)0x1000)
-#define CLK_FCG_STABLE                      ((uint16_t)0x1000)
-#define CLK_SYSCLK_STABLE                   ((uint16_t)0x1000)
-#define CLK_USBCLK_STABLE                   ((uint16_t)0x1000)
+#define CLK_XTAL_TIMEOUT                    ((uint16_t)0x1000u)
+#define CLK_XTAL32_TIMEOUT                  ((uint8_t)0x05u)
+#define CLK_HRC_TIMEOUT                     ((uint16_t)0x1000u)
+#define CLK_MRC_TIMEOUT                     ((uint8_t)0x05u)
+#define CLK_LRC_TIMEOUT                     ((uint8_t)0x05u)
+#define CLK_MPLL_TIMEOUT                    ((uint16_t)0x1000u)
+#define CLK_UPLL_TIMEOUT                    ((uint16_t)0x1000u)
+#define CLK_FCG_STABLE                      ((uint16_t)0x1000u)
+#define CLK_SYSCLK_STABLE                   ((uint16_t)0x1000u)
+#define CLK_USBCLK_STABLE                   ((uint16_t)0x1000u)
 
-#define CLK_PLL_DIV_MIN                     2u
-#define CLK_PLL_DIV_MAX                     16u
+#define CLK_PLL_DIV_MIN                     (2u)
+#define CLK_PLL_DIV_MAX                     (16u)
 
-#define CLK_PLLQ_DIV_MIN                    1u
-#define CLK_PLLQ_DIV_MAX                    16u
+#define CLK_PLLQ_DIV_MIN                    (1u)
+#define CLK_PLLQ_DIV_MAX                    (16u)
 
-#define CLK_PLLN_MIN                        20u
-#define CLK_PLLN_MAX                        480u
+#define CLK_PLLN_MIN                        (20u)
+#define CLK_PLLN_MAX                        (480u)
 
-#define CLK_PLLM_MIN                        1u
-#define CLK_PLLM_MAX                        24u
+#define CLK_PLLM_MIN                        (1u)
+#define CLK_PLLM_MAX                        (24u)
 
-#define CLK_UPLLM_MIN                       2u
-#define CLK_UPLLM_MAX                       24u
+#define CLK_UPLLM_MIN                       (2u)
+#define CLK_UPLLM_MAX                       (24u)
 
-#define CLK_PLL_VCO_IN_MIN                  1*1000*1000
-#define CLK_PLL_VCO_IN_MAX                  24*1000*1000
+#define CLK_PLL_VCO_IN_MIN                  (1u*1000u*1000u)
+#define CLK_PLL_VCO_IN_MAX                  (24u*1000u*1000u)
 
-#define CLK_PLL_VCO_OUT_MIN                 240*1000*1000
-#define CLK_PLL_VCO_OUT_MAX                 480*1000*1000
+#define CLK_PLL_VCO_OUT_MIN                 (240u*1000u*1000u)
+#define CLK_PLL_VCO_OUT_MAX                 (480u*1000u*1000u)
 
-#define ENABLE_CLOCK_REG_WRITE()            (M4_SYSREG->PWR_FPRC = 0xa501)
-#define DISABLE_CLOCK_REG_WRITE()           (M4_SYSREG->PWR_FPRC = 0xa500)
+#define ENABLE_CLOCK_REG_WRITE()            (M4_SYSREG->PWR_FPRC = 0xa501u)
+#define DISABLE_CLOCK_REG_WRITE()           (M4_SYSREG->PWR_FPRC = 0xa500u)
 
-#define ENABLE_CLOCK1_REG_WRITE()           (M4_SYSREG->PWR_FPRC = 0xa502)
-#define DISABLE_CLOCK1_REG_WRITE()          (M4_SYSREG->PWR_FPRC = 0xa500)
+#define ENABLE_CLOCK1_REG_WRITE()           (M4_SYSREG->PWR_FPRC = 0xa502u)
+#define DISABLE_CLOCK1_REG_WRITE()          (M4_SYSREG->PWR_FPRC = 0xa500u)
 
 
-#define DEFAULT_FCG0                        0xFFFFFAEE
-#define DEFAULT_FCG1                        0xFFFFFFFF
-#define DEFAULT_FCG2                        0xFFFFFFFF
-#define DEFAULT_FCG3                        0xFFFFFFFF
+#define DEFAULT_FCG0                        (0xFFFFFAEEu)
+#define DEFAULT_FCG1                        (0xFFFFFFFFu)
+#define DEFAULT_FCG2                        (0xFFFFFFFFu)
+#define DEFAULT_FCG3                        (0xFFFFFFFFu)
 
-#define FCG0_OFFSET_FCM                     16u
-#define FCG1_OFFSET_CAN                     0u
-#define FCG1_OFFSET_QSPI                    3u
-#define FCG1_OFFSET_USBFS                   8u
-#define FCG1_OFFSET_SPI1                    16u
-#define FCG1_OFFSET_SPI2                    17u
-#define FCG1_OFFSET_SPI3                    18u
-#define FCG1_OFFSET_SPI4                    19u
-#define FCG3_OFFSET_ADC1                    0u
-#define FCG3_OFFSET_ADC2                    1u
-#define FCG3_OFFSET_DAC                     4u
+#define FCG0_OFFSET_FCM                     (16u)
+#define FCG1_OFFSET_CAN                     (0u)
+#define FCG1_OFFSET_QSPI                    (3u)
+#define FCG1_OFFSET_USBFS                   (8u)
+#define FCG1_OFFSET_SPI1                    (16u)
+#define FCG1_OFFSET_SPI2                    (17u)
+#define FCG1_OFFSET_SPI3                    (18u)
+#define FCG1_OFFSET_SPI4                    (19u)
+#define FCG3_OFFSET_ADC1                    (0u)
+#define FCG3_OFFSET_ADC2                    (1u)
+#define FCG3_OFFSET_DAC                     (4u)
 
 /*! Parameter validity check for XTAL stablization time \a stb. */
 #define IS_XTAL_STB_VALID(stb)                                                 \
 (   (ClkXtalStbCycle35          <= (stb))  &&                                  \
     (ClkXtalStbCycle8163        >=  (stb)))
 
-/*! Parameter validity check for stop XTAL \a syssrc \a pllsrc. */
-#define IS_XTAL_STOP_VALID(syssrc,pllsrc)                                      \
-(   (ClkSysSrcXTAL      != (syssrc)) &&                                        \
-    (!((ClkPllSrcXTAL ==  (pllsrc)) && (M4_SYSREG->CMU_PLLCR_f.MPLLOFF == 0))))
-
 /*! Parameter validity check for stop XTAL32 \a syssrc. */
 #define IS_XTAL32_STOP_VALID(syssrc)        (ClkSysSrcXTAL32 != (syssrc))
 
-/*! Parameter validity check for stop HRC \a syssrc \a pllsrc. */
-#define IS_HRC_STOP_VALID(syssrc,pllsrc)                                       \
-(   (ClkSysSrcHRC           !=  (syssrc))   &&                                 \
-    (!((ClkPllSrcHRC ==  (pllsrc)) && (M4_SYSREG->CMU_PLLCR_f.MPLLOFF == 0))))
-
 /*! Parameter validity check for stop MRC \a syssrc. */
-#define IS_MRC_STOP_VALID(syssrc)           (ClkSysSrcMRC != syssrc)
+#define IS_MRC_STOP_VALID(syssrc)           (ClkSysSrcMRC != (syssrc))
 
 /*! Parameter validity check for stop LRC \a syssrc. */
-#define IS_LRC_STOP_VALID(syssrc)           (ClkSysSrcLRC != syssrc)
+#define IS_LRC_STOP_VALID(syssrc)           (ClkSysSrcLRC != (syssrc))
 
 /*! Parameter validity check for stop MPLL \a syssrc. */
-#define IS_MPLL_STOP_VALID(syssrc)          (CLKSysSrcMPLL != syssrc)
+#define IS_MPLL_STOP_VALID(syssrc)          (CLKSysSrcMPLL != (syssrc))
 
 /*! Parameter validity check for pll source \a src. */
 #define IS_PLL_SOURCE(src)                                                     \
@@ -196,21 +186,21 @@
 /*! Parameter validity check for system clock source \a syssrc. */
 #define IS_SYSCLK_SOURCE(syssrc)                                               \
 (   (ClkSysSrcHRC           ==  (syssrc))   ||                                 \
-    (ClkSysSrcMRC           <=  (syssrc))   &&                                 \
-    (CLKSysSrcMPLL          >=  (syssrc)))
+    ((ClkSysSrcMRC          <=  (syssrc))   &&                                 \
+     (CLKSysSrcMPLL         >=  (syssrc))))
 
 /*! Parameter validity check for usb clock source \a usbsrc. */
 #define IS_USBCLK_SOURCE(usbsrc)                                               \
-(   (ClkUsbSrcSysDiv2       <=  (usbsrc))   &&                                 \
-    (ClkUsbSrcSysDiv4       >=  (usbsrc))   ||                                 \
-    (ClkUsbSrcMpllp         <=  (usbsrc))   &&                                 \
-    (ClkUsbSrcUpllr         >=  (usbsrc)))
+(   ((ClkUsbSrcSysDiv2      <=  (usbsrc))   &&                                 \
+     (ClkUsbSrcSysDiv4      >=  (usbsrc)))  ||                                 \
+    ((ClkUsbSrcMpllp        <=  (usbsrc))   &&                                 \
+     (ClkUsbSrcUpllr        >=  (usbsrc))))
 
 /*! Parameter validity check for peripheral(adc/trng/I2S) clock source \a adcsrc. */
 #define IS_PERICLK_SOURCE(adcsrc)                                              \
 (   (ClkPeriSrcPclk         ==  (adcsrc))   ||                                 \
-    (ClkPeriSrcMpllp        <=  (adcsrc))   &&                                 \
-    (ClkPeriSrcUpllr        >=  (adcsrc)))
+    ((ClkPeriSrcMpllp       <=  (adcsrc))   &&                                 \
+     (ClkPeriSrcUpllr       >=  (adcsrc))))
 
 /*! Parameter validity check for output clock source \a outsrc. */
 #define IS_OUTPUTCLK_SOURCE(outsrc)                                            \
@@ -228,8 +218,8 @@
 /*! Parameter validity check for fcm source \a fcmsrc. */
 #define IS_FCM_SOURCE(fcmsrc)                                                  \
 (   (ClkFcmSrcXtal          ==  (fcmsrc))   ||                                 \
-    (ClkFcmSrcXtal32        <=  (fcmsrc))   &&                                 \
-    (ClkFcmSrcRtcLrc        >=  (fcmsrc)))
+    ((ClkFcmSrcXtal32       <=  (fcmsrc))   &&                                 \
+     (ClkFcmSrcRtcLrc       >=  (fcmsrc))))
 
 /*! Parameter validity check for output clock channel \a outch. */
 #define IS_OUTPUTCLK_CHANNEL(outch)                                            \
@@ -268,8 +258,8 @@
 /*! Parameter validity check for output clock division \a div. */
 #define IS_OUTPUTCLK_DIV_VALID(div)                                            \
 (   (ClkOutputDiv1          ==  (div))      ||                                 \
-    (ClkOutputDiv2          <=  (div))      &&                                 \
-    (ClkOutputDiv128        >=  (div)))
+    ((ClkOutputDiv2         <=  (div))      &&                                 \
+     (ClkOutputDiv128       >=  (div))))
 
 /*! Parameter validity check for fcm measurement source division \a div. */
 #define IS_FCM_MEASRC_DIV_VALID(div)                                           \
@@ -287,18 +277,18 @@
 
 /*! Parameter validity check for system clock config \a cfg. */
 #define IS_SYSCLK_CONFIG_VALID(cfg)                                            \
-(   (cfg->enHclkDiv           <=  (cfg->enPclk1Div))    &&                     \
-    (cfg->enHclkDiv           <=  (cfg->enPclk3Div))    &&                     \
-    (cfg->enHclkDiv           <=  (cfg->enPclk4Div))    &&                     \
-    (cfg->enPclk0Div          <=  (cfg->enPclk1Div))    &&                     \
-    (cfg->enPclk0Div          <=  (cfg->enPclk3Div))    &&                     \
-    ((cfg->enPclk2Div-cfg->enPclk4Div   ==  3)          ||                     \
-    (cfg->enPclk2Div-cfg->enPclk4Div    ==  2)          ||                     \
-    (cfg->enPclk2Div-cfg->enPclk4Div    ==  1)          ||                     \
-    (cfg->enPclk2Div-cfg->enPclk4Div    ==  0)          ||                     \
-    (cfg->enPclk4Div-cfg->enPclk2Div    ==  1)          ||                     \
-    (cfg->enPclk4Div-cfg->enPclk2Div    ==  2)          ||                     \
-    (cfg->enPclk4Div-cfg->enPclk2Div    ==  3)))
+(   ((cfg)->enHclkDiv           <=  ((cfg)->enPclk1Div))    &&                 \
+    ((cfg)->enHclkDiv           <=  ((cfg)->enPclk3Div))    &&                 \
+    ((cfg)->enHclkDiv           <=  ((cfg)->enPclk4Div))    &&                 \
+    ((cfg)->enPclk0Div          <=  ((cfg)->enPclk1Div))    &&                 \
+    ((cfg)->enPclk0Div          <=  ((cfg)->enPclk3Div))    &&                 \
+    (((cfg)->enPclk2Div-(cfg)->enPclk4Div   ==  3)          ||                 \
+    ((cfg)->enPclk2Div-(cfg)->enPclk4Div    ==  2)          ||                 \
+    ((cfg)->enPclk2Div-(cfg)->enPclk4Div    ==  1)          ||                 \
+    ((cfg)->enPclk2Div-(cfg)->enPclk4Div    ==  0)          ||                 \
+    ((cfg)->enPclk4Div-(cfg)->enPclk2Div    ==  1)          ||                 \
+    ((cfg)->enPclk4Div-(cfg)->enPclk2Div    ==  2)          ||                 \
+    ((cfg)->enPclk4Div-(cfg)->enPclk2Div    ==  3)))
 
 
 /*! Parameter validity check for clock status \a flag. */
@@ -343,15 +333,20 @@
  ******************************************************************************/
 void CLK_XtalConfig(const stc_clk_xtal_cfg_t *pstcXtalCfg)
 {
-    DDL_ASSERT(NULL != pstcXtalCfg);
+    if(NULL != pstcXtalCfg)
+    {
+        ENABLE_CLOCK_REG_WRITE();
 
-    ENABLE_CLOCK_REG_WRITE();
+        M4_SYSREG->CMU_XTALCFGR_f.SUPDRV = pstcXtalCfg->enFastStartup;
+        M4_SYSREG->CMU_XTALCFGR_f.XTALMS = pstcXtalCfg->enMode;
+        M4_SYSREG->CMU_XTALCFGR_f.XTALDRV = pstcXtalCfg->enDrv;
 
-    M4_SYSREG->CMU_XTALCFGR_f.SUPDRV = pstcXtalCfg->enFastStartup;
-    M4_SYSREG->CMU_XTALCFGR_f.XTALMS = pstcXtalCfg->enMode;
-    M4_SYSREG->CMU_XTALCFGR_f.XTALDRV = pstcXtalCfg->enDrv;
-
-    DISABLE_CLOCK_REG_WRITE();
+        DISABLE_CLOCK_REG_WRITE();
+    }
+    else
+    {
+        /* code */
+    }       
 }
 
 /**
@@ -389,16 +384,21 @@ void CLK_XtalStbConfig(const en_clk_xtal_stb_cycle_t enXtalStb)
  ******************************************************************************/
 void CLK_XtalStpConfig(const stc_clk_xtal_stp_cfg_t *pstcXtalStpCfg)
 {
-    DDL_ASSERT(NULL != pstcXtalStpCfg);
+    if(NULL != pstcXtalStpCfg)
+    {
+        ENABLE_CLOCK_REG_WRITE();
 
-    ENABLE_CLOCK_REG_WRITE();
+        M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDE = pstcXtalStpCfg->enDetect;
+        M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDRIS = pstcXtalStpCfg->enMode;
+        M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDRE = pstcXtalStpCfg->enModeReset;
+        M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDIE = pstcXtalStpCfg->enModeInt;
 
-    M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDE = pstcXtalStpCfg->enDetect;
-    M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDRIS = pstcXtalStpCfg->enMode;
-    M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDRE = pstcXtalStpCfg->enModeReset;
-    M4_SYSREG->CMU_XTALSTDCR_f.XTALSTDIE = pstcXtalStpCfg->enModeInt;
-
-    DISABLE_CLOCK_REG_WRITE();
+        DISABLE_CLOCK_REG_WRITE();
+    }
+    else
+    {
+        /* code */
+    }
 }
 
 /**
@@ -409,27 +409,44 @@ void CLK_XtalStpConfig(const stc_clk_xtal_stp_cfg_t *pstcXtalStpCfg)
  ** \arg    Enable                      Enable XTAL.
  ** \arg    Disable                     Disable XTAL.
  **
- ** \retval None
+ ** \retval en_result_t
  **
  ** \note   XTAL can not be stopped if it is used as system clock source or pll
  **         clock source.
  **
  ******************************************************************************/
-void CLK_XtalCmd(en_functional_state_t enNewState)
+en_result_t CLK_XtalCmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0u;
     en_flag_status_t status;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
-    DDL_ASSERT((Enable == enNewState) ?
-                1 : IS_XTAL_STOP_VALID(M4_SYSREG->CMU_CKSWR_f.CKSW,
-                M4_SYSREG->CMU_PLLCFGR_f.PLLSRC));
+
+    if(Disable == enNewState)
+    {
+        if(ClkSysSrcXTAL == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        {
+            return Error;
+        }
+        else if(ClkPllSrcXTAL == M4_SYSREG->CMU_PLLCFGR_f.PLLSRC)
+        {
+            if(0u == M4_SYSREG->CMU_PLLCR_f.MPLLOFF)
+            {
+                return Error;
+            }
+        }
+        else
+        {
+            /* code */
+        }
+        
+    }
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_XTALCR_f.XTALSTP = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_XTALCR_f.XTALSTP = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -438,6 +455,8 @@ void CLK_XtalCmd(en_functional_state_t enNewState)
         status = CLK_GetFlagStatus(ClkFlagXTALRdy);
         timeout++;
     }while((timeout < CLK_XTAL_TIMEOUT) && (status != ((Enable == enNewState) ? Set : Reset)));
+
+    return Ok;
 }
 
 /**
@@ -453,15 +472,20 @@ void CLK_XtalCmd(en_functional_state_t enNewState)
  ******************************************************************************/
 void CLK_Xtal32Config(const stc_clk_xtal32_cfg_t *pstcXtal32Cfg)
 {
-    DDL_ASSERT(NULL != pstcXtal32Cfg);
+    if(NULL != pstcXtal32Cfg)
+    {
+        ENABLE_CLOCK_REG_WRITE();
 
-    ENABLE_CLOCK_REG_WRITE();
+        M4_SYSREG->CMU_XTAL32CFGR_f.XTAL32SUPDRV = pstcXtal32Cfg->enFastStartup;
+        M4_SYSREG->CMU_XTAL32CFGR_f.XTAL32DRV = pstcXtal32Cfg->enDrv;
+        M4_SYSREG->CMU_XTAL32NFR_f.XTAL32NF = pstcXtal32Cfg->enFilterMode;
 
-    M4_SYSREG->CMU_XTAL32CFGR_f.XTAL32SUPDRV = pstcXtal32Cfg->enFastStartup;
-    M4_SYSREG->CMU_XTAL32CFGR_f.XTAL32DRV = pstcXtal32Cfg->enDrv;
-    M4_SYSREG->CMU_XTAL32NFR_f.XTAL32NF = pstcXtal32Cfg->enFilterMode;
-
-    DISABLE_CLOCK_REG_WRITE();
+        DISABLE_CLOCK_REG_WRITE();
+    }
+    else
+    {
+        /* code */
+    }  
 }
 
 /**
@@ -479,7 +503,7 @@ void CLK_Xtal32Config(const stc_clk_xtal32_cfg_t *pstcXtal32Cfg)
  ******************************************************************************/
 void CLK_Xtal32Cmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
     DDL_ASSERT(((Enable == enNewState) ?
@@ -487,7 +511,7 @@ void CLK_Xtal32Cmd(en_functional_state_t enNewState)
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_XTAL32CR_f.XTAL32STP = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_XTAL32CR_f.XTAL32STP = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -508,7 +532,7 @@ void CLK_Xtal32Cmd(en_functional_state_t enNewState)
  ** \note   None
  **
  ******************************************************************************/
-void CLK_HrcTrim(int8_t trimValue)
+void CLK_HrcTrim(uint8_t trimValue)
 {
     ENABLE_CLOCK_REG_WRITE();
 
@@ -531,19 +555,34 @@ void CLK_HrcTrim(int8_t trimValue)
  **         clock source.
  **
  ******************************************************************************/
-void CLK_HrcCmd(en_functional_state_t enNewState)
+en_result_t CLK_HrcCmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     en_flag_status_t status;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
-    DDL_ASSERT((Enable == enNewState) ?
-                1 : IS_HRC_STOP_VALID(M4_SYSREG->CMU_CKSWR_f.CKSW,
-                M4_SYSREG->CMU_PLLCFGR_f.PLLSRC));
+    if(Disable == enNewState)
+    {
+        if(ClkSysSrcHRC == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        {
+            return Error;
+        }
+        else if(ClkPllSrcHRC == M4_SYSREG->CMU_PLLCFGR_f.PLLSRC)
+        {
+            if(0u == M4_SYSREG->CMU_PLLCR_f.MPLLOFF)
+            {
+                return Error;
+            }
+        }
+        else
+        {
+            /* code */
+        }        
+    }
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_HRCCR_f.HRCSTP = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_HRCCR_f.HRCSTP = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -552,6 +591,8 @@ void CLK_HrcCmd(en_functional_state_t enNewState)
         status = CLK_GetFlagStatus(ClkFlagHRCRdy);
         timeout++;
     }while((timeout < CLK_HRC_TIMEOUT) && (status != ((Enable == enNewState) ? Set : Reset)));
+
+    return Ok;
 }
 
 /**
@@ -565,7 +606,7 @@ void CLK_HrcCmd(en_functional_state_t enNewState)
  ** \note   None
  **
  ******************************************************************************/
-void CLK_MrcTrim(int8_t trimValue)
+void CLK_MrcTrim(uint8_t trimValue)
 {
     ENABLE_CLOCK_REG_WRITE();
 
@@ -589,7 +630,7 @@ void CLK_MrcTrim(int8_t trimValue)
  ******************************************************************************/
 void CLK_MrcCmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
     DDL_ASSERT((Enable == enNewState) ?
@@ -597,7 +638,7 @@ void CLK_MrcCmd(en_functional_state_t enNewState)
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_MRCCR_f.MRCSTP = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_MRCCR_f.MRCSTP = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -618,7 +659,7 @@ void CLK_MrcCmd(en_functional_state_t enNewState)
  ** \note   None
  **
  ******************************************************************************/
-void CLK_LrcTrim(int8_t trimValue)
+void CLK_LrcTrim(uint8_t trimValue)
 {
     ENABLE_CLOCK_REG_WRITE();
 
@@ -642,7 +683,7 @@ void CLK_LrcTrim(int8_t trimValue)
  ******************************************************************************/
 void CLK_LrcCmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
     DDL_ASSERT((Enable == enNewState) ?
@@ -650,7 +691,7 @@ void CLK_LrcCmd(en_functional_state_t enNewState)
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_LRCCR_f.LRCSTP = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_LRCCR_f.LRCSTP = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -699,32 +740,38 @@ void CLK_SetPllSource(en_clk_pll_source_t enPllSrc)
  ******************************************************************************/
 void CLK_MpllConfig(const stc_clk_mpll_cfg_t *pstcMpllCfg)
 {
-    uint32_t vcoIn = 0;
-    uint32_t vcoOut = 0;
+#ifdef __DEBUG
+    uint32_t vcoIn = 0u;
+    uint32_t vcoOut = 0u;
+#endif
+    if(NULL != pstcMpllCfg)
+    {
+        DDL_ASSERT(IS_PLL_DIV_VALID(pstcMpllCfg->PllpDiv));
+        DDL_ASSERT(IS_PLLQ_DIV_VALID(pstcMpllCfg->PllqDiv));
+        DDL_ASSERT(IS_PLL_DIV_VALID(pstcMpllCfg->PllrDiv));
+        DDL_ASSERT(IS_PLLN_VALID(pstcMpllCfg->plln));
+        DDL_ASSERT(IS_PLLM_VALID(pstcMpllCfg->pllmDiv));
+#ifdef __DEBUG
+        vcoIn = ((ClkPllSrcXTAL == M4_SYSREG->CMU_PLLCFGR_f.PLLSRC ?
+                XTAL_VALUE : HRC_VALUE) / pstcMpllCfg->pllmDiv);
+        vcoOut = vcoIn * pstcMpllCfg->plln;
+        DDL_ASSERT(IS_PLL_VCO_IN_VALID(vcoIn));
+        DDL_ASSERT(IS_PLL_VCO_OUT_VALID(vcoOut));
+#endif
+        ENABLE_CLOCK_REG_WRITE();
 
-    DDL_ASSERT(NULL != pstcMpllCfg);
-    DDL_ASSERT(IS_PLL_DIV_VALID(pstcMpllCfg->PllpDiv));
-    DDL_ASSERT(IS_PLLQ_DIV_VALID(pstcMpllCfg->PllqDiv));
-    DDL_ASSERT(IS_PLL_DIV_VALID(pstcMpllCfg->PllrDiv));
-    DDL_ASSERT(IS_PLLN_VALID(pstcMpllCfg->plln));
-    DDL_ASSERT(IS_PLLM_VALID(pstcMpllCfg->pllmDiv));
+        M4_SYSREG->CMU_PLLCFGR_f.MPLLP = pstcMpllCfg->PllpDiv - 1u;
+        M4_SYSREG->CMU_PLLCFGR_f.MPLLQ = pstcMpllCfg->PllqDiv - 1u;
+        M4_SYSREG->CMU_PLLCFGR_f.MPLLR = pstcMpllCfg->PllrDiv - 1u;
+        M4_SYSREG->CMU_PLLCFGR_f.MPLLN = pstcMpllCfg->plln - 1u;
+        M4_SYSREG->CMU_PLLCFGR_f.MPLLM = pstcMpllCfg->pllmDiv - 1u;
 
-    vcoIn = ((ClkPllSrcXTAL == M4_SYSREG->CMU_PLLCFGR_f.PLLSRC ?
-              XTAL_VALUE : HRC_VALUE) / pstcMpllCfg->pllmDiv);
-    vcoOut = vcoIn * pstcMpllCfg->plln;
-
-    DDL_ASSERT(IS_PLL_VCO_IN_VALID(vcoIn));
-    DDL_ASSERT(IS_PLL_VCO_OUT_VALID(vcoOut));
-
-    ENABLE_CLOCK_REG_WRITE();
-
-    M4_SYSREG->CMU_PLLCFGR_f.MPLLP = pstcMpllCfg->PllpDiv - 1;
-    M4_SYSREG->CMU_PLLCFGR_f.MPLLQ = pstcMpllCfg->PllqDiv - 1;
-    M4_SYSREG->CMU_PLLCFGR_f.MPLLR = pstcMpllCfg->PllrDiv - 1;
-    M4_SYSREG->CMU_PLLCFGR_f.MPLLN = pstcMpllCfg->plln - 1;
-    M4_SYSREG->CMU_PLLCFGR_f.MPLLM = pstcMpllCfg->pllmDiv - 1;
-
-    DISABLE_CLOCK_REG_WRITE();
+        DISABLE_CLOCK_REG_WRITE();
+    }
+    else
+    {
+        /* code */
+    }
 }
 
 /**
@@ -742,7 +789,7 @@ void CLK_MpllConfig(const stc_clk_mpll_cfg_t *pstcMpllCfg)
  ******************************************************************************/
 void CLK_MpllCmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     en_flag_status_t status;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
@@ -751,7 +798,7 @@ void CLK_MpllCmd(en_functional_state_t enNewState)
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_PLLCR_f.MPLLOFF = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_PLLCR_f.MPLLOFF = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -777,33 +824,40 @@ void CLK_MpllCmd(en_functional_state_t enNewState)
  ******************************************************************************/
 void CLK_UpllConfig(const stc_clk_upll_cfg_t *pstcUpllCfg)
 {
-    uint32_t vcoIn = 0;
-    uint32_t vcoOut = 0;
+#ifdef __DEBUG
+    uint32_t vcoIn = 0u;
+    uint32_t vcoOut = 0u;
+#endif
+    if(NULL != pstcUpllCfg)
+    {
+        DDL_ASSERT(IS_PLL_DIV_VALID(pstcUpllCfg->PllpDiv));
+        DDL_ASSERT(IS_PLL_DIV_VALID(pstcUpllCfg->PllqDiv));
+        DDL_ASSERT(IS_PLL_DIV_VALID(pstcUpllCfg->PllrDiv));
+        DDL_ASSERT(IS_PLLN_VALID(pstcUpllCfg->plln));
+        DDL_ASSERT(IS_UPLLM_VALID(pstcUpllCfg->pllmDiv));
 
-    DDL_ASSERT(NULL != pstcUpllCfg);
-    DDL_ASSERT(IS_PLL_DIV_VALID(pstcUpllCfg->PllpDiv));
-    DDL_ASSERT(IS_PLL_DIV_VALID(pstcUpllCfg->PllqDiv));
-    DDL_ASSERT(IS_PLL_DIV_VALID(pstcUpllCfg->PllrDiv));
-    DDL_ASSERT(IS_PLLN_VALID(pstcUpllCfg->plln));
-    DDL_ASSERT(IS_UPLLM_VALID(pstcUpllCfg->pllmDiv));
+#ifdef __DEBUG
+        vcoIn = ((ClkPllSrcXTAL == M4_SYSREG->CMU_PLLCFGR_f.PLLSRC ?
+                XTAL_VALUE : HRC_VALUE) / pstcUpllCfg->pllmDiv);
+        vcoOut = vcoIn * pstcUpllCfg->plln;
 
+        DDL_ASSERT(IS_PLL_VCO_IN_VALID(vcoIn));
+        DDL_ASSERT(IS_PLL_VCO_OUT_VALID(vcoOut));
+#endif
+        ENABLE_CLOCK_REG_WRITE();
 
-    vcoIn = ((ClkPllSrcXTAL == M4_SYSREG->CMU_PLLCFGR_f.PLLSRC ?
-            XTAL_VALUE : HRC_VALUE) / pstcUpllCfg->pllmDiv);
-    vcoOut = vcoIn * pstcUpllCfg->plln;
+        M4_SYSREG->CMU_UPLLCFGR_f.UPLLP = pstcUpllCfg->PllpDiv - 1u;
+        M4_SYSREG->CMU_UPLLCFGR_f.UPLLQ = pstcUpllCfg->PllqDiv - 1u;
+        M4_SYSREG->CMU_UPLLCFGR_f.UPLLR = pstcUpllCfg->PllrDiv - 1u;
+        M4_SYSREG->CMU_UPLLCFGR_f.UPLLN = pstcUpllCfg->plln - 1u;
+        M4_SYSREG->CMU_UPLLCFGR_f.UPLLM = pstcUpllCfg->pllmDiv - 1u;
 
-    DDL_ASSERT(IS_PLL_VCO_IN_VALID(vcoIn));
-    DDL_ASSERT(IS_PLL_VCO_OUT_VALID(vcoOut));
-
-    ENABLE_CLOCK_REG_WRITE();
-
-    M4_SYSREG->CMU_UPLLCFGR_f.UPLLP = pstcUpllCfg->PllpDiv - 1;
-    M4_SYSREG->CMU_UPLLCFGR_f.UPLLQ = pstcUpllCfg->PllqDiv - 1;
-    M4_SYSREG->CMU_UPLLCFGR_f.UPLLR = pstcUpllCfg->PllrDiv - 1;
-    M4_SYSREG->CMU_UPLLCFGR_f.UPLLN = pstcUpllCfg->plln - 1;
-    M4_SYSREG->CMU_UPLLCFGR_f.UPLLM = pstcUpllCfg->pllmDiv - 1;
-
-    DISABLE_CLOCK_REG_WRITE();
+        DISABLE_CLOCK_REG_WRITE();
+    }
+    else
+    {
+        /* code */
+    }
 }
 
 /**
@@ -821,14 +875,14 @@ void CLK_UpllConfig(const stc_clk_upll_cfg_t *pstcUpllCfg)
  ******************************************************************************/
 void CLK_UpllCmd(en_functional_state_t enNewState)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     en_flag_status_t status;
 
     DDL_ASSERT(IS_FUNCTIONAL_STATE(enNewState));
 
     ENABLE_CLOCK_REG_WRITE();
 
-    M4_SYSREG->CMU_UPLLCR_f.UPLLOFF = ((Enable == enNewState) ? 0 : 1);
+    M4_SYSREG->CMU_UPLLCR_f.UPLLOFF = ((Enable == enNewState) ? 0u : 1u);
 
     DISABLE_CLOCK_REG_WRITE();
 
@@ -859,7 +913,7 @@ void CLK_UpllCmd(en_functional_state_t enNewState)
  ******************************************************************************/
 void CLK_SetSysClkSource(en_clk_sys_source_t enTargetSysSrc)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     __IO uint32_t fcg0 = M4_MSTP->FCG0;
     __IO uint32_t fcg1 = M4_MSTP->FCG1;
     __IO uint32_t fcg2 = M4_MSTP->FCG2;
@@ -870,8 +924,8 @@ void CLK_SetSysClkSource(en_clk_sys_source_t enTargetSysSrc)
     /* Only current system clock source or target system clock source is MPLL
     need to close fcg0~fcg3 and open fcg0~fcg3 during switch system clock source.
     We need to backup fcg0~fcg3 before close them. */
-    if(CLKSysSrcMPLL == M4_SYSREG->CMU_CKSWR_f.CKSW ||
-        CLKSysSrcMPLL == enTargetSysSrc)
+    if((CLKSysSrcMPLL == M4_SYSREG->CMU_CKSWR_f.CKSW) ||
+        (CLKSysSrcMPLL == enTargetSysSrc))
     {
         /* Close fcg0~fcg3. */
         M4_MSTP->FCG0 = DEFAULT_FCG0;
@@ -893,7 +947,7 @@ void CLK_SetSysClkSource(en_clk_sys_source_t enTargetSysSrc)
 
     DISABLE_CLOCK_REG_WRITE();
 
-    timeout = 0;
+    timeout = 0ul;
     do
     {
         timeout++;
@@ -906,7 +960,7 @@ void CLK_SetSysClkSource(en_clk_sys_source_t enTargetSysSrc)
     M4_MSTP->FCG3 = fcg3;
 
     /* Wait stable after open fcg. */
-    timeout = 0;
+    timeout = 0ul;
     do
     {
         timeout++;
@@ -946,65 +1000,70 @@ en_clk_sys_source_t CLK_GetSysClkSource(void)
  ******************************************************************************/
 void CLK_SysClkConfig(const stc_clk_sysclk_cfg_t *pstcSysclkCfg)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     __IO uint32_t fcg0 = M4_MSTP->FCG0;
     __IO uint32_t fcg1 = M4_MSTP->FCG1;
     __IO uint32_t fcg2 = M4_MSTP->FCG2;
     __IO uint32_t fcg3 = M4_MSTP->FCG3;
 
-    DDL_ASSERT(NULL != pstcSysclkCfg);
-    DDL_ASSERT(IS_SYSCLK_CONFIG_VALID(pstcSysclkCfg));
-
-    /* Only current system clock source is MPLL need to close fcg0~fcg3 and
-    open fcg0~fcg3 during switch system clock division.
-    We need to backup fcg0~fcg3 before close them. */
-    if(CLKSysSrcMPLL == M4_SYSREG->CMU_CKSWR_f.CKSW)
+    if(NULL != pstcSysclkCfg)
     {
-        /* Close fcg0~fcg3. */
-        M4_MSTP->FCG0 = DEFAULT_FCG0;
-        M4_MSTP->FCG1 = DEFAULT_FCG1;
-        M4_MSTP->FCG2 = DEFAULT_FCG2;
-        M4_MSTP->FCG3 = DEFAULT_FCG3;
+        DDL_ASSERT(IS_SYSCLK_CONFIG_VALID(pstcSysclkCfg));
 
-        /* Wait stable after close fcg. */
+        /* Only current system clock source is MPLL need to close fcg0~fcg3 and
+        open fcg0~fcg3 during switch system clock division.
+        We need to backup fcg0~fcg3 before close them. */
+        if(CLKSysSrcMPLL == M4_SYSREG->CMU_CKSWR_f.CKSW)
+        {
+            /* Close fcg0~fcg3. */
+            M4_MSTP->FCG0 = DEFAULT_FCG0;
+            M4_MSTP->FCG1 = DEFAULT_FCG1;
+            M4_MSTP->FCG2 = DEFAULT_FCG2;
+            M4_MSTP->FCG3 = DEFAULT_FCG3;
+
+            /* Wait stable after close fcg. */
+            do
+            {
+                timeout++;
+            }while(timeout < CLK_FCG_STABLE);
+        }
+
+        /* Switch to target system clock division. */
+        ENABLE_CLOCK_REG_WRITE();
+
+        M4_SYSREG->CMU_SCFGR = ( pstcSysclkCfg->enPclk0Div                         |
+                                (pstcSysclkCfg->enPclk1Div << 4)                   |
+                                (pstcSysclkCfg->enPclk2Div << 8)                   |
+                                (pstcSysclkCfg->enPclk3Div << 12)                  |
+                                (pstcSysclkCfg->enPclk4Div << 16)                  |
+                                (pstcSysclkCfg->enExclkDiv << 20)                  |
+                                (pstcSysclkCfg->enHclkDiv << 24));
+
+        DISABLE_CLOCK_REG_WRITE();
+
+        timeout = 0ul;
+        do
+        {
+            timeout++;
+        }while(timeout < CLK_SYSCLK_STABLE);
+
+        /* Open fcg0~fcg3. */
+        M4_MSTP->FCG0 = fcg0;
+        M4_MSTP->FCG1 = fcg1;
+        M4_MSTP->FCG2 = fcg2;
+        M4_MSTP->FCG3 = fcg3;
+
+        /* Wait stable after open fcg. */
+        timeout = 0ul;
         do
         {
             timeout++;
         }while(timeout < CLK_FCG_STABLE);
     }
-
-    /* Switch to target system clock division. */
-    ENABLE_CLOCK_REG_WRITE();
-
-    M4_SYSREG->CMU_SCFGR = ( pstcSysclkCfg->enPclk0Div                         |
-                            (pstcSysclkCfg->enPclk1Div << 4)                   |
-                            (pstcSysclkCfg->enPclk2Div << 8)                   |
-                            (pstcSysclkCfg->enPclk3Div << 12)                  |
-                            (pstcSysclkCfg->enPclk4Div << 16)                  |
-                            (pstcSysclkCfg->enExclkDiv << 20)                  |
-                            (pstcSysclkCfg->enHclkDiv << 24));
-
-    DISABLE_CLOCK_REG_WRITE();
-
-    timeout = 0;
-    do
+    else
     {
-        timeout++;
-    }while(timeout < CLK_SYSCLK_STABLE);
-
-    /* Open fcg0~fcg3. */
-    M4_MSTP->FCG0 = fcg0;
-    M4_MSTP->FCG1 = fcg1;
-    M4_MSTP->FCG2 = fcg2;
-    M4_MSTP->FCG3 = fcg3;
-
-    /* Wait stable after open fcg. */
-    timeout = 0;
-    do
-    {
-        timeout++;
-    }while(timeout < CLK_FCG_STABLE);
-
+        /* code */
+    }
 }
 
 
@@ -1022,72 +1081,81 @@ void CLK_SysClkConfig(const stc_clk_sysclk_cfg_t *pstcSysclkCfg)
  ******************************************************************************/
 void CLK_GetClockFreq(stc_clk_freq_t *pstcClkFreq)
 {
-    uint8_t plln = 0, pllp = 0, pllm = 0, pllsource = 0;
+    uint32_t plln = 0u, pllp = 0u, pllm = 0u, pllsource = 0u;
 
-    DDL_ASSERT(NULL != pstcClkFreq);
-
-    /* Get system clock. */
-    switch(M4_SYSREG->CMU_CKSWR_f.CKSW)
+    if(NULL != pstcClkFreq)
     {
-        case ClkSysSrcHRC:
-            /* HRC used as system clock. */
-            pstcClkFreq->sysclkFreq = HRC_VALUE;
-            break;
-        case ClkSysSrcMRC:
-            /* MRC used as system clock. */
-            pstcClkFreq->sysclkFreq = MRC_VALUE;
-            break;
-        case ClkSysSrcLRC:
-            /* LRC used as system clock. */
-            pstcClkFreq->sysclkFreq = LRC_VALUE;
-            break;
-        case ClkSysSrcXTAL:
-            /* XTAL used as system clock. */
-            pstcClkFreq->sysclkFreq = XTAL_VALUE;
-            break;
-        case ClkSysSrcXTAL32:
-            /* XTAL32 used as system clock. */
-            pstcClkFreq->sysclkFreq = XTAL32_VALUE;
-            break;
-        default:
-            /* MPLLP used as system clock. */
-            pllsource = M4_SYSREG->CMU_PLLCFGR_f.PLLSRC;
-            pllp = M4_SYSREG->CMU_PLLCFGR_f.MPLLP;
-            plln = M4_SYSREG->CMU_PLLCFGR_f.MPLLN;
-            pllm = M4_SYSREG->CMU_PLLCFGR_f.MPLLM;
+        /* Get system clock. */
+        switch(M4_SYSREG->CMU_CKSWR_f.CKSW)
+        {
+            case ClkSysSrcHRC:
+                /* HRC used as system clock. */
+                pstcClkFreq->sysclkFreq = HRC_VALUE;
+                break;
+            case ClkSysSrcMRC:
+                /* MRC used as system clock. */
+                pstcClkFreq->sysclkFreq = MRC_VALUE;
+                break;
+            case ClkSysSrcLRC:
+                /* LRC used as system clock. */
+                pstcClkFreq->sysclkFreq = LRC_VALUE;
+                break;
+            case ClkSysSrcXTAL:
+                /* XTAL used as system clock. */
+                pstcClkFreq->sysclkFreq = XTAL_VALUE;
+                break;
+            case ClkSysSrcXTAL32:
+                /* XTAL32 used as system clock. */
+                pstcClkFreq->sysclkFreq = XTAL32_VALUE;
+                break;
+            default:
+                /* MPLLP used as system clock. */
+                pllsource = M4_SYSREG->CMU_PLLCFGR_f.PLLSRC;
+                pllp = M4_SYSREG->CMU_PLLCFGR_f.MPLLP;
+                plln = M4_SYSREG->CMU_PLLCFGR_f.MPLLN;
+                pllm = M4_SYSREG->CMU_PLLCFGR_f.MPLLM;
 
-            /* PLLCLK = ((pllsrc / pllm) * plln) / pllp */
-            if (ClkPllSrcXTAL == pllsource)
-            {
-                pstcClkFreq->sysclkFreq = (XTAL_VALUE)/(pllm+1)*(plln+1)/(pllp+1);
-            }
-            else if (ClkPllSrcHRC == pllsource)
-            {
-                pstcClkFreq->sysclkFreq = (HRC_VALUE)/(pllm+1)*(plln+1)/(pllp+1);
-            }
-            break;
+                /* PLLCLK = ((pllsrc / pllm) * plln) / pllp */
+                if (ClkPllSrcXTAL == pllsource)
+                {
+                    pstcClkFreq->sysclkFreq = (XTAL_VALUE)/(pllm+1u)*(plln+1u)/(pllp+1u);
+                }
+                else if (ClkPllSrcHRC == pllsource)
+                {
+                    pstcClkFreq->sysclkFreq = (HRC_VALUE)/(pllm+1u)*(plln+1u)/(pllp+1u);
+                }
+                else
+                {
+                    //else
+                }
+                break;
+        }
+
+        /* Get hclk. */
+        pstcClkFreq->hclkFreq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.HCLKS;
+
+        /* Get exck. */
+        pstcClkFreq->exckFreq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.EXCKS;
+
+        /* Get pclk0. */
+        pstcClkFreq->pclk0Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK0S;
+
+        /* Get pclk1. */
+        pstcClkFreq->pclk1Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK1S;
+
+        /* Get pclk2. */
+        pstcClkFreq->pclk2Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK2S;
+
+        /* Get pclk3. */
+        pstcClkFreq->pclk3Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK3S;
+
+        /* Get pclk4. */
+        pstcClkFreq->pclk4Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK4S;
     }
-
-    /* Get hclk. */
-    pstcClkFreq->hclkFreq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.HCLKS;
-
-    /* Get exck. */
-    pstcClkFreq->exckFreq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.EXCKS;
-
-    /* Get pclk0. */
-    pstcClkFreq->pclk0Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK0S;
-
-    /* Get pclk1. */
-    pstcClkFreq->pclk1Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK1S;
-
-    /* Get pclk2. */
-    pstcClkFreq->pclk2Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK2S;
-
-    /* Get pclk3. */
-    pstcClkFreq->pclk3Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK3S;
-
-    /* Get pclk4. */
-    pstcClkFreq->pclk4Freq = pstcClkFreq->sysclkFreq >> M4_SYSREG->CMU_SCFGR_f.PCLK4S;
+    else
+    {
+        /* code */
+    }        
 }
 
 /**
@@ -1103,9 +1171,9 @@ void CLK_GetClockFreq(stc_clk_freq_t *pstcClkFreq)
  ******************************************************************************/
 void CLK_GetPllClockFreq(stc_pll_clk_freq_t *pstcPllClkFreq)
 {
-    uint8_t pllsource;
-    uint8_t mplln = 0, mpllp = 0, mpllq = 0, mpllr = 0, mpllm = 0;
-    uint8_t uplln = 0, upllp = 0, upllq = 0, upllr = 0, upllm = 0;
+    uint32_t pllsource;
+    uint32_t mplln = 0u, mpllp = 0u, mpllq = 0u, mpllr = 0u, mpllm = 0u;
+    uint32_t uplln = 0u, upllp = 0u, upllq = 0u, upllr = 0u, upllm = 0u;
 
     /* Get pll clock source */
     pllsource = M4_SYSREG->CMU_PLLCFGR_f.PLLSRC;
@@ -1127,21 +1195,25 @@ void CLK_GetPllClockFreq(stc_pll_clk_freq_t *pstcPllClkFreq)
     /* Get mpllp ,mpllr, mpllq, upllp, upllq, upllr clock frequency */
     if (ClkPllSrcXTAL == pllsource)
     {
-        pstcPllClkFreq->mpllp = (XTAL_VALUE)/(mpllm+1)*(mplln+1)/(mpllp+1);
-        pstcPllClkFreq->mpllq = (XTAL_VALUE)/(mpllm+1)*(mplln+1)/(mpllq+1);
-        pstcPllClkFreq->mpllr = (XTAL_VALUE)/(mpllm+1)*(mplln+1)/(mpllr+1);
-        pstcPllClkFreq->upllp = (XTAL_VALUE)/(upllm+1)*(uplln+1)/(upllp+1);
-        pstcPllClkFreq->upllq = (XTAL_VALUE)/(upllm+1)*(uplln+1)/(upllq+1);
-        pstcPllClkFreq->upllr = (XTAL_VALUE)/(upllm+1)*(uplln+1)/(upllr+1);
+        pstcPllClkFreq->mpllp = (XTAL_VALUE)/(mpllm+1u)*(mplln+1u)/(mpllp+1u);
+        pstcPllClkFreq->mpllq = (XTAL_VALUE)/(mpllm+1u)*(mplln+1u)/(mpllq+1u);
+        pstcPllClkFreq->mpllr = (XTAL_VALUE)/(mpllm+1u)*(mplln+1u)/(mpllr+1u);
+        pstcPllClkFreq->upllp = (XTAL_VALUE)/(upllm+1u)*(uplln+1u)/(upllp+1u);
+        pstcPllClkFreq->upllq = (XTAL_VALUE)/(upllm+1u)*(uplln+1u)/(upllq+1u);
+        pstcPllClkFreq->upllr = (XTAL_VALUE)/(upllm+1u)*(uplln+1u)/(upllr+1u);
     }
     else if (ClkPllSrcHRC == pllsource)
     {
-        pstcPllClkFreq->mpllp = (HRC_VALUE)/(mpllm+1)*(mplln+1)/(mpllp+1);
-        pstcPllClkFreq->mpllq = (HRC_VALUE)/(mpllm+1)*(mplln+1)/(mpllq+1);
-        pstcPllClkFreq->mpllr = (HRC_VALUE)/(mpllm+1)*(mplln+1)/(mpllr+1);
-        pstcPllClkFreq->upllp = (HRC_VALUE)/(upllm+1)*(uplln+1)/(upllp+1);
-        pstcPllClkFreq->upllq = (HRC_VALUE)/(upllm+1)*(uplln+1)/(upllq+1);
-        pstcPllClkFreq->upllr = (HRC_VALUE)/(upllm+1)*(uplln+1)/(upllr+1);
+        pstcPllClkFreq->mpllp = (HRC_VALUE)/(mpllm+1u)*(mplln+1u)/(mpllp+1u);
+        pstcPllClkFreq->mpllq = (HRC_VALUE)/(mpllm+1u)*(mplln+1u)/(mpllq+1u);
+        pstcPllClkFreq->mpllr = (HRC_VALUE)/(mpllm+1u)*(mplln+1u)/(mpllr+1u);
+        pstcPllClkFreq->upllp = (HRC_VALUE)/(upllm+1u)*(uplln+1u)/(upllp+1u);
+        pstcPllClkFreq->upllq = (HRC_VALUE)/(upllm+1u)*(uplln+1u)/(upllq+1u);
+        pstcPllClkFreq->upllr = (HRC_VALUE)/(upllm+1u)*(uplln+1u)/(upllr+1u);
+    }
+    else
+    {
+        //else
     }
 }
 
@@ -1167,7 +1239,7 @@ void CLK_GetPllClockFreq(stc_pll_clk_freq_t *pstcPllClkFreq)
  ******************************************************************************/
 void CLK_SetUsbClkSource(en_clk_usb_source_t enTargetUsbSrc)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     __IO uint32_t fcg0 = M4_MSTP->FCG0;
     __IO uint32_t fcg1 = M4_MSTP->FCG1;
     __IO uint32_t fcg2 = M4_MSTP->FCG2;
@@ -1210,7 +1282,7 @@ void CLK_SetUsbClkSource(en_clk_usb_source_t enTargetUsbSrc)
 
     DISABLE_CLOCK_REG_WRITE();
 
-    timeout = 0;
+    timeout = 0ul;
     do
     {
         timeout++;
@@ -1223,7 +1295,7 @@ void CLK_SetUsbClkSource(en_clk_usb_source_t enTargetUsbSrc)
     M4_MSTP->FCG3 = fcg3;
 
     /* Wait stable after open fcg. */
-    timeout = 0;
+    timeout = 0ul;
     do
     {
         timeout++;
@@ -1257,7 +1329,7 @@ void CLK_SetUsbClkSource(en_clk_usb_source_t enTargetUsbSrc)
  ******************************************************************************/
 void CLK_SetPeriClkSource(en_clk_peri_source_t enTargetPeriSrc)
 {
-    __IO uint32_t timeout = 0;
+    __IO uint32_t timeout = 0ul;
     DDL_ASSERT(IS_PERICLK_SOURCE(enTargetPeriSrc));
 
     ENABLE_CLOCK1_REG_WRITE();
@@ -1272,7 +1344,7 @@ void CLK_SetPeriClkSource(en_clk_peri_source_t enTargetPeriSrc)
         /* Wait stable after switch adc clock source.
         Only current system clock source or target system clock source is MPLL
         need to wait stable. */
-        timeout = 0;
+        timeout = 0ul;
         do
         {
             timeout++;
@@ -1303,7 +1375,7 @@ void CLK_SetPeriClkSource(en_clk_peri_source_t enTargetPeriSrc)
  ** \note   None
  **
  ******************************************************************************/
-void CLK_SetI2sClkSource(M4_I2S_TypeDef* pstcI2sReg, en_clk_peri_source_t enTargetPeriSrc)
+void CLK_SetI2sClkSource(const M4_I2S_TypeDef* pstcI2sReg, en_clk_peri_source_t enTargetPeriSrc)
 {
     DDL_ASSERT(IS_PERICLK_SOURCE(enTargetPeriSrc));
 
@@ -1325,6 +1397,10 @@ void CLK_SetI2sClkSource(M4_I2S_TypeDef* pstcI2sReg, en_clk_peri_source_t enTarg
     {
         M4_SYSREG->CMU_I2SCKSEL_f.I2S4CKSEL = enTargetPeriSrc;
     }
+    else
+    {
+        //else
+    }
 
     DISABLE_CLOCK1_REG_WRITE();
 }
@@ -1344,9 +1420,9 @@ void CLK_SetI2sClkSource(M4_I2S_TypeDef* pstcI2sReg, en_clk_peri_source_t enTarg
  ** \note   None
  **
  ******************************************************************************/
-en_clk_peri_source_t CLK_GetI2sClkSource(M4_I2S_TypeDef* pstcI2sReg)
+en_clk_peri_source_t CLK_GetI2sClkSource(const M4_I2S_TypeDef* pstcI2sReg)
 {
-    en_clk_peri_source_t enI2sClkSource;
+    en_clk_peri_source_t enI2sClkSource = ClkPeriSrcPclk;
 
     if(M4_I2S1 == pstcI2sReg)
     {
@@ -1363,6 +1439,10 @@ en_clk_peri_source_t CLK_GetI2sClkSource(M4_I2S_TypeDef* pstcI2sReg)
     else if(M4_I2S4 == pstcI2sReg)
     {
         enI2sClkSource = (en_clk_peri_source_t)M4_SYSREG->CMU_I2SCKSEL_f.I2S4CKSEL;
+    }
+    else
+    {
+        //else
     }
 
     return enI2sClkSource;
@@ -1429,26 +1509,34 @@ void CLK_TpiuClkCmd(en_functional_state_t enNewState)
  ******************************************************************************/
 void CLK_OutputClkConfig(en_clk_output_ch_t enCh, const stc_clk_output_cfg_t *pstcOutputCfg)
 {
-    DDL_ASSERT(NULL != pstcOutputCfg);
-    DDL_ASSERT(IS_OUTPUTCLK_CHANNEL(enCh));
-    DDL_ASSERT(IS_OUTPUTCLK_SOURCE(pstcOutputCfg->enOutputSrc));
-    DDL_ASSERT(IS_OUTPUTCLK_DIV_VALID(pstcOutputCfg->enOutputDiv));
-
-    ENABLE_CLOCK_REG_WRITE();
-
-    switch(enCh)
+    if(NULL != pstcOutputCfg)
     {
-        case ClkOutputCh1:
-            M4_SYSREG->CMU_MCO1CFGR_f.MCO1SEL = pstcOutputCfg->enOutputSrc;
-            M4_SYSREG->CMU_MCO1CFGR_f.MCO1DIV = pstcOutputCfg->enOutputDiv;
-            break;
-        case ClkOutputCh2:
-            M4_SYSREG->CMU_MCO2CFGR_f.MCO2SEL = pstcOutputCfg->enOutputSrc;
-            M4_SYSREG->CMU_MCO2CFGR_f.MCO2DIV = pstcOutputCfg->enOutputDiv;
-            break;
-    }
+        DDL_ASSERT(IS_OUTPUTCLK_CHANNEL(enCh));
+        DDL_ASSERT(IS_OUTPUTCLK_SOURCE(pstcOutputCfg->enOutputSrc));
+        DDL_ASSERT(IS_OUTPUTCLK_DIV_VALID(pstcOutputCfg->enOutputDiv));
 
-    DISABLE_CLOCK_REG_WRITE();
+        ENABLE_CLOCK_REG_WRITE();
+
+        switch(enCh)
+        {
+            case ClkOutputCh1:
+                M4_SYSREG->CMU_MCO1CFGR_f.MCO1SEL = pstcOutputCfg->enOutputSrc;
+                M4_SYSREG->CMU_MCO1CFGR_f.MCO1DIV = pstcOutputCfg->enOutputDiv;
+                break;
+            case ClkOutputCh2:
+                M4_SYSREG->CMU_MCO2CFGR_f.MCO2SEL = pstcOutputCfg->enOutputSrc;
+                M4_SYSREG->CMU_MCO2CFGR_f.MCO2DIV = pstcOutputCfg->enOutputDiv;
+                break;
+            default:
+                break;
+        }
+
+        DISABLE_CLOCK_REG_WRITE();
+    }
+    else
+    {
+        /* code */
+    }
 }
 
 /**
@@ -1478,6 +1566,8 @@ void CLK_OutputClkCmd(en_clk_output_ch_t enCh, en_functional_state_t enNewState)
             break;
         case ClkOutputCh2:
             M4_SYSREG->CMU_MCO2CFGR_f.MCO2EN = enNewState;
+            break;
+        default:
             break;
     }
 
@@ -1510,19 +1600,19 @@ en_flag_status_t CLK_GetFlagStatus(en_clk_flag_t enClkFlag)
     switch(enClkFlag)
     {
         case ClkFlagHRCRdy:
-            status = ((1 == M4_SYSREG->CMU_OSCSTBSR_f.HRCSTBF) ? Set : Reset);
+            status = ((1u == M4_SYSREG->CMU_OSCSTBSR_f.HRCSTBF) ? Set : Reset);
             break;
         case ClkFlagXTALRdy:
-            status = ((1 == M4_SYSREG->CMU_OSCSTBSR_f.XTALSTBF) ? Set : Reset);
+            status = ((1u == M4_SYSREG->CMU_OSCSTBSR_f.XTALSTBF) ? Set : Reset);
             break;
         case ClkFlagMPLLRdy:
-            status = ((1 == M4_SYSREG->CMU_OSCSTBSR_f.MPLLSTBF) ? Set : Reset);
+            status = ((1u == M4_SYSREG->CMU_OSCSTBSR_f.MPLLSTBF) ? Set : Reset);
             break;
         case ClkFlagUPLLRdy:
-            status = ((1 == M4_SYSREG->CMU_OSCSTBSR_f.UPLLSTBF) ? Set : Reset);
+            status = ((1u == M4_SYSREG->CMU_OSCSTBSR_f.UPLLSTBF) ? Set : Reset);
             break;
         default:
-            status = ((1 == M4_SYSREG->CMU_XTALSTDSR_f.XTALSTDF) ? Set : Reset);
+            status = ((1u == M4_SYSREG->CMU_XTALSTDSR_f.XTALSTDF) ? Set : Reset);
             break;
     }
 
@@ -1544,61 +1634,66 @@ en_flag_status_t CLK_GetFlagStatus(en_clk_flag_t enClkFlag)
  ******************************************************************************/
 void CLK_FcmConfig(const stc_clk_fcm_cfg_t *pstcClkFcmCfg)
 {
-    DDL_ASSERT(NULL != pstcClkFcmCfg);
-
-    /* Window config. */
-    if(pstcClkFcmCfg->pstcFcmWindowCfg)
+    if(NULL != pstcClkFcmCfg)
     {
-        /* Set window lower. */
-        M4_FCM->LVR = pstcClkFcmCfg->pstcFcmWindowCfg->windowLower;
-        /* Set window upper. */
-        M4_FCM->UVR = pstcClkFcmCfg->pstcFcmWindowCfg->windowUpper;
+        /* Window config. */
+        if(pstcClkFcmCfg->pstcFcmWindowCfg)
+        {
+            /* Set window lower. */
+            M4_FCM->LVR = pstcClkFcmCfg->pstcFcmWindowCfg->windowLower;
+            /* Set window upper. */
+            M4_FCM->UVR = pstcClkFcmCfg->pstcFcmWindowCfg->windowUpper;
+        }
+
+        /* Measure config. */
+        if(pstcClkFcmCfg->pstcFcmMeaCfg)
+        {
+            DDL_ASSERT(IS_FCM_SOURCE(pstcClkFcmCfg->pstcFcmMeaCfg->enSrc));
+            DDL_ASSERT(IS_FCM_MEASRC_DIV_VALID(pstcClkFcmCfg->pstcFcmMeaCfg->enSrcDiv));
+
+            /* Measure source. */
+            M4_FCM->MCCR_f.MCKS = pstcClkFcmCfg->pstcFcmMeaCfg->enSrc;
+            /* Measure source division. */
+            M4_FCM->MCCR_f.MDIVS = pstcClkFcmCfg->pstcFcmMeaCfg->enSrcDiv;
+        }
+
+        /* Reference config. */
+        if(pstcClkFcmCfg->pstcFcmRefCfg)
+        {
+            DDL_ASSERT(IS_FCM_REF(pstcClkFcmCfg->pstcFcmRefCfg->enRefSel));
+            DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmRefCfg->enExtRef));
+            DDL_ASSERT(IS_FCM_SOURCE(pstcClkFcmCfg->pstcFcmRefCfg->enIntRefSrc));
+            DDL_ASSERT(IS_FCM_INTREF_DIV_VALID(pstcClkFcmCfg->pstcFcmRefCfg->enIntRefDiv));
+            DDL_ASSERT(IS_FCM_EDGE(pstcClkFcmCfg->pstcFcmRefCfg->enEdge));
+            DDL_ASSERT(IS_FCM_FILTER_CLK(pstcClkFcmCfg->pstcFcmRefCfg->enFilterClk));
+
+            M4_FCM->RCCR_f.INEXS = pstcClkFcmCfg->pstcFcmRefCfg->enRefSel;
+            M4_FCM->RCCR_f.EXREFE = pstcClkFcmCfg->pstcFcmRefCfg->enExtRef;
+            M4_FCM->RCCR_f.RCKS = pstcClkFcmCfg->pstcFcmRefCfg->enIntRefSrc;
+            M4_FCM->RCCR_f.RDIVS = pstcClkFcmCfg->pstcFcmRefCfg->enIntRefDiv;
+            M4_FCM->RCCR_f.EDGES = pstcClkFcmCfg->pstcFcmRefCfg->enEdge;
+            M4_FCM->RCCR_f.DNFS = pstcClkFcmCfg->pstcFcmRefCfg->enFilterClk;
+        }
+
+        /* Interrupt config. */
+        if(pstcClkFcmCfg->pstcFcmIntCfg)
+        {
+            DDL_ASSERT(IS_FCM_HANDLE(pstcClkFcmCfg->pstcFcmIntCfg->enHandleSel));
+            DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enHandleReset));
+            DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enHandleInterrupt));
+            DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enOvfInterrupt));
+            DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enEndInterrupt));
+
+            M4_FCM->RIER_f.ERRINTRS = pstcClkFcmCfg->pstcFcmIntCfg->enHandleSel;
+            M4_FCM->RIER_f.ERRE = pstcClkFcmCfg->pstcFcmIntCfg->enHandleReset;
+            M4_FCM->RIER_f.ERRIE = pstcClkFcmCfg->pstcFcmIntCfg->enHandleInterrupt;
+            M4_FCM->RIER_f.MENDIE = pstcClkFcmCfg->pstcFcmIntCfg->enEndInterrupt;
+            M4_FCM->RIER_f.OVFIE = pstcClkFcmCfg->pstcFcmIntCfg->enOvfInterrupt;
+        }
     }
-
-    /* Measure config. */
-    if(pstcClkFcmCfg->pstcFcmMeaCfg)
+    else
     {
-        DDL_ASSERT(IS_FCM_SOURCE(pstcClkFcmCfg->pstcFcmMeaCfg->enSrc));
-        DDL_ASSERT(IS_FCM_MEASRC_DIV_VALID(pstcClkFcmCfg->pstcFcmMeaCfg->enSrcDiv));
-
-        /* Measure source. */
-        M4_FCM->MCCR_f.MCKS = pstcClkFcmCfg->pstcFcmMeaCfg->enSrc;
-        /* Measure source division. */
-        M4_FCM->MCCR_f.MDIVS = pstcClkFcmCfg->pstcFcmMeaCfg->enSrcDiv;
-    }
-
-    /* Reference config. */
-    if(pstcClkFcmCfg->pstcFcmRefCfg)
-    {
-        DDL_ASSERT(IS_FCM_REF(pstcClkFcmCfg->pstcFcmRefCfg->enRefSel));
-        DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmRefCfg->enExtRef));
-        DDL_ASSERT(IS_FCM_SOURCE(pstcClkFcmCfg->pstcFcmRefCfg->enIntRefSrc));
-        DDL_ASSERT(IS_FCM_INTREF_DIV_VALID(pstcClkFcmCfg->pstcFcmRefCfg->enIntRefDiv));
-        DDL_ASSERT(IS_FCM_EDGE(pstcClkFcmCfg->pstcFcmRefCfg->enEdge));
-        DDL_ASSERT(IS_FCM_FILTER_CLK(pstcClkFcmCfg->pstcFcmRefCfg->enFilterClk));
-
-        M4_FCM->RCCR_f.INEXS = pstcClkFcmCfg->pstcFcmRefCfg->enRefSel;
-        M4_FCM->RCCR_f.EXREFE = pstcClkFcmCfg->pstcFcmRefCfg->enExtRef;
-        M4_FCM->RCCR_f.RCKS = pstcClkFcmCfg->pstcFcmRefCfg->enIntRefSrc;
-        M4_FCM->RCCR_f.RDIVS = pstcClkFcmCfg->pstcFcmRefCfg->enIntRefDiv;
-        M4_FCM->RCCR_f.EDGES = pstcClkFcmCfg->pstcFcmRefCfg->enEdge;
-        M4_FCM->RCCR_f.DNFS = pstcClkFcmCfg->pstcFcmRefCfg->enFilterClk;
-    }
-
-    /* Interrupt config. */
-    if(pstcClkFcmCfg->pstcFcmIntCfg)
-    {
-        DDL_ASSERT(IS_FCM_HANDLE(pstcClkFcmCfg->pstcFcmIntCfg->enHandleSel));
-        DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enHandleReset));
-        DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enHandleInterrupt));
-        DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enOvfInterrupt));
-        DDL_ASSERT(IS_FUNCTIONAL_STATE(pstcClkFcmCfg->pstcFcmIntCfg->enEndInterrupt));
-
-        M4_FCM->RIER_f.ERRINTRS = pstcClkFcmCfg->pstcFcmIntCfg->enHandleSel;
-        M4_FCM->RIER_f.ERRE = pstcClkFcmCfg->pstcFcmIntCfg->enHandleReset;
-        M4_FCM->RIER_f.ERRIE = pstcClkFcmCfg->pstcFcmIntCfg->enHandleInterrupt;
-        M4_FCM->RIER_f.MENDIE = pstcClkFcmCfg->pstcFcmIntCfg->enEndInterrupt;
-        M4_FCM->RIER_f.OVFIE = pstcClkFcmCfg->pstcFcmIntCfg->enOvfInterrupt;
+        /* code */
     }
 }
 
@@ -1634,7 +1729,7 @@ void CLK_FcmCmd(en_functional_state_t enNewState)
  ** \note   None
  **
  ******************************************************************************/
-uint16_t CLK_GetFcmCounter(void)
+uint32_t CLK_GetFcmCounter(void)
 {
     return M4_FCM->CNTR;
 }
@@ -1655,20 +1750,22 @@ uint16_t CLK_GetFcmCounter(void)
  ******************************************************************************/
 en_flag_status_t CLK_GetFcmFlag(en_clk_fcm_flag_t enFcmFlag)
 {
-    en_flag_status_t status;
+    en_flag_status_t status = Reset;
 
     DDL_ASSERT(IS_FCM_FLAG(enFcmFlag));
 
     switch(enFcmFlag)
     {
         case ClkFcmFlagOvf:
-            status = ((1 == M4_FCM->SR_f.OVF) ? Set : Reset);
+            status = ((1u == M4_FCM->SR_f.OVF) ? Set : Reset);
             break;
         case ClkFcmFlagMendf:
-            status = ((1 == M4_FCM->SR_f.MENDF) ? Set : Reset);
+            status = ((1u == M4_FCM->SR_f.MENDF) ? Set : Reset);
             break;
         case ClkFcmFlagErrf:
-            status = ((1 == M4_FCM->SR_f.ERRF) ? Set : Reset);
+            status = ((1u == M4_FCM->SR_f.ERRF) ? Set : Reset);
+            break;
+        default:
             break;
     }
 
@@ -1703,6 +1800,8 @@ void CLK_ClearFcmFlag(en_clk_fcm_flag_t enFcmFlag)
             break;
         case ClkFcmFlagErrf:
             M4_FCM->CLR_f.ERRFCLR = Set;
+            break;
+        default:
             break;
     }
 }

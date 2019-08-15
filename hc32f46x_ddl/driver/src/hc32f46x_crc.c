@@ -77,7 +77,7 @@
 #define M4_CRC16_RSLT       (*((__IO uint16_t *)&M4_CRC->RESLT))
 
 /* Definition of CRC16 initial value register. */
-#define M4_CRC16_INIT       M4_CRC16_RSLT
+#define M4_CRC16_INIT       (M4_CRC16_RSLT)
 
 /*******************************************************************************
  * Global variable definitions (declared in header file with 'extern')
@@ -87,6 +87,7 @@
  * Local function prototypes ('static')
  ******************************************************************************/
 static uint32_t CRC_ProcChecksum(uint32_t u32Checksum);
+static uint32_t CRC_ReverseBits(uint32_t u32Data);
 
 /*******************************************************************************
  * Local variable definitions ('static')
@@ -128,7 +129,7 @@ void CRC_Init(uint32_t u32Config)
  ** \retval 16-bit CRC checksum.
  **
  ******************************************************************************/
-uint16_t CRC_Calculate16B(uint16_t u16InitVal, uint16_t *pu16Data, uint32_t u32Length)
+uint16_t CRC_Calculate16B(uint16_t u16InitVal, const uint16_t *pu16Data, uint32_t u32Length)
 {
     uint32_t u32Count;
 
@@ -155,7 +156,7 @@ uint16_t CRC_Calculate16B(uint16_t u16InitVal, uint16_t *pu16Data, uint32_t u32L
  ** \retval 32-bit CRC checksum.
  **
  ******************************************************************************/
-uint32_t CRC_Calculate32B(uint32_t u32InitVal, uint32_t *pu32Data, uint32_t u32Length)
+uint32_t CRC_Calculate32B(uint32_t u32InitVal, const uint32_t *pu32Data, uint32_t u32Length)
 {
     uint32_t u32Count;
 
@@ -185,13 +186,13 @@ uint32_t CRC_Calculate32B(uint32_t u32InitVal, uint32_t *pu32Data, uint32_t u32L
  ** \retval false                   CRC16 checks unsuccessfully.
  **
  ******************************************************************************/
-bool CRC_Check16B(uint16_t u16InitVal, uint16_t u16Checksum, uint16_t *pu16Data, uint32_t u32Length)
+bool CRC_Check16B(uint16_t u16InitVal, uint16_t u16Checksum, const uint16_t *pu16Data, uint32_t u32Length)
 {
     uint32_t u32Count;
     uint16_t u16CrcChecksum;
 
-    u16CrcChecksum = (uint16_t)CRC_ProcChecksum(u16Checksum);
-    M4_CRC16_INIT = u16InitVal;
+    u16CrcChecksum = (uint16_t)CRC_ProcChecksum((uint32_t)u16Checksum);
+    M4_CRC16_INIT  = u16InitVal;
 
     for (u32Count = 0u; u32Count < u32Length; u32Count++)
     {
@@ -219,7 +220,7 @@ bool CRC_Check16B(uint16_t u16InitVal, uint16_t u16Checksum, uint16_t *pu16Data,
  ** \retval false                   CRC32 checks unsuccessfully.
  **
  ******************************************************************************/
-bool CRC_Check32B(uint32_t u32InitVal, uint32_t u32Checksum, uint32_t *pu32Data, uint32_t u32Length)
+bool CRC_Check32B(uint32_t u32InitVal, uint32_t u32Checksum, const uint32_t *pu32Data, uint32_t u32Length)
 {
     uint32_t u32Count;
     uint32_t u32CrcChecksum;
@@ -252,13 +253,11 @@ bool CRC_Check32B(uint32_t u32InitVal, uint32_t u32Checksum, uint32_t *pu32Data,
 static uint32_t CRC_ProcChecksum(uint32_t u32Checksum)
 {
     uint8_t i;
-    uint8_t j;
     uint8_t u8Size = 16u;
-    uint8_t u8Temp;
-    uint8_t u8Checksum;
     uint8_t u8Offset;
     uint32_t u32Config;
     uint32_t u32FinalChecksum;
+    uint32_t u32Temp;
 
     u32Config = M4_CRC->CR;
     u32FinalChecksum = u32Checksum;
@@ -270,13 +269,12 @@ static uint32_t CRC_ProcChecksum(uint32_t u32Checksum)
 
     if ((u32Config & CRC_REFOUT_ENABLE) == CRC_REFOUT_DISABLE)
     {
-        u32FinalChecksum = 0u;
-        /* Bits transposition. */
-        for (i = 0; i < u8Size; i++)
+        /* Bits reversing. */
+        u32FinalChecksum = CRC_ReverseBits(u32Checksum);
+        if (u8Size == 16u)
         {
-            u32FinalChecksum <<= 1u;
-            u32FinalChecksum |= u32Checksum & 0x1ul;
-            u32Checksum >>= 1u;
+            u32FinalChecksum >>= 16u;
+            u32FinalChecksum &= 0xFFFFu;
         }
     }
 
@@ -289,24 +287,38 @@ static uint32_t CRC_ProcChecksum(uint32_t u32Checksum)
     if ((u32Config & CRC_REFIN_ENABLE) == CRC_REFIN_DISABLE)
     {
         u8Size /= 8u;
-        /* Bits transposition in bytes. */
+        /* Bits reversing in bytes. */
         for (i = 0u; i < u8Size; i++)
         {
             u8Offset = i * 8u;
-            u8Temp = (uint8_t)(u32FinalChecksum >> u8Offset);
-            u8Checksum = 0u;
-            for (j = 0u; j < 8u; j++)
-            {
-                u8Checksum <<= 1u;
-                u8Checksum |= u8Temp & 0x1u;
-                u8Temp >>= 1u;
-            }
+            u32Temp  = (u32FinalChecksum >> u8Offset) & 0xFFul;
+            u32Temp  = CRC_ReverseBits(u32Temp);
+            u32Temp  = u32Temp >> (24u - u8Offset);
             u32FinalChecksum &= ~((uint32_t)0xFF << u8Offset);
-            u32FinalChecksum |= (uint32_t)u8Checksum << u8Offset;
+            u32FinalChecksum |= u32Temp;
         }
     }
 
     return u32FinalChecksum;
+}
+
+/**
+ *******************************************************************************
+ ** \brief  Reverse bits.
+ **
+ ** \param  [in] u32Data                The data to be reversed bits.
+ **
+ ** \retval 32-bit new data.
+ **
+ ******************************************************************************/
+static uint32_t CRC_ReverseBits(uint32_t u32Data)
+{
+    u32Data = (((u32Data & 0xAAAAAAAAul) >> 1u) | ((u32Data & 0x55555555ul) << 1u));
+    u32Data = (((u32Data & 0xCCCCCCCCul) >> 2u) | ((u32Data & 0x33333333ul) << 2u));
+    u32Data = (((u32Data & 0xF0F0F0F0ul) >> 4u) | ((u32Data & 0x0F0F0F0Ful) << 4u));
+    u32Data = (((u32Data & 0xFF00FF00ul) >> 8u) | ((u32Data & 0x00FF00FFul) << 8u));
+
+    return ((u32Data >> 16u) | (u32Data << 16u));
 }
 
 //@} // CrcGroup

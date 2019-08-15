@@ -3,7 +3,12 @@
         "hc32_ddl.h": "c",
         "hc32f46x_utility.h": "c",
         "ddl_config.h": "c",
-        "hc32_common.h": "c"
+        "hc32_common.h": "c",
+        "stdbool.h": "c",
+        "string.h": "c",
+        "stdio.h": "c",
+        "stdint.h": "c",
+        "hc32f46x_gpio.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

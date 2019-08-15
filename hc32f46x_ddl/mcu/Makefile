@@ -8,7 +8,7 @@
 
 CC = arm-none-eabi-gcc
 AR = arm-none-eabi-ar
-CFLAGS = -g -O0 -Wall
+CFLAGS = -g -O3 -Wall
 
 CUR_DIR = $(shell pwd)
 SRCDIR  = ./common/

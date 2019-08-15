@@ -233,7 +233,7 @@ en_result_t TIMER4_SEVT_SetTriggerEvent(M4_TMR4_TypeDef *TMR4x,
                                 en_timer4_sevt_trigger_evt_t enTrgEvt);
 en_result_t TIMER4_SEVT_SetTriggerCond(M4_TMR4_TypeDef *TMR4x,
                                 en_timer4_sevt_ch_t enCh,
-                                const stc_timer4_sevt_trigger_cond_t *pstcTrgCond);
+                                const stc_timer4_sevt_trigger_cond_t *pstcTrigCond);
 en_result_t TIMER4_SEVT_WriteSCCR(M4_TMR4_TypeDef *TMR4x,
                                 en_timer4_sevt_ch_t enCh,
                                 uint16_t u16SccrVal);

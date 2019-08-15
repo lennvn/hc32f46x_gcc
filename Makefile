@@ -6,26 +6,72 @@
 
 # The top layer makefile
 
-PROJ_NAME  = HC32F46x_GCC
-TARGET_MCU = HC32F46x
+######################################################
+# Project name and target MCU.
+PROJ_NAME    = HC32F46x_GCC
+TARGET_MCU   = HC32F46x
 
-EXE_BIN      = $(PROJ_NAME).bin
-EXE_ELF      = $(PROJ_NAME).elf
-EXE_HEX      = $(PROJ_NAME).hex
-DIS_FILE     = $(PROJ_NAME).dis
+######################################################
+# Output directory./obj, ./exe.
+OBJ_DIR		 = obj
+EXE_DIR      = exe
+
+######################################################
+# Output files.
+ELF_FILE     = $(PROJ_NAME).elf
+BIN_FILE     = $(PROJ_NAME).bin
+HEX_FILE     = $(PROJ_NAME).hex
 LST_FILE     = $(PROJ_NAME).lst
+DIS_FILE     = $(PROJ_NAME).dis
 MAP_FILE     = $(PROJ_NAME).map
 SYMBOL_FILE  = $(PROJ_NAME).symbol_table
 SECTION_FILE = $(PROJ_NAME).section_talbe
 
-PWD = $(shell pwd)
-OUTPATH = out
-OBJPATH = objects
-LIBPATH := ./lib
-LOGPATH = logs
+######################################################
+# Paths of source files and head files.
+SRC_DIR += ./hc32f46x_ddl/mcu/common
+SRC_DIR += ./hc32f46x_ddl/driver/src
+SRC_DIR += ./user/src
+
+INC_DIR += ./hc32f46x_ddl/mcu/common
+INC_DIR += ./hc32f46x_ddl/mcu/CMSIS/Core/Include
+INC_DIR += ./hc32f46x_ddl/driver/inc
+INC_DIR += ./user/inc
+
+BOOT_DIR += ./startup/gcc
+
+LINK_DIR += ./ldscripts
 
 ######################################################
 #
+SRCS += $(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.c))
+OBJS += $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRCS)))
+
+BOOT_SRC += $(BOOT_DIR)/$(TARGET_MCU).S
+BOOT_OBJ += $(patsubst %.S, $(OBJ_DIR)/%.o, $(notdir $(BOOT_SRC)))
+
+TARGET_ELF = $(EXE_DIR)/$(ELF_FILE)
+TARGET_BIN = $(EXE_DIR)/$(BIN_FILE)
+TARGET_HEX = $(EXE_DIR)/$(HEX_FILE)
+TARGET_LST = $(EXE_DIR)/$(LST_FILE)
+TARGET_DIS = $(EXE_DIR)/$(DIS_FILE)
+TARGET_MAP = $(EXE_DIR)/$(MAP_FILE)
+TARGET_SYMBOL  = $(EXE_DIR)/$(SYMBOL_FILE)
+TARGET_SECTION = $(EXE_DIR)/$(SECTION_FILE)
+
+LD_SRC += $(LINK_DIR)/$(TARGET_MCU).ld
+
+######################################################
+#
+INCLUDES = $(foreach i, $(INC_DIR), -I $(i))
+
+VPATH += $(SRC_DIR)
+VPATH += $(INC_DIR)
+VPATH += $(OBJ_DIR)
+VPATH += $(EXE_DIR)
+
+######################################################
+# Tool chain.
 CC = arm-none-eabi-gcc
 AS = arm-none-eabi-as
 AR = arm-none-eabi-ar
@@ -35,80 +81,103 @@ OBJDUMP = arm-none-eabi-objdump
 RDELF   = arm-none-eabi-readelf
 SIZE    = arm-none-eabi-size
 
-CFLAGS = -g -O2 -Wall
+######################################################
+#
+CFLAGS :=
+CFLAGS += -g -O1 -Wall
+CFLAGS += -Wno-main
+CFLAGS += -mthumb -mthumb-interwork -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS += -mlittle-endian
 
 ######################################################
 # GLOBAL DEFINITIONS
 CFLAGS += -D__xDEBUG -DHC32F46x -DUSE_DEVICE_DRIVER_LIB
+CFLAGS += $(INCLUDES)
 
 ######################################################
-# Includes
-CFLAGS += -I../hc32f46x_ddl/driver/inc/
-CFLAGS += -I../hc32f46x_ddl/mcu/common/
-CFLAGS += -I../user/
+# ASFLAGS
+AFLAGS  = -mcpu=cortex-m4 -mthumb -mthumb-interwork
 
 ######################################################
 #
-CFLAGS += -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
-CFLAGS += -mlittle-endian -mthumb-interwork
-CFLAGS += --specs=nosys.specs
-
 LDFLAGS :=
 LDFLAGS += -nostartfiles --gc-sections
 #LDFLAGS += -L$(LIBPATH)/v7e-m/fpv4-sp/hard -lc
 #LDFLAGS += -L$(LIBPATH)/v7e-m/fpv4-sp/hard -lg
 #LDFLAGS += -L$(LIBPATH)/arm-none-eabi/6.3.1/thumb/v7e-m/fpv4-sp/hard -lgcc
-LDFLAGS += -T./ldscripts/hc32f46x_flash.ld
-LDFLAGS += -Map=$(OUTPATH)/$(MAP_FILE)
+LDFLAGS += -T $(LD_SRC)
+LDFLAGS += -Map=$(TARGET_MAP)
 
 ######################################################
-
-DIS_FLAGS = -D -S -r
+#
+ODFLAGS   = -D -S -r
 SEC_FLAGS = -S
 SYB_FLAGS = -s
 
 ######################################################
-C_FILES :=
-S_FILES :=
-
+#
+DIV_LINE = -----------------------------------------------------
 ######################################################
-include ./hc32f46x_ddl/driver/module.mk
-include ./hc32f46x_ddl/mcu/module.mk
-include ./startup/module.mk
-include ./user/module.mk
 
-######################################################
-C_OBJS := $(addprefix $(OUTPATH)/$(OBJPATH)/, $(C_FILES:.c=.o))
-S_OBJS += $(addprefix $(OUTPATH)/$(OBJPATH)/, $(S_FILES:.S=.o))
-LIB_OBJS := libc.a
+all: start complie link dn
+start:
+	@echo "Making directories for object files and executable files..."
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(EXE_DIR)
+	@echo "Making directories done."
 
-subdirs :=
-subdirs += ./hc32f46x_ddl/driver ./hc32f46x_ddl/mcu ./startup ./user
+complie: $(OBJS) $(BOOT_OBJ)
+$(OBJ_DIR)/%.o : %.c
+	@echo $(DIV_LINE)
+	@echo Compiling... $<
+	$(CC) -c $< $(CFLAGS) -o $@
+$(BOOT_OBJ) : $(BOOT_SRC)
+	@echo $(DEV)
+	@echo Compiling... $<
+	$(AS) $^ $(ASFLAGS) -o $@
 
-all:
-# mkdir -p: -p 当目录存在时，不会产生错误
-# @mkdir -p $(OUTPATH)
-	@mkdir -p $(OUTPATH)/$(OBJPATH)
-	@mkdir -p $(OUTPATH)/$(OBJPATH)
-	@mkdir -p $(OUTPATH)/$(LOGPATH)
-	@echo building $(S_OBJS) $(C_OBJS) $(LIB_OBJS)
-	for d in $(subdirs); do make -C $$d || exit 1; done
-	@echo building $(OUTPATH)/$(EXE_ELF)
-	$(LD) $(C_OBJS) $(S_OBJS) $(LDFLAGS) -o $(OUTPATH)/$(EXE_ELF)
-	@$(OBJDUMP) $(DIS_FLAGS) $(OUTPATH)/$(EXE_ELF) > $(OUTPATH)/$(DIS_FILE)
-	@$(OBJCOPY) -O ihex $(OUTPATH)/$(EXE_ELF) $(OUTPATH)/$(EXE_HEX)
-	@$(OBJCOPY) -O binary $(OUTPATH)/$(EXE_ELF) $(OUTPATH)/$(EXE_BIN)
-	@$(RDELF) $(SYB_FLAGS) $(OUTPATH)/$(EXE_ELF) > $(OUTPATH)/$(SYMBOL_FILE)
-	@$(RDELF) $(SEC_FLAGS) $(OUTPATH)/$(EXE_ELF) > $(OUTPATH)/$(SECTION_FILE)
-	@$(SIZE) $(OUTPATH)/$(EXE_ELF)
-	@echo "--> programing..."
-	JLinkExe -autoconnect 1 -device $(TARGET_MCU) -if swd -speed 100000 -ExitOnError -CommandFile program.jlink
-	@echo Done
+link: $(TARGET_ELF) $(TARGET_BIN) $(TARGET_HEX) $(TARGET_DIS) $(TARGET_SYMBOL) $(TARGET_SECTION)
+$(TARGET_ELF) : $(BOOT_OBJ) $(OBJS)
+	@echo $(DIV_LINE)
+	@echo "Linking..."
+	$(LD) $^ $(LDFLAGS) -o $@
+$(TARGET_BIN) : $(TARGET_ELF)
+	@echo $(DIV_LINE)
+	@echo Outputing bin file...
+	$(OBJCOPY) -O binary $< $@
+$(TARGET_HEX) : $(TARGET_ELF)
+	@echo $(DIV_LINE)
+	@echo Outputing hex file...
+	$(OBJCOPY) -O ihex $< $@
+$(TARGET_DIS) : $(TARGET_ELF)
+	@echo $(DIV_LINE)
+	@echo Outputing list file...
+	$(OBJDUMP) $(ODFLAGS) $(TARGET_ELF) > $(TARGET_DIS)
+$(TARGET_SYMBOL) : $(TARGET_ELF)
+	@echo $(DIV_LINE)
+	@echo Outputing symbol table file...
+	$(RDELF) $(SYB_FLAGS) $(TARGET_ELF) > $(TARGET_SYMBOL)
+$(TARGET_SECTION) : $(TARGET_ELF)
+	@echo $(DIV_LINE)
+	@echo Outputing section table file...
+	$(RDELF) $(SEC_FLAGS) $(TARGET_ELF) > $(TARGET_SECTION)
+	@echo $(DIV_LINE)
+	@echo Size of $(ELF_FILE) file...
+	@$(SIZE) $(TARGET_ELF)
 
-clean:
-	@echo clean $(S_OBJS) $(C_OBJS) $(LIB_OBJS)
-	for d in $(subdirs); do make -C $$d $@; done
-	@echo cleaning $(OUTPATH)/$(EXE_ELF)
-	@rm -rf $(OUTPATH)/*
+dn:
+	@echo $(DIV_LINE)
+	@echo "Downloading..."
+	JLinkExe -autoconnect 1 -device $(TARGET_MCU) -if swd -speed 100000 -ExitOnError -CommandFile download.jlink
+	@echo "Success :)"
+
+.PHONY: cl re
+cl:
+	@echo "Deleting object files and executable files..."
+	@rm -rf $(OBJ_DIR)/*
+	@rm -rf $(EXE_DIR)/*
+	@echo "Deleting done."
+
+re: cl all
 
 ######################################################

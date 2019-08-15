@@ -70,20 +70,8 @@
 /*******************************************************************************
  * Local pre-processor symbols/macros ('#define')
  ******************************************************************************/
-/* Start/stop AES. */
-#define AES_START_CALCULATING()             M4_AES->CR_f.START  = 1u
-#define AES_STOP_CALCULATING()              M4_AES->CR_f.START  = 0u
-
-/* Check AES. */
-#define IS_AES_CALCULATING()                M4_AES->CR_f.START  == 1u
-#define IS_AES_CALCULATIED_DONE()           M4_AES->CR_f.START  == 0u
-
-/* Set AES en encryption/decryption. */
-#define AES_SET_ENCRYPT()                   M4_AES->CR_f.MODE   = 0u
-#define AES_SET_DECRYPT()                   M4_AES->CR_f.MODE   = 1u
-
 /* AES block length in bytes is 16. */
-#define AES_BLOCKLEN                        ((uint8_t)16)
+#define AES_BLOCK_LEN                        ((uint8_t)16)
 
 /* Each encryption operation takes 440 system clock cycles. */
 #define AES_ENCRYPT_TIMEOUT                 (440u)
@@ -111,35 +99,6 @@ static void AES_WriteKey(const uint8_t *pu8Key);
  ******************************************************************************/
 /**
  *******************************************************************************
- ** \brief  Initialize the AES.
- **
- ** \param  None
- **
- ** \retval None
- **
- ******************************************************************************/
-void AES_Init(void)
-{
-    AES_STOP_CALCULATING();
-}
-
-/**
- *******************************************************************************
- ** \brief  DeInitialize the AES.
- **
- ** \param  None.
- **
- ** \retval None.
- **
- ******************************************************************************/
-void AES_DeInit(void)
-{
-    /* Stop AES. */
-    AES_STOP_CALCULATING();
-}
-
-/**
- *******************************************************************************
  ** \brief  AES128 encryption(ECB mode).
  **
  ** \param  [in] pu8Plaintext           Pointer to plaintext(the source data which will be encrypted)
@@ -160,15 +119,16 @@ en_result_t AES_Encrypt(const uint8_t *pu8Plaintext,
                         const uint8_t *pu8Key,
                         uint8_t *pu8Ciphertext)
 {
-    en_result_t   enRet;
+    en_result_t   enRet = ErrorTimeout;
     uint32_t      u32BlockOffset;
+    uint32_t      u32Index;
     __IO uint32_t u32TimeCount;
 
     if ((NULL == pu8Plaintext)   ||
         (0u == u32PlaintextSize) ||
         (NULL == pu8Key)         ||
         (NULL == pu8Ciphertext)  ||
-        (0u != (u32PlaintextSize % AES_BLOCKLEN)))
+        (0u != (u32PlaintextSize % AES_BLOCK_LEN)))
     {
         return ErrorInvalidParameter;
     }
@@ -178,18 +138,24 @@ en_result_t AES_Encrypt(const uint8_t *pu8Plaintext,
     u32BlockOffset = 0u;
     while (0u != u32PlaintextSize)
     {
-        AES_STOP_CALCULATING();
+        /* Stop AES calculating. */
+        bM4_AES_CR_START = 0u;
 
-        AES_WriteData(&pu8Plaintext[u32BlockOffset*AES_BLOCKLEN]);
+        /* Write data. */
+        u32Index = u32BlockOffset * AES_BLOCK_LEN;
+        AES_WriteData(&pu8Plaintext[u32Index]);
 
-        AES_SET_ENCRYPT();
-        AES_START_CALCULATING();
+        /* Set AES encrypt. */
+        bM4_AES_CR_MODE  = 0u;
+
+        /* Start AES calculating. */
+        bM4_AES_CR_START = 1u;
 
         enRet = ErrorTimeout;
         u32TimeCount = 0u;
         while (u32TimeCount < AES_ENCRYPT_TIMEOUT)
         {
-            if (IS_AES_CALCULATIED_DONE())
+            if ((bM4_AES_CR_START & 0x1ul) == 0u)
             {
                 enRet = Ok;
                 break;
@@ -202,12 +168,13 @@ en_result_t AES_Encrypt(const uint8_t *pu8Plaintext,
             break;
         }
 
-        AES_ReadData(&pu8Ciphertext[u32BlockOffset*AES_BLOCKLEN]);
-        u32PlaintextSize -= AES_BLOCKLEN;
+        AES_ReadData(&pu8Ciphertext[u32Index]);
+        u32PlaintextSize -= AES_BLOCK_LEN;
         u32BlockOffset++;
     }
 
-    AES_STOP_CALCULATING();
+    /* Stop AES calculating. */
+    bM4_AES_CR_START = 0u;
 
     return enRet;
 }
@@ -234,15 +201,16 @@ en_result_t AES_Decrypt(const uint8_t *pu8Ciphertext,
                         const uint8_t *pu8Key,
                         uint8_t *pu8Plaintext)
 {
-    en_result_t   enRet;
+    en_result_t   enRet = ErrorTimeout;
     uint32_t      u32BlockOffset;
+    uint32_t      u32Index;
     __IO uint32_t u32TimeCount;
 
     if ((NULL == pu8Ciphertext)   ||
         (0u == u32CiphertextSize) ||
         (NULL == pu8Key)          ||
         (NULL == pu8Plaintext)    ||
-        (0u != (u32CiphertextSize % AES_BLOCKLEN)))
+        (0u != (u32CiphertextSize % AES_BLOCK_LEN)))
     {
         return ErrorInvalidParameter;
     }
@@ -252,18 +220,24 @@ en_result_t AES_Decrypt(const uint8_t *pu8Ciphertext,
     u32BlockOffset = 0u;
     while (0u != u32CiphertextSize)
     {
-        AES_STOP_CALCULATING();
+        /* Stop AES calculating. */
+        bM4_AES_CR_START = 0u;
 
-        AES_WriteData(&pu8Ciphertext[u32BlockOffset*AES_BLOCKLEN]);
+        /* Write data. */
+        u32Index = u32BlockOffset * AES_BLOCK_LEN;
+        AES_WriteData(&pu8Ciphertext[u32Index]);
 
-        AES_SET_DECRYPT();
-        AES_START_CALCULATING();
+        /* Set AES decrypt. */
+        bM4_AES_CR_MODE  = 1u;
+
+        /* Start AES calculating. */
+        bM4_AES_CR_START = 1u;
 
         enRet = ErrorTimeout;
         u32TimeCount = 0u;
         while (u32TimeCount < AES_DECRYPT_TIMEOUT)
         {
-            if (IS_AES_CALCULATIED_DONE())
+            if ((bM4_AES_CR_START & 0x1ul) == 0u)
             {
                 enRet = Ok;
                 break;
@@ -276,12 +250,13 @@ en_result_t AES_Decrypt(const uint8_t *pu8Ciphertext,
             break;
         }
 
-        AES_ReadData(&pu8Plaintext[u32BlockOffset*AES_BLOCKLEN]);
-        u32CiphertextSize -= AES_BLOCKLEN;
+        AES_ReadData(&pu8Plaintext[u32Index]);
+        u32CiphertextSize -= AES_BLOCK_LEN;
         u32BlockOffset++;
     }
 
-    AES_STOP_CALCULATING();
+    /* Stop AES calculating. */
+    bM4_AES_CR_START = 0u;
 
     return enRet;
 }
@@ -300,15 +275,15 @@ en_result_t AES_Decrypt(const uint8_t *pu8Ciphertext,
  ******************************************************************************/
 static void AES_WriteData(const uint8_t *pu8SrcData)
 {
-    uint8_t       i;
-    uint32_t      u32SrcAddr = (uint32_t)pu8SrcData;
-    __IO uint32_t *io32AesDr = &(M4_AES->DR0);
+    uint8_t  i;
+    uint32_t u32SrcAddr = (uint32_t)pu8SrcData;
+    uint32_t u32DrAddr  = (uint32_t)&(M4_AES->DR0);
 
     for (i = 0u; i < 4u; i++)
     {
-        *io32AesDr = *(uint32_t*)u32SrcAddr;
+        *(__IO uint32_t *)u32DrAddr = *(uint32_t*)u32SrcAddr;
         u32SrcAddr += 4u;
-        io32AesDr++;
+        u32DrAddr  += 4u;
     }
 }
 
@@ -323,15 +298,15 @@ static void AES_WriteData(const uint8_t *pu8SrcData)
  ******************************************************************************/
 static void AES_ReadData(uint8_t *pu8Dest)
 {
-    uint8_t       i;
-    uint32_t      *pu32Dest  = (uint32_t *)pu8Dest;
-    __IO uint32_t *io32AesDr = &(M4_AES->DR0);
+    uint8_t  i;
+    uint32_t u32DestAddr = (uint32_t)pu8Dest;
+    uint32_t u32DrAddr   = (uint32_t)&(M4_AES->DR0);
 
     for (i = 0u; i < 4u; i++)
     {
-        *pu32Dest = *io32AesDr;
-        pu32Dest++;
-        io32AesDr++;
+        *(uint32_t*)u32DestAddr = *(__IO uint32_t *)u32DrAddr;
+        u32DestAddr += 4u;
+        u32DrAddr   += 4u;
     }
 }
 
@@ -346,15 +321,15 @@ static void AES_ReadData(uint8_t *pu8Dest)
  ******************************************************************************/
 static void AES_WriteKey(const uint8_t *pu8Key)
 {
-    uint8_t        i;
-    const uint32_t *pu32Key = (uint32_t *)pu8Key;
-    __IO uint32_t  *io32AesKr = &(M4_AES->KR0);
+    uint8_t  i;
+    uint32_t u32SrcKeyAddr = (uint32_t)pu8Key;
+    uint32_t u32KeyAddr    = (uint32_t)&(M4_AES->KR0);
 
     for (i = 0u; i < 4u; i++)
     {
-        *io32AesKr = *pu32Key;
-        pu32Key++;
-        io32AesKr++;
+        *(__IO uint32_t *)u32KeyAddr = *(uint32_t*)u32SrcKeyAddr;
+        u32SrcKeyAddr += 4u;
+        u32KeyAddr    += 4u;
     }
 }
 

@@ -98,7 +98,7 @@ extern "C"
 #define CRC_REFIN_ENABLE    ((uint32_t)(0x1ul << 2u))
 
 /*
- * Identifies the transpose configuration of the checksum. 
+ * Identifies the transpose configuration of the checksum.
  * If this function is enabled, bits of the checksum will be transposed.
  * e.g. There is a CRC16 checksum is 0x5678 before this function enabled, then
  * this function is enabled, the checksum will be 0x1E6A.
@@ -134,10 +134,10 @@ extern "C"
  * Global function prototypes (definition in C source)
  ******************************************************************************/
 void CRC_Init(uint32_t u32Config);
-uint16_t CRC_Calculate16B(uint16_t u16InitVal, uint16_t *pu16Data, uint32_t u32Length);
-uint32_t CRC_Calculate32B(uint32_t u32InitVal, uint32_t *pu32Data, uint32_t u32Length);
-bool CRC_Check16B(uint16_t u16InitVal, uint16_t u16CheckSum, uint16_t *pu16Data, uint32_t u32Length);
-bool CRC_Check32B(uint32_t u32InitVal, uint32_t u32CheckSum, uint32_t *pu32Data, uint32_t u32Length);
+uint16_t CRC_Calculate16B(uint16_t u16InitVal, const uint16_t *pu16Data, uint32_t u32Length);
+uint32_t CRC_Calculate32B(uint32_t u32InitVal, const uint32_t *pu32Data, uint32_t u32Length);
+bool CRC_Check16B(uint16_t u16InitVal, uint16_t u16CheckSum, const uint16_t *pu16Data, uint32_t u32Length);
+bool CRC_Check32B(uint32_t u32InitVal, uint32_t u32CheckSum, const uint32_t *pu32Data, uint32_t u32Length);
 
 //@} // CrcGroup
 

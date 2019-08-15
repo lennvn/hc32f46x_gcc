@@ -172,31 +172,31 @@ typedef struct stc_efm_unique_id
  * Global pre-processor symbols/macros ('#define')
  ******************************************************************************/
  /* Flach latency cycle (0~15) */
-#define EFM_LATENCY_0                   0u
-#define EFM_LATENCY_1                   1u
-#define EFM_LATENCY_2                   2u
-#define EFM_LATENCY_3                   3u
-#define EFM_LATENCY_4                   4u
-#define EFM_LATENCY_5                   5u
-#define EFM_LATENCY_6                   6u
-#define EFM_LATENCY_7                   7u
-#define EFM_LATENCY_8                   8u
-#define EFM_LATENCY_9                   9u
-#define EFM_LATENCY_10                  10u
-#define EFM_LATENCY_11                  11u
-#define EFM_LATENCY_12                  12u
-#define EFM_LATENCY_13                  13u
-#define EFM_LATENCY_14                  14u
-#define EFM_LATENCY_15                  15u
+#define EFM_LATENCY_0                   (0ul)
+#define EFM_LATENCY_1                   (1ul)
+#define EFM_LATENCY_2                   (2ul)
+#define EFM_LATENCY_3                   (3ul)
+#define EFM_LATENCY_4                   (4ul)
+#define EFM_LATENCY_5                   (5ul)
+#define EFM_LATENCY_6                   (6ul)
+#define EFM_LATENCY_7                   (7ul)
+#define EFM_LATENCY_8                   (8ul)
+#define EFM_LATENCY_9                   (9ul)
+#define EFM_LATENCY_10                  (10ul)
+#define EFM_LATENCY_11                  (11ul)
+#define EFM_LATENCY_12                  (12ul)
+#define EFM_LATENCY_13                  (13ul)
+#define EFM_LATENCY_14                  (14ul)
+#define EFM_LATENCY_15                  (15ul)
 
 /* Flash flag */
-#define EFM_FLAG_WRPERR                 0x00000001
-#define EFM_FLAG_PEPRTERR               0x00000002
-#define EFM_FLAG_PGSZERR                0x00000004
-#define EFM_FLAG_PGMISMTCH              0x00000008
-#define EFM_FLAG_EOP                    0x00000010
-#define EFM_FLAG_RWERR                  0x00000020
-#define EFM_FLAG_RDY                    0x00000100
+#define EFM_FLAG_WRPERR                 (0x00000001u)
+#define EFM_FLAG_PEPRTERR               (0x00000002u)
+#define EFM_FLAG_PGSZERR                (0x00000004u)
+#define EFM_FLAG_PGMISMTCH              (0x00000008u)
+#define EFM_FLAG_EOP                    (0x00000010u)
+#define EFM_FLAG_RWERR                  (0x00000020u)
+#define EFM_FLAG_RDY                    (0x00000100u)
 
 /*******************************************************************************
  * Global variable definitions ('extern')
@@ -222,7 +222,6 @@ void EFM_SetWinProtectAddr(stc_efm_win_protect_addr_t stcAddr);
 void EFM_SetBusState(en_efm_bus_sta_t enState);
 en_result_t EFM_SingleProgram(uint32_t u32Addr, uint32_t u32Data);
 en_result_t EFM_SingleProgramRB(uint32_t u32Addr, uint32_t u32Data);
-static void *EFM_Memcpy(void *pvDst, const void *pvSrc, uint32_t u32Count);
 en_result_t EFM_SequenceProgram(uint32_t u32Addr, uint32_t u32Len, void *pBuf);
 void EFM_SectorErase(uint32_t u32Addr);
 void EFM_MassErase(uint32_t u32Addr);
